@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 
 const AddReview = () => {
   return (
@@ -11,11 +12,11 @@ const AddReview = () => {
           <h1 className="visually-hidden">WTW</h1>
           <header className="page-header">
             <div className="logo">
-              <a href="main.html" className="logo__link">
+              <Link to="/" className="logo__link">
                 <span className="logo__letter logo__letter--1">W</span>
                 <span className="logo__letter logo__letter--2">T</span>
                 <span className="logo__letter logo__letter--3">W</span>
-              </a>
+              </Link>
             </div>
             <nav className="breadcrumbs">
               <ul className="breadcrumbs__list">
@@ -64,7 +65,7 @@ const AddReview = () => {
               </div>
             </div>
             <div className="add-review__text">
-              <textarea className="add-review__textarea" name="review-text" id="review-text" placeholder="Review text" defaultValue={""} />
+              <textarea className="add-review__textarea" name="review-text" id="review-text" placeholder="Review text" defaultValue={``} />
               <div className="add-review__submit">
                 <button className="add-review__btn" type="submit">Post</button>
               </div>
