@@ -34,7 +34,9 @@ const App = ({films, title, genre, releaseYear}) => {
           <SignIn />
         </Route>
         <Route exact path={Urls.MY_LIST}>
-          <MyList />
+          <MyList
+            films={films}
+          />
         </Route>
         <Route exact path={Urls.MOVIE}>
           <Movie
