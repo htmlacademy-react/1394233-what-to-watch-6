@@ -1,6 +1,13 @@
-import React from 'react';
+import React, {useState} from 'react';
+import PropTypes from 'prop-types';
 
-const Player = () => {
+const Player = ({duration}) => {
+  const [timeStamp] = useState({
+    hour: Math.trunc(duration / 60),
+    minutes: duration % 60,
+    seconds: (duration * 60) % 60
+  });
+
   return (
     <div className="player">
       <video src="#" className="player__video" poster="img/player-poster.jpg" />
@@ -11,7 +18,7 @@ const Player = () => {
             <progress className="player__progress" value={30} max={100} />
             <div className="player__toggler" style={{left: `30%`}}>Toggler</div>
           </div>
-          <div className="player__time-value">1:30:29</div>
+          <div className="player__time-value">{timeStamp.hour}:{timeStamp.minutes}:{timeStamp.seconds}</div>
         </div>
         <div className="player__controls-row">
           <button type="button" className="player__play">
@@ -31,6 +38,10 @@ const Player = () => {
       </div>
     </div>
   );
+};
+
+Player.propTypes = {
+  duration: PropTypes.number.isRequired,
 };
 
 export default Player;
