@@ -18,13 +18,13 @@ const Urls = {
   PLAYER: `/player/:id`,
 };
 
-const App = ({moviesCount, title, genre, releaseYear}) => {
+const App = ({films, title, genre, releaseYear}) => {
   return (
     <BrowserRouter>
       <Switch>
         <Route exact path={Urls.MAIN}>
           <Main
-            moviesCount={moviesCount}
+            films={films}
             title={title}
             genre={genre}
             releaseYear={releaseYear}
@@ -37,7 +37,8 @@ const App = ({moviesCount, title, genre, releaseYear}) => {
           <MyList />
         </Route>
         <Route exact path={Urls.MOVIE}>
-          <Movie />
+          <Movie
+          />
         </Route>
         <Route exact path={Urls.ADD_REVIEW}>
           <AddReview />
@@ -54,7 +55,7 @@ const App = ({moviesCount, title, genre, releaseYear}) => {
 };
 
 App.propTypes = {
-  moviesCount: PropTypes.number.isRequired,
+  films: PropTypes.array.isRequired,
   title: PropTypes.string.isRequired,
   genre: PropTypes.string.isRequired,
   releaseYear: PropTypes.number.isRequired,

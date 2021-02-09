@@ -1,11 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {nanoid} from 'nanoid';
-import MovieCard from '../movie-card/movie-card';
+import MoviesList from '../movies-list/movies-list';
 
 const Main = (props) => {
-  const {moviesCount, title, genre, releaseYear} = props;
-  const movies = new Array(moviesCount).fill();
+  const {films, title, genre, releaseYear} = props;
 
   return (
     <React.Fragment>
@@ -92,9 +90,7 @@ const Main = (props) => {
               <a href="#" className="catalog__genres-link">Thrillers</a>
             </li>
           </ul>
-          <div className="catalog__movies-list">
-            {movies.map(() => <MovieCard key={nanoid()}/>)}
-          </div>
+          <MoviesList films={films}/>
           <div className="catalog__more">
             <button className="catalog__button" type="button">Show more</button>
           </div>
@@ -117,7 +113,7 @@ const Main = (props) => {
 };
 
 Main.propTypes = {
-  moviesCount: PropTypes.number.isRequired,
+  films: PropTypes.array.isRequired,
   title: PropTypes.string.isRequired,
   genre: PropTypes.string.isRequired,
   releaseYear: PropTypes.number.isRequired,
