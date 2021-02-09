@@ -9,11 +9,20 @@ import SignIn from '../sign-in/sign-in';
 import Player from '../player/player';
 import NotFoundPage from '../not-found-page/not-found-page';
 
+const Urls = {
+  MAIN: `/`,
+  SIGN_IN: `/login`,
+  MY_LIST: `/mylist`,
+  MOVIE: `/films/:id`,
+  ADD_REVIEW: `/films/:id/review`,
+  PLAYER: `/player/:id`,
+};
+
 const App = ({moviesCount, title, genre, releaseYear}) => {
   return (
     <BrowserRouter>
       <Switch>
-        <Route exact path="/">
+        <Route exact path={Urls.MAIN}>
           <Main
             moviesCount={moviesCount}
             title={title}
@@ -21,19 +30,19 @@ const App = ({moviesCount, title, genre, releaseYear}) => {
             releaseYear={releaseYear}
           />
         </Route>
-        <Route exact path="/login">
+        <Route exact path={Urls.SIGN_IN}>
           <SignIn />
         </Route>
-        <Route exact path="/mylist">
+        <Route exact path={Urls.MY_LIST}>
           <MyList />
         </Route>
-        <Route exact path="/films/:id">
+        <Route exact path={Urls.MOVIE}>
           <Movie />
         </Route>
-        <Route exact path="/films/:id/review">
+        <Route exact path={Urls.ADD_REVIEW}>
           <AddReview />
         </Route>
-        <Route exact path="/player/:id">
+        <Route exact path={Urls.PLAYER}>
           <Player />
         </Route>
         <Route>
