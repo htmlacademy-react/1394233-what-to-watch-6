@@ -1,5 +1,6 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import PropTypes from 'prop-types';
+import {Link, useHistory} from 'react-router-dom';
 
 const Movie = ({film}) => {
   const {
@@ -12,8 +13,11 @@ const Movie = ({film}) => {
     scoresCount,
     description,
     director,
-    starring
+    starring,
+    id
   } = film;
+
+  const history = useHistory();
 
   return (
     <React.Fragment>
@@ -45,19 +49,19 @@ const Movie = ({film}) => {
                 <span className="movie-card__year">{released}</span>
               </p>
               <div className="movie-card__buttons">
-                <button className="btn btn--play movie-card__button" type="button">
+                <button className="btn btn--play movie-card__button" type="button" onClick={() => history.push(`/player/${id}`)}>
                   <svg viewBox="0 0 19 19" width={19} height={19}>
                     <use xlinkHref="#play-s" />
                   </svg>
                   <span>Play</span>
                 </button>
-                <button className="btn btn--list movie-card__button" type="button">
+                <button className="btn btn--list movie-card__button" type="button" onClick={() => history.push(`/mylist`)}>
                   <svg viewBox="0 0 19 20" width={19} height={20}>
                     <use xlinkHref="#add" />
                   </svg>
                   <span>My list</span>
                 </button>
-                <a href="add-review.html" className="btn movie-card__button">Add review</a>
+                <Link to={`/films/${id}/review`} className="btn movie-card__button">Add review</Link>
               </div>
             </div>
           </div>
@@ -151,6 +155,22 @@ const Movie = ({film}) => {
       </div>
     </React.Fragment>
   );
+};
+
+Movie.propTypes = {
+  film: PropTypes.shape({
+    backgroundImage: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    genre: PropTypes.string.isRequired,
+    released: PropTypes.number.isRequired,
+    posterImage: PropTypes.string.isRequired,
+    rating: PropTypes.number.isRequired,
+    scoresCount: PropTypes.number.isRequired,
+    description: PropTypes.string.isRequired,
+    director: PropTypes.string.isRequired,
+    starring: PropTypes.array.isRequired,
+    id: PropTypes.number.isRequired
+  }).isRequired,
 };
 
 export default Movie;
