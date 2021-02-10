@@ -38,9 +38,11 @@ const App = ({films, title, genre, releaseYear}) => {
             films={films}
           />
         </Route>
-        <Route exact path={Urls.MOVIE}>
-          <Movie />
-        </Route>
+        <Route exact path={Urls.MOVIE} render={({match}) => {
+          console.log(match.params.id); // получаем параметр из урла
+
+          return <Movie />;
+        }}/>
         <Route exact path={Urls.ADD_REVIEW}>
           <AddReview />
         </Route>
