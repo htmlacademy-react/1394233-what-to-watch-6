@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 
-const Movie = () => {
+const Movie = (props) => {
   return (
     <React.Fragment>
       <section className="movie-card movie-card--full">

@@ -10,9 +10,7 @@ const MoviesList = ({films}) => {
     <div className="catalog__movies-list">
       {films.map((film) => <MovieCard
         key={film.id}
-        image={film.previeImage}
-        title={film.name}
-        id={film.id}
+        film={film}
         setActiveIdFilm = {setActiveIdFilm}
       />)}
     </div>

@@ -39,8 +39,7 @@ const App = ({films, title, genre, releaseYear}) => {
           />
         </Route>
         <Route exact path={Urls.MOVIE}>
-          <Movie
-          />
+          <Movie />
         </Route>
         <Route exact path={Urls.ADD_REVIEW}>
           <AddReview />
