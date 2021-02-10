@@ -47,9 +47,12 @@ const App = ({films, title, genre, releaseYear}) => {
         <Route exact path={Urls.ADD_REVIEW}>
           <AddReview />
         </Route>
-        <Route exact path={Urls.PLAYER}>
-          <Player />
-        </Route>
+        <Route exact path={Urls.PLAYER} render={({match}) => {
+          const id = match.params.id;
+          return <Player
+            duration={films[id - 1].runTime}
+          />;
+        }} />
         <Route>
           <NotFoundPage />
         </Route>
