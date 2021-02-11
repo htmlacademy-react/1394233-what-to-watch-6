@@ -40,8 +40,9 @@ const App = ({films, title, genre, releaseYear}) => {
         </Route>
         <Route exact path={Urls.MOVIE} render={({match}) => {
           const id = match.params.id;
+          const film = films[id - 1];
           return <Movie
-            film={films[id - 1]}
+            film={film}
           />;
         }}/>
         <Route exact path={Urls.ADD_REVIEW}>
@@ -49,9 +50,10 @@ const App = ({films, title, genre, releaseYear}) => {
         </Route>
         <Route exact path={Urls.PLAYER} render={({match}) => {
           const id = match.params.id;
+          const film = films[id - 1];
           return <Player
-            duration={films[id - 1].runTime}
-            title={films[id - 1].name}
+            duration={film.runTime}
+            title={film.name}
           />;
         }} />
         <Route>
