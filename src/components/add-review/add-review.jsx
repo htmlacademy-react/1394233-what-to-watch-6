@@ -1,12 +1,13 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
 
-const AddReview = () => {
+const AddReview = ({title, poster, backgroundImage, id}) => {
   return (
     <section className="movie-card movie-card--full">
       <div className="movie-card__header">
         <div className="movie-card__bg">
-          <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel" />
+          <img src={backgroundImage} alt={title} />
         </div>
         <h1 className="visually-hidden">WTW</h1>
         <header className="page-header">
@@ -20,7 +21,7 @@ const AddReview = () => {
           <nav className="breadcrumbs">
             <ul className="breadcrumbs__list">
               <li className="breadcrumbs__item">
-                <a href="movie-page.html" className="breadcrumbs__link">The Grand Budapest Hotel</a>
+                <Link to={`/films/${id}`} className="breadcrumbs__link">{title}</Link>
               </li>
               <li className="breadcrumbs__item">
                 <a className="breadcrumbs__link">Add review</a>
@@ -34,7 +35,7 @@ const AddReview = () => {
           </div>
         </header>
         <div className="movie-card__poster movie-card__poster--small">
-          <img src="img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width={218} height={327} />
+          <img src={poster} alt={title} width={218} height={327} />
         </div>
       </div>
       <div className="add-review">
@@ -73,6 +74,13 @@ const AddReview = () => {
       </div>
     </section>
   );
+};
+
+AddReview.propTypes = {
+  title: PropTypes.string.isRequired,
+  poster: PropTypes.string.isRequired,
+  backgroundImage: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired
 };
 
 export default AddReview;

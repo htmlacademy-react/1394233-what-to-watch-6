@@ -45,9 +45,16 @@ const App = ({films, title, genre, releaseYear}) => {
             film={film}
           />;
         }}/>
-        <Route exact path={Urls.ADD_REVIEW}>
-          <AddReview />
-        </Route>
+        <Route exact path={Urls.ADD_REVIEW} render={({match}) => {
+          const id = match.params.id;
+          const film = films[id - 1];
+          return <AddReview
+            title={film.name}
+            poster={film.posterImage}
+            backgroundImage={film.backgroundImage}
+            id={id}
+          />;
+        }} />
         <Route exact path={Urls.PLAYER} render={({match}) => {
           const id = match.params.id;
           const film = films[id - 1];
