@@ -18,16 +18,14 @@ const Urls = {
   PLAYER: `/player/:id`,
 };
 
-const App = ({films, title, genre, releaseYear}) => {
+const App = ({films, promoMovie}) => {
   return (
     <BrowserRouter>
       <Switch>
         <Route exact path={Urls.MAIN}>
           <Main
             films={films}
-            title={title}
-            genre={genre}
-            releaseYear={releaseYear}
+            promoMovie={promoMovie}
           />
         </Route>
         <Route exact path={Urls.SIGN_IN}>
@@ -73,9 +71,7 @@ const App = ({films, title, genre, releaseYear}) => {
 
 App.propTypes = {
   films: PropTypes.array.isRequired,
-  title: PropTypes.string.isRequired,
-  genre: PropTypes.string.isRequired,
-  releaseYear: PropTypes.number.isRequired,
+  promoMovie: PropTypes.object.isRequired
 };
 
 export default App;
