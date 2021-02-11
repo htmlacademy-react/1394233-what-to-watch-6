@@ -51,6 +51,7 @@ const App = ({films, title, genre, releaseYear}) => {
           const id = match.params.id;
           return <Player
             duration={films[id - 1].runTime}
+            title={films[id - 1].name}
           />;
         }} />
         <Route>

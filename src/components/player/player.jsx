@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import {useHistory} from 'react-router-dom';
 
-const Player = ({duration}) => {
+const Player = ({duration, title}) => {
   const [timeStamp] = useState({
     hour: Math.trunc(duration / 60),
     minutes: duration % 60,
@@ -34,7 +34,7 @@ const Player = ({duration}) => {
             </svg>
             <span>Play</span>
           </button>
-          <div className="player__name">Transpotting</div>
+          <div className="player__name">{title}</div>
           <button type="button" className="player__full-screen">
             <svg viewBox="0 0 27 27" width={27} height={27}>
               <use xlinkHref="#full-screen" />
@@ -49,6 +49,7 @@ const Player = ({duration}) => {
 
 Player.propTypes = {
   duration: PropTypes.number.isRequired,
+  title: PropTypes.string.isRequired
 };
 
 export default Player;
