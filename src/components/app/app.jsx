@@ -52,7 +52,7 @@ const App = ({films, title, genre, releaseYear}) => {
             title={film.name}
             poster={film.posterImage}
             backgroundImage={film.backgroundImage}
-            id={id}
+            id={film.id}
           />;
         }} />
         <Route exact path={Urls.PLAYER} render={({match}) => {
