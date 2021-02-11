@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
 import MoviesList from '../movies-list/movies-list';
+import {MoviesAmmount} from '../../consts';
 
 const MyList = ({films}) => {
   return (
@@ -25,6 +26,7 @@ const MyList = ({films}) => {
         <h2 className="catalog__title visually-hidden">Catalog</h2>
         <MoviesList
           films={films}
+          maxFilms={MoviesAmmount.MY_LIST_PAGE}
         />
       </section>
       <footer className="page-footer">

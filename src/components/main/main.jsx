@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import PromoMovie from '../promo-movie/promo-movie';
 import MoviesList from '../movies-list/movies-list';
+import { MoviesAmmount } from '../../consts';
 
 const Main = ({films, promoMovie}) => {
   return (
@@ -44,7 +45,10 @@ const Main = ({films, promoMovie}) => {
               <a href="#" className="catalog__genres-link">Thrillers</a>
             </li>
           </ul>
-          <MoviesList films={films}/>
+          <MoviesList
+            films={films}
+            maxFilms={MoviesAmmount.MAIN_PAGE}
+          />
           <div className="catalog__more">
             <button className="catalog__button" type="button">Show more</button>
           </div>

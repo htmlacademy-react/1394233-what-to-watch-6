@@ -41,6 +41,7 @@ const App = ({films, promoMovie}) => {
           const film = films[id - 1];
           return <Movie
             film={film}
+            films={films}
           />;
         }}/>
         <Route exact path={Urls.ADD_REVIEW} render={({match}) => {
