@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import PromoMovie from '../promo-movie/promo-movie';
 import MoviesList from '../movies-list/movies-list';
-import { MoviesAmmount } from '../../consts';
+import {MoviesAmmount} from '../../consts';
 
 const Main = ({films, promoMovie}) => {
   return (
