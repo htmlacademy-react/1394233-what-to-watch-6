@@ -9,7 +9,7 @@ import SignIn from '../sign-in/sign-in';
 import Player from '../player/player';
 import NotFoundPage from '../not-found-page/not-found-page';
 import {Urls} from '../../consts';
-import {MOVIES_PROP} from '../../validate';
+import {MOVIES_PROP} from '../../utils/validate';
 
 const App = ({films, promoMovie}) => {
   return (

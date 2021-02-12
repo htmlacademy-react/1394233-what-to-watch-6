@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import MovieCard from '../movie-card/movie-card';
-import {MOVIES_PROP} from '../../validate';
+import {MOVIES_PROP} from '../../utils/validate';
 
 const MoviesList = ({films, maxFilms}) => {
   const [activeIdFilm, setActiveIdFilm] = useState(0);

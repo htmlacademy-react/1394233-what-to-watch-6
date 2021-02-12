@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import PromoMovie from '../promo-movie/promo-movie';
 import MoviesList from '../movies-list/movies-list';
 import {MoviesAmmount} from '../../consts';
-import {MOVIES_PROP} from '../../validate';
+import {MOVIES_PROP} from '../../utils/validate';
 
 const Main = ({films, promoMovie}) => {
   return (

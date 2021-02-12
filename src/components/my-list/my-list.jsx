@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
 import MoviesList from '../movies-list/movies-list';
 import {MoviesAmmount, Urls} from '../../consts';
-import {MOVIES_PROP} from '../../validate';
+import {MOVIES_PROP} from '../../utils/validate';
 
 const MyList = ({films}) => {
   return (

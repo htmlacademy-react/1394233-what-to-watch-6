@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {useHistory} from 'react-router-dom';
 import {Urls} from '../../consts';
-import {MOVIES_PROP} from '../../validate';
+import {MOVIES_PROP} from '../../utils/validate';
 
 const PromoMovie = ({promoMovie}) => {
   const history = useHistory();

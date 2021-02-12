@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {Link, useHistory} from 'react-router-dom';
 import {MoviesAmmount, Urls} from '../../consts';
 import MoviesList from '../movies-list/movies-list';
-import {MOVIES_PROP} from '../../validate';
+import {MOVIES_PROP} from '../../utils/validate';
 
 const FilmRatings = {
   Bad: {
