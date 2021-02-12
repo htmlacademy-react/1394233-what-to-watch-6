@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import {Link, useHistory} from 'react-router-dom';
 import {MoviesAmmount, Urls} from '../../consts';
 import MoviesList from '../movies-list/movies-list';
+import {MOVIES_PROP} from '../../validate';
 
 const FilmRatings = {
   Bad: {
@@ -167,20 +168,8 @@ const Movie = ({film, films}) => {
 };
 
 Movie.propTypes = {
-  films: PropTypes.array.isRequired,
-  film: PropTypes.shape({
-    backgroundImage: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    genre: PropTypes.string.isRequired,
-    released: PropTypes.number.isRequired,
-    posterImage: PropTypes.string.isRequired,
-    rating: PropTypes.number.isRequired,
-    scoresCount: PropTypes.number.isRequired,
-    description: PropTypes.string.isRequired,
-    director: PropTypes.string.isRequired,
-    starring: PropTypes.array.isRequired,
-    id: PropTypes.number.isRequired
-  }).isRequired,
+  films: PropTypes.arrayOf(PropTypes.shape(MOVIES_PROP)).isRequired,
+  film: PropTypes.shape(MOVIES_PROP).isRequired,
 };
 
 export default Movie;

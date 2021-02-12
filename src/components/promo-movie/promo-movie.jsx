@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {useHistory} from 'react-router-dom';
 import {Urls} from '../../consts';
+import {MOVIES_PROP} from '../../validate';
 
 const PromoMovie = ({promoMovie}) => {
   const history = useHistory();
@@ -58,14 +59,7 @@ const PromoMovie = ({promoMovie}) => {
 };
 
 PromoMovie.propTypes = {
-  promoMovie: PropTypes.shape({
-    backgroundImage: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    genre: PropTypes.string.isRequired,
-    released: PropTypes.number.isRequired,
-    posterImage: PropTypes.string.isRequired,
-    id: PropTypes.number.isRequired
-  }).isRequired,
+  promoMovie: PropTypes.shape(MOVIES_PROP).isRequired,
 };
 
 export default PromoMovie;

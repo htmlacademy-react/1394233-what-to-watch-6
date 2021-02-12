@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
 import MoviesList from '../movies-list/movies-list';
 import {MoviesAmmount, Urls} from '../../consts';
+import {MOVIES_PROP} from '../../validate';
 
 const MyList = ({films}) => {
   return (
@@ -48,5 +49,5 @@ const MyList = ({films}) => {
 export default MyList;
 
 MyList.propTypes = {
-  films: PropTypes.array.isRequired,
+  films: PropTypes.arrayOf(PropTypes.shape(MOVIES_PROP).isRequired).isRequired,
 };

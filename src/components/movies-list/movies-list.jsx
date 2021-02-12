@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import MovieCard from '../movie-card/movie-card';
+import {MOVIES_PROP} from '../../validate';
 
 const MoviesList = ({films, maxFilms}) => {
   const [activeIdFilm, setActiveIdFilm] = useState(0);
@@ -19,7 +20,7 @@ const MoviesList = ({films, maxFilms}) => {
 };
 
 MoviesList.propTypes = {
-  films: PropTypes.array.isRequired,
+  films: PropTypes.arrayOf(PropTypes.shape(MOVIES_PROP).isRequired).isRequired,
   maxFilms: PropTypes.number.isRequired
 };
 

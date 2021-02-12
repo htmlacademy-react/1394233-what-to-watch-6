@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import PromoMovie from '../promo-movie/promo-movie';
 import MoviesList from '../movies-list/movies-list';
 import {MoviesAmmount} from '../../consts';
+import {MOVIES_PROP} from '../../validate';
 
 const Main = ({films, promoMovie}) => {
   return (
@@ -71,8 +72,8 @@ const Main = ({films, promoMovie}) => {
 };
 
 Main.propTypes = {
-  films: PropTypes.array.isRequired,
-  promoMovie: PropTypes.object.isRequired,
+  films: PropTypes.arrayOf(PropTypes.shape(MOVIES_PROP).isRequired).isRequired,
+  promoMovie: PropTypes.shape(MOVIES_PROP).isRequired
 };
 
 export default Main;

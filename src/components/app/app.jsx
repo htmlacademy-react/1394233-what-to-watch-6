@@ -9,6 +9,7 @@ import SignIn from '../sign-in/sign-in';
 import Player from '../player/player';
 import NotFoundPage from '../not-found-page/not-found-page';
 import {Urls} from '../../consts';
+import {MOVIES_PROP} from '../../validate';
 
 const App = ({films, promoMovie}) => {
   return (
@@ -63,8 +64,8 @@ const App = ({films, promoMovie}) => {
 };
 
 App.propTypes = {
-  films: PropTypes.array.isRequired,
-  promoMovie: PropTypes.object.isRequired
+  films: PropTypes.arrayOf(PropTypes.shape(MOVIES_PROP).isRequired).isRequired,
+  promoMovie: PropTypes.shape(MOVIES_PROP).isRequired
 };
 
 export default App;
