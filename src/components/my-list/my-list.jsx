@@ -2,14 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
 import MoviesList from '../movies-list/movies-list';
-import {MoviesAmmount} from '../../consts';
+import {MoviesAmmount, Urls} from '../../consts';
 
 const MyList = ({films}) => {
   return (
     <div className="user-page">
       <header className="page-header user-page__head">
         <div className="logo">
-          <Link to="/" className="logo__link">
+          <Link to={Urls.MAIN} className="logo__link">
             <span className="logo__letter logo__letter--1">W</span>
             <span className="logo__letter logo__letter--2">T</span>
             <span className="logo__letter logo__letter--3">W</span>
@@ -31,7 +31,7 @@ const MyList = ({films}) => {
       </section>
       <footer className="page-footer">
         <div className="logo">
-          <Link to="/" className="logo__link logo__link--light">
+          <Link to={Urls.MAIN} className="logo__link logo__link--light">
             <span className="logo__letter logo__letter--1">W</span>
             <span className="logo__letter logo__letter--2">T</span>
             <span className="logo__letter logo__letter--3">W</span>

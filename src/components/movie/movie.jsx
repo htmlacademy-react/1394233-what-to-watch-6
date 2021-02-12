@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {Link, useHistory} from 'react-router-dom';
-import {MoviesAmmount} from '../../consts';
+import {MoviesAmmount, Urls} from '../../consts';
 import MoviesList from '../movies-list/movies-list';
 
 const FilmRatings = {
@@ -68,7 +68,7 @@ const Movie = ({film, films}) => {
           <h1 className="visually-hidden">WTW</h1>
           <header className="page-header movie-card__head">
             <div className="logo">
-              <Link to="/" className="logo__link">
+              <Link to={Urls.MAIN} className="logo__link">
                 <span className="logo__letter logo__letter--1">W</span>
                 <span className="logo__letter logo__letter--2">T</span>
                 <span className="logo__letter logo__letter--3">W</span>
@@ -94,7 +94,7 @@ const Movie = ({film, films}) => {
                   </svg>
                   <span>Play</span>
                 </button>
-                <button className="btn btn--list movie-card__button" type="button" onClick={() => history.push(`/mylist`)}>
+                <button className="btn btn--list movie-card__button" type="button" onClick={() => history.push(Urls.MY_LIST)}>
                   <svg viewBox="0 0 19 20" width={19} height={20}>
                     <use xlinkHref="#add" />
                   </svg>
@@ -151,7 +151,7 @@ const Movie = ({film, films}) => {
         </section>
         <footer className="page-footer">
           <div className="logo">
-            <Link to="/" className="logo__link logo__link--light">
+            <Link to={Urls.MAIN} className="logo__link logo__link--light">
               <span className="logo__letter logo__letter--1">W</span>
               <span className="logo__letter logo__letter--2">T</span>
               <span className="logo__letter logo__letter--3">W</span>

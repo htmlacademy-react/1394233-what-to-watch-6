@@ -8,15 +8,7 @@ import AddReview from '../add-review/add-review';
 import SignIn from '../sign-in/sign-in';
 import Player from '../player/player';
 import NotFoundPage from '../not-found-page/not-found-page';
-
-const Urls = {
-  MAIN: `/`,
-  SIGN_IN: `/login`,
-  MY_LIST: `/mylist`,
-  MOVIE: `/films/:id`,
-  ADD_REVIEW: `/films/:id/review`,
-  PLAYER: `/player/:id`,
-};
+import {Urls} from '../../consts';
 
 const App = ({films, promoMovie}) => {
   return (
