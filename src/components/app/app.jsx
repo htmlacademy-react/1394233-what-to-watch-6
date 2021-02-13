@@ -8,34 +8,53 @@ import AddReview from '../add-review/add-review';
 import SignIn from '../sign-in/sign-in';
 import Player from '../player/player';
 import NotFoundPage from '../not-found-page/not-found-page';
+import {Urls} from '../../consts';
+import {MOVIES_PROP} from '../../utils/validate';
 
-const App = ({moviesCount, title, genre, releaseYear}) => {
+const App = ({films, promoMovie}) => {
   return (
     <BrowserRouter>
       <Switch>
-        <Route exact path="/">
+        <Route exact path={Urls.MAIN}>
           <Main
-            moviesCount={moviesCount}
-            title={title}
-            genre={genre}
-            releaseYear={releaseYear}
+            films={films}
+            promoMovie={promoMovie}
           />
         </Route>
-        <Route exact path="/login">
+        <Route exact path={Urls.SIGN_IN}>
           <SignIn />
         </Route>
-        <Route exact path="/mylist">
-          <MyList />
+        <Route exact path={Urls.MY_LIST}>
+          <MyList
+            films={films}
+          />
         </Route>
-        <Route exact path="/films/:id">
-          <Movie />
-        </Route>
-        <Route exact path="/films/:id/review">
-          <AddReview />
-        </Route>
-        <Route exact path="/player/:id">
-          <Player />
-        </Route>
+        <Route exact path={Urls.MOVIE} render={({match}) => {
+          const id = match.params.id;
+          const film = films[id - 1];
+          return <Movie
+            film={film}
+            films={films}
+          />;
+        }}/>
+        <Route exact path={Urls.ADD_REVIEW} render={({match}) => {
+          const id = match.params.id;
+          const film = films[id - 1];
+          return <AddReview
+            title={film.name}
+            poster={film.posterImage}
+            backgroundImage={film.backgroundImage}
+            id={film.id}
+          />;
+        }} />
+        <Route exact path={Urls.PLAYER} render={({match}) => {
+          const id = match.params.id;
+          const film = films[id - 1];
+          return <Player
+            duration={film.runTime}
+            title={film.name}
+          />;
+        }} />
         <Route>
           <NotFoundPage />
         </Route>
@@ -45,10 +64,8 @@ const App = ({moviesCount, title, genre, releaseYear}) => {
 };
 
 App.propTypes = {
-  moviesCount: PropTypes.number.isRequired,
-  title: PropTypes.string.isRequired,
-  genre: PropTypes.string.isRequired,
-  releaseYear: PropTypes.number.isRequired,
+  films: PropTypes.arrayOf(PropTypes.shape(MOVIES_PROP).isRequired).isRequired,
+  promoMovie: PropTypes.shape(MOVIES_PROP).isRequired
 };
 
 export default App;
