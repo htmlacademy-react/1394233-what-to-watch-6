@@ -4,7 +4,7 @@ import MovieCard from '../movie-card/movie-card';
 import {MOVIES_PROP} from '../../utils/validate';
 
 const MoviesList = ({films, maxFilms}) => {
-  const [activeIdFilm, setActiveIdFilm] = useState(0);
+  const [activeIdFilm, setActiveIdFilm] = useState(0); // eslint-disable-line
 
   return (
     <div className="catalog__movies-list">
