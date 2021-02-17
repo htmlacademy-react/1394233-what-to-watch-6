@@ -13,6 +13,7 @@ const MoviesList = ({films, maxFilms}) => {
         id={film.id}
         title={film.name}
         poster={film.previeImage}
+        previewVideoLink = {film.previewVideoLink}
         setActiveIdFilm = {setActiveIdFilm}
       />)}
     </div>
