@@ -1,19 +1,23 @@
 import React, {createRef, useEffect} from 'react';
 import PropTypes from 'prop-types';
 
-const VideoPlayer = ({poster, url, isPlaying, setIsPlaying}) => {
+const TIMEOUT_VIDEO_PLAY = 1000;
+
+const VideoPreview = ({poster, url, isPlaying, setIsPlaying}) => {
   const videoRef = createRef();
-  let timer = null;
+
+  let timerID = null;
+
   useEffect(() => {
     if (isPlaying) {
-      timer = setTimeout(() => {
+      timerID = setTimeout(() => {
         videoRef.current.play();
-      }, 1000);
+      }, TIMEOUT_VIDEO_PLAY);
     }
 
     return () => {
       setIsPlaying(false);
-      timer = clearTimeout(timer);
+      timerID = clearTimeout(timerID);
     };
   }, [isPlaying]);
 
@@ -22,11 +26,11 @@ const VideoPlayer = ({poster, url, isPlaying, setIsPlaying}) => {
   );
 };
 
-VideoPlayer.propTypes = {
+VideoPreview.propTypes = {
   poster: PropTypes.string.isRequired,
   url: PropTypes.string.isRequired,
   isPlaying: PropTypes.bool.isRequired,
   setIsPlaying: PropTypes.func.isRequired
 };
 
-export default VideoPlayer;
+export default VideoPreview;
