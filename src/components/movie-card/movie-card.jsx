@@ -3,8 +3,7 @@ import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
 import VideoPreview from '../video-preview/video-preview';
 
-const MovieCard = (props) => {
-  const {title, poster, id, setActiveIdFilm, previewVideoLink} = props;
+const MovieCard = ({title, poster, id, setActiveIdFilm, previewVideoLink}) => {
 
   const [isActive, setIsActive] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -26,7 +25,7 @@ const MovieCard = (props) => {
       }}
       onMouseLeave={() => onMouseLeaveMovieCard()}>
       <div className="small-movie-card__image">
-        {isActive ? <VideoPreview poster={poster} url={previewVideoLink} isPlaying={isPlaying} setIsPlaying={setIsPlaying}></VideoPreview> : <img src={poster} alt={title} width={280} height={175} />}
+        {isActive ? <VideoPreview poster={poster} url={previewVideoLink} isPlaying={isPlaying} setIsPlaying={setIsPlaying} /> : <img src={poster} alt={title} width={280} height={175} />}
       </div>
       <h3 className="small-movie-card__title">
         <Link className="small-movie-card__link" to={`/films/${id}`}>{title}</Link>
