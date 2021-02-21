@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import {Link, useHistory} from 'react-router-dom';
 import {MoviesAmmount, Urls} from '../../consts';
 import MoviesList from '../movies-list/movies-list';
-import {MOVIES_PROP} from '../../utils/validate';
+import {MOVIES_PROP, REVIEW_PROP} from '../../utils/validate';
 import MovieTabs from '../movie-tabs/movie-tabs';
 
-const Movie = ({film, films}) => {
+const Movie = ({film, reviews, films}) => {
   const {
     backgroundImage,
     name,
@@ -71,7 +71,10 @@ const Movie = ({film, films}) => {
               <img src={posterImage} alt={name} width={218} height={327} />
             </div>
             <div className="movie-card__desc">
-              <MovieTabs film={film}/>
+              <MovieTabs
+                film={film}
+                reviews={reviews}
+              />
             </div>
           </div>
         </div>
@@ -104,6 +107,7 @@ const Movie = ({film, films}) => {
 Movie.propTypes = {
   films: PropTypes.arrayOf(PropTypes.shape(MOVIES_PROP)).isRequired,
   film: PropTypes.shape(MOVIES_PROP).isRequired,
+  reviews: PropTypes.arrayOf(PropTypes.shape(REVIEW_PROP)).isRequired
 };
 
 export default Movie;

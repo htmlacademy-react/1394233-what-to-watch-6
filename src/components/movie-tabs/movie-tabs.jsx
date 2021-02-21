@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import MovieDetails from '../movie-details/movie-details';
+// import MovieDetails from '../movie-details/movie-details';
 // import MovieOverview from '../movie-overview/movie-overview';
-// import MovieReview from '../movie-review/movie-review';
-import {MOVIES_PROP} from '../../utils/validate';
+import MovieReview from '../movie-reviews/movie-reviews';
+import {MOVIES_PROP, REVIEW_PROP} from '../../utils/validate';
 
-const MovieTabs = ({film}) => {
+const MovieTabs = ({reviews}) => {
 
   return (
     <React.Fragment>
@@ -22,13 +22,16 @@ const MovieTabs = ({film}) => {
           </li>
         </ul>
       </nav>
-      <MovieDetails film={film} />
+      <MovieReview
+        reviews={reviews}
+      />
     </React.Fragment>
   );
 };
 
 MovieTabs.propTypes = {
   film: PropTypes.shape(MOVIES_PROP).isRequired,
+  reviews: PropTypes.arrayOf(PropTypes.shape(REVIEW_PROP)).isRequired
 };
 
 export default MovieTabs;

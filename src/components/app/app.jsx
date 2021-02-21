@@ -9,9 +9,9 @@ import SignIn from '../sign-in/sign-in';
 import Player from '../player/player';
 import NotFoundPage from '../not-found-page/not-found-page';
 import {Urls} from '../../consts';
-import {MOVIES_PROP} from '../../utils/validate';
+import {MOVIES_PROP, REVIEW_PROP} from '../../utils/validate';
 
-const App = ({films, promoMovie}) => {
+const App = ({films, promoMovie, reviews}) => {
   return (
     <BrowserRouter>
       <Switch>
@@ -35,6 +35,7 @@ const App = ({films, promoMovie}) => {
           return <Movie
             film={film}
             films={films}
+            reviews={reviews[id]}
           />;
         }}/>
         <Route exact path={Urls.ADD_REVIEW} render={({match}) => {
@@ -65,7 +66,8 @@ const App = ({films, promoMovie}) => {
 
 App.propTypes = {
   films: PropTypes.arrayOf(PropTypes.shape(MOVIES_PROP).isRequired).isRequired,
-  promoMovie: PropTypes.shape(MOVIES_PROP).isRequired
+  promoMovie: PropTypes.shape(MOVIES_PROP).isRequired,
+  reviews: PropTypes.objectOf(PropTypes.arrayOf(PropTypes.shape(REVIEW_PROP))).isRequired
 };
 
 export default App;
