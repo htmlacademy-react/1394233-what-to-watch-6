@@ -6,6 +6,10 @@ import MoviesList from '../movies-list/movies-list';
 import {MOVIES_PROP, REVIEW_PROP} from '../../utils/validate';
 import MovieTabs from '../movie-tabs/movie-tabs';
 
+const similarMovies = (films, genre, name) => {
+  return films.filter((film) => film.genre === genre && film.name !== name);
+};
+
 const Movie = ({film, reviews, films}) => {
   const {
     backgroundImage,
@@ -83,7 +87,7 @@ const Movie = ({film, reviews, films}) => {
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
           <MoviesList
-            films={films}
+            films={similarMovies(films, genre, name)}
             maxFilms={MoviesAmmount.MOVIE_PAGE}
           />
         </section>
