@@ -1,14 +1,9 @@
-import React, {useState} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import {useHistory} from 'react-router-dom';
 import {getDuration} from '../../utils/common';
 
 const Player = ({duration, title}) => {
-  // const [timeStamp] = useState({
-  //   hour: Math.trunc(duration / 60),
-  //   minutes: duration % 60,
-  //   seconds: (duration * 60) % 60
-  // });
 
   const history = useHistory();
 
