@@ -3,57 +3,20 @@ import PropTypes from 'prop-types';
 import {Link, useHistory} from 'react-router-dom';
 import {MoviesAmmount, Urls} from '../../consts';
 import MoviesList from '../movies-list/movies-list';
-import {MOVIES_PROP} from '../../utils/validate';
+import {MOVIES_PROP, REVIEW_PROP} from '../../utils/validate';
+import MovieTabs from '../movie-tabs/movie-tabs';
 
-const FilmRatings = {
-  Bad: {
-    DESCRIPTION: `Bad`,
-    RATING: 0
-  },
-  Normal: {
-    DESCRIPTION: `Normal`,
-    RATING: 3
-  },
-  Good: {
-    DESCRIPTION: `Good`,
-    RATING: 5
-  },
-  VeryGood: {
-    DESCRIPTION: `Very Good`,
-    RATING: 8
-  },
-  Awesome: {
-    DESCRIPTION: `Awesome`,
-    RATING: 10
-  }
+const similarMovies = (films, genre, name) => {
+  return films.filter((film) => film.genre === genre && film.name !== name);
 };
 
-const getDescriptionRating = (rating) => {
-  if (rating < FilmRatings.Normal.RATING) {
-    return FilmRatings.Bad.DESCRIPTION;
-  } else if (rating >= FilmRatings.Normal.RATING && rating < FilmRatings.Good.RATING) {
-    return FilmRatings.Normal.DESCRIPTION;
-  } else if (rating >= FilmRatings.Good.RATING && rating < FilmRatings.VeryGood.RATING) {
-    return FilmRatings.Good.DESCRIPTION;
-  } else if (rating >= FilmRatings.VeryGood.RATING && rating < FilmRatings.Awesome.RATING) {
-    return FilmRatings.VeryGood.DESCRIPTION;
-  }
-
-  return FilmRatings.Awesome.RATING;
-};
-
-const Movie = ({film, films}) => {
+const Movie = ({film, reviews, films}) => {
   const {
     backgroundImage,
     name,
     genre,
     released,
     posterImage,
-    rating,
-    scoresCount,
-    description,
-    director,
-    starring,
     id
   } = film;
 
@@ -112,32 +75,10 @@ const Movie = ({film, films}) => {
               <img src={posterImage} alt={name} width={218} height={327} />
             </div>
             <div className="movie-card__desc">
-              <nav className="movie-nav movie-card__nav">
-                <ul className="movie-nav__list">
-                  <li className="movie-nav__item movie-nav__item--active">
-                    <a href="#" className="movie-nav__link">Overview</a>
-                  </li>
-                  <li className="movie-nav__item">
-                    <a href="#" className="movie-nav__link">Details</a>
-                  </li>
-                  <li className="movie-nav__item">
-                    <a href="#" className="movie-nav__link">Reviews</a>
-                  </li>
-                </ul>
-              </nav>
-              <div className="movie-rating">
-                <div className="movie-rating__score">{rating}</div>
-                <p className="movie-rating__meta">
-                  <span className="movie-rating__level">{getDescriptionRating(rating)}</span>
-                  <span className="movie-rating__count">{scoresCount} ratings</span>
-                </p>
-              </div>
-              <div className="movie-card__text">
-                <p>{description}</p>
-                <p className="movie-card__director"><strong>Director: {director}</strong></p>
-                <p className="movie-card__starring"><strong>Starring: {starring.join(`, `)} and
-                    other</strong></p>
-              </div>
+              <MovieTabs
+                film={film}
+                reviews={reviews}
+              />
             </div>
           </div>
         </div>
@@ -146,7 +87,7 @@ const Movie = ({film, films}) => {
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
           <MoviesList
-            films={films}
+            films={similarMovies(films, genre, name)}
             maxFilms={MoviesAmmount.MOVIE_PAGE}
           />
         </section>
@@ -170,6 +111,7 @@ const Movie = ({film, films}) => {
 Movie.propTypes = {
   films: PropTypes.arrayOf(PropTypes.shape(MOVIES_PROP)).isRequired,
   film: PropTypes.shape(MOVIES_PROP).isRequired,
+  reviews: PropTypes.arrayOf(PropTypes.shape(REVIEW_PROP)).isRequired
 };
 
 export default Movie;
