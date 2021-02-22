@@ -78,7 +78,9 @@ const reducer = (state = initialState, action) => {
         films: filterMovies(films, FiltersType.THRILLERS)
       };
     default:
-      return state;
+      return {
+        ...initialState
+      };
   }
 };
 
