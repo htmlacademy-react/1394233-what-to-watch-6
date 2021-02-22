@@ -21,7 +21,7 @@ const MovieTabs = ({film, reviews}) => {
     <React.Fragment>
       <nav className="movie-nav movie-card__nav">
         <ul className="movie-nav__list">
-          <li className={activeTab.overview ? `movie-nav__item movie-nav__item--active` : `movie-nav__item`}>
+          <li className={`movie-nav__item ${activeTab.overview ? `movie-nav__item--active` : ``}`}>
             <a href="#" className="movie-nav__link" onClick={
               (evt) => {
                 evt.preventDefault();
@@ -31,7 +31,7 @@ const MovieTabs = ({film, reviews}) => {
               }
             }>Overview</a>
           </li>
-          <li className={activeTab.details ? `movie-nav__item movie-nav__item--active` : `movie-nav__item`}>
+          <li className={`movie-nav__item ${activeTab.details ? `movie-nav__item--active` : ``}`}>
             <a href="#" className="movie-nav__link" onClick={
               (evt) => {
                 evt.preventDefault();
@@ -41,7 +41,7 @@ const MovieTabs = ({film, reviews}) => {
               }
             }>Details</a>
           </li>
-          <li className={activeTab.review ? `movie-nav__item movie-nav__item--active` : `movie-nav__item`}>
+          <li className={`movie-nav__item ${activeTab.review ? `movie-nav__item--active` : ``}`}>
             <a href="#" className="movie-nav__link" onClick={
               (evt) => {
                 evt.preventDefault();
