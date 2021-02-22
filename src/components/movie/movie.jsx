@@ -6,9 +6,7 @@ import MoviesList from '../movies-list/movies-list';
 import {MOVIES_PROP, REVIEW_PROP} from '../../utils/validate';
 import MovieTabs from '../movie-tabs/movie-tabs';
 
-const similarMovies = (films, genre, name) => {
-  return films.filter((film) => film.genre === genre && film.name !== name);
-};
+const similarMovies = (films, genre, name) => films.filter((film) => film.genre === genre && film.name !== name);
 
 const Movie = ({film, reviews, films}) => {
   const {
