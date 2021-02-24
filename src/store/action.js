@@ -11,7 +11,7 @@ const ActionType = {
   THRILLERS: `movies/thrillers`,
 };
 
-const ActionCreator = {
+export const ActionCreator = {
   changeComedies: () => ({
     type: ActionType.COMEDIES
   }),
@@ -44,4 +44,4 @@ const ActionCreator = {
   })
 };
 
-export default {ActionType, ActionCreator};
+export default {ActionType};

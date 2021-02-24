@@ -2,8 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import PromoMovie from '../promo-movie/promo-movie';
 import MoviesList from '../movies-list/movies-list';
+import GenresList from '../genres-list/genres-list';
 import {MoviesAmmount} from '../../consts';
 import {MOVIES_PROP} from '../../utils/validate';
+import {connect} from 'react-redux';
+import {ActionCreator} from '../../store/action';
 
 const Main = ({films, promoMovie}) => {
   return (
@@ -14,7 +17,8 @@ const Main = ({films, promoMovie}) => {
       <div className="page-content">
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
-          <ul className="catalog__genres-list">
+          <GenresList />
+          {/* <ul className="catalog__genres-list">
             <li className="catalog__genres-item catalog__genres-item--active">
               <a href="#" className="catalog__genres-link">All genres</a>
             </li>
@@ -45,7 +49,7 @@ const Main = ({films, promoMovie}) => {
             <li className="catalog__genres-item">
               <a href="#" className="catalog__genres-link">Thrillers</a>
             </li>
-          </ul>
+          </ul> */}
           <MoviesList
             films={films}
             maxFilms={MoviesAmmount.MAIN_PAGE}
@@ -71,9 +75,47 @@ const Main = ({films, promoMovie}) => {
   );
 };
 
+const mapStateToProps = (state) => ({
+  genre: state.genre,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onChangeComedies() {
+    dispatch(ActionCreator.changeComedies());
+  },
+  onChangeCrime() {
+    dispatch(ActionCreator.changeCrime());
+  },
+  onChangeDramas() {
+    dispatch(ActionCreator.changeDramas());
+  },
+  onChangeDocumentary() {
+    dispatch(ActionCreator.changeDocumentary());
+  },
+  onChangeHorror() {
+    dispatch(ActionCreator.changeHorror());
+  },
+  onChangeKidsFamily() {
+    dispatch(ActionCreator.changeKidsFamily());
+  },
+  onChangeRomance() {
+    dispatch(ActionCreator.changeRomance());
+  },
+  onChangeSciFi() {
+    dispatch(ActionCreator.changeSciFi());
+  },
+  onChangeThrillers() {
+    dispatch(ActionCreator.changeThrillers());
+  },
+  onChangeAll() {
+    dispatch(ActionCreator.changeAll());
+  },
+});
+
 Main.propTypes = {
   films: PropTypes.arrayOf(PropTypes.shape(MOVIES_PROP).isRequired).isRequired,
   promoMovie: PropTypes.shape(MOVIES_PROP).isRequired
 };
 
-export default Main;
+export {Main};
+export default connect(mapStateToProps, mapDispatchToProps)(Main);
