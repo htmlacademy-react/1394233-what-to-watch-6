@@ -15,13 +15,13 @@ export const MoviesAmmount = {
 
 export const FiltersType = {
   ALL: `All`,
-  COMEDIES: `Comedies`,
+  COMEDIES: `Comedy`,
   CRIME: `Crime`,
   DOCUMENTARY: `Documentary`,
-  DRAMAS: `Dramas`,
+  DRAMAS: `Drama`,
   HORROR: `Horror`,
   KIDS_FAMILY: `Kids & Family`,
   ROMANCE: `Romance`,
   SCI_FI: `Sci-Fi`,
-  THRILLERS: `Thrillers`,
+  THRILLERS: `Thriller`,
 };
