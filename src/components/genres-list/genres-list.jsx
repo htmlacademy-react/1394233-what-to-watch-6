@@ -1,81 +1,82 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import ActionCreator from '../../store/action';
+import {ActionType, ActionCreator} from '../../store/action';
 
-const GenresList = ({onChangeComedies, onChangeCrime}) => {
+const GenresList = ({onChangeGenres}) => {
   return (
     <ul className="catalog__genres-list">
       <li className="catalog__genres-item catalog__genres-item--active">
-        <a href="#" className="catalog__genres-link">All genres</a>
+        <a href="#" className="catalog__genres-link" onClick={(evt) => {
+          evt.preventDefault();
+          onChangeGenres(ActionType.ALL);
+        }}>All genres</a>
       </li>
       <li className="catalog__genres-item">
         <a href="#" className="catalog__genres-link" onClick={(evt) => {
           evt.preventDefault();
-          onChangeComedies();
+          onChangeGenres(ActionType.COMEDIES);
         }}>Comedies</a>
       </li>
       <li className="catalog__genres-item">
         <a href="#" className="catalog__genres-link" onClick={(evt) => {
           evt.preventDefault();
-          onChangeCrime();
+          onChangeGenres(ActionType.CRIME);
         }}>Crime</a>
       </li>
       <li className="catalog__genres-item">
-        <a href="#" className="catalog__genres-link">Documentary</a>
+        <a href="#" className="catalog__genres-link" onClick={(evt) => {
+          evt.preventDefault();
+          onChangeGenres(ActionType.DOCUMENTARY);
+        }}>Documentary</a>
       </li>
       <li className="catalog__genres-item">
-        <a href="#" className="catalog__genres-link">Dramas</a>
+        <a href="#" className="catalog__genres-link" onClick={(evt) => {
+          evt.preventDefault();
+          onChangeGenres(ActionType.DRAMAS);
+        }}>Dramas</a>
       </li>
       <li className="catalog__genres-item">
-        <a href="#" className="catalog__genres-link">Horror</a>
+        <a href="#" className="catalog__genres-link" onClick={(evt) => {
+          evt.preventDefault();
+          onChangeGenres(ActionType.HORROR);
+        }}>Horror</a>
       </li>
       <li className="catalog__genres-item">
-        <a href="#" className="catalog__genres-link">Kids &amp; Family</a>
+        <a href="#" className="catalog__genres-link" onClick={(evt) => {
+          evt.preventDefault();
+          onChangeGenres(ActionType.KIDS_FAMILY);
+        }}>Kids &amp; Family</a>
       </li>
       <li className="catalog__genres-item">
-        <a href="#" className="catalog__genres-link">Romance</a>
+        <a href="#" className="catalog__genres-link" onClick={(evt) => {
+          evt.preventDefault();
+          onChangeGenres(ActionType.ROMANCE);
+        }}>Romance</a>
       </li>
       <li className="catalog__genres-item">
-        <a href="#" className="catalog__genres-link">Sci-Fi</a>
+        <a href="#" className="catalog__genres-link" onClick={(evt) => {
+          evt.preventDefault();
+          onChangeGenres(ActionType.SCI_FI);
+        }}>Sci-Fi</a>
       </li>
       <li className="catalog__genres-item">
-        <a href="#" className="catalog__genres-link">Thrillers</a>
+        <a href="#" className="catalog__genres-link" onClick={(evt) => {
+          evt.preventDefault();
+          onChangeGenres(ActionType.THRILLERS);
+        }}>Thrillers</a>
       </li>
     </ul>
   );
 };
 
+GenresList.propTypes = {
+  onChangeGenres: PropTypes.func.isRequired
+};
+
 const mapDispatchToProps = (dispatch) => ({
-  onChangeComedies() {
-    dispatch(ActionCreator.changeComedies());
-  },
-  onChangeCrime() {
-    dispatch(ActionCreator.changeCrime());
-  },
-  onChangeDramas() {
-    dispatch(ActionCreator.changeDramas());
-  },
-  onChangeDocumentary() {
-    dispatch(ActionCreator.changeDocumentary());
-  },
-  onChangeHorror() {
-    dispatch(ActionCreator.changeHorror());
-  },
-  onChangeKidsFamily() {
-    dispatch(ActionCreator.changeKidsFamily());
-  },
-  onChangeRomance() {
-    dispatch(ActionCreator.changeRomance());
-  },
-  onChangeSciFi() {
-    dispatch(ActionCreator.changeSciFi());
-  },
-  onChangeThrillers() {
-    dispatch(ActionCreator.changeThrillers());
-  },
-  onChangeAll() {
-    dispatch(ActionCreator.changeAll());
+  onChangeGenres(type) {
+    dispatch(ActionCreator.changeGenres(type));
   },
 });
 

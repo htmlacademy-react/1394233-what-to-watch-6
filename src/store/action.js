@@ -1,4 +1,4 @@
-const ActionType = {
+export const ActionType = {
   ALL: `movies/all`,
   COMEDIES: `movies/comedies`,
   CRIME: `movies/crime`,
@@ -12,36 +12,7 @@ const ActionType = {
 };
 
 export const ActionCreator = {
-  changeComedies: () => ({
-    type: ActionType.COMEDIES
+  changeGenres: (typeName) => ({
+    type: typeName,
   }),
-  changeCrime: () => ({
-    type: ActionType.CRIME
-  }),
-  changeDramas: () => ({
-    type: ActionType.DRAMAS
-  }),
-  changeDocumentary: () => ({
-    type: ActionType.DOCUMENTARY
-  }),
-  changeHorror: () => ({
-    type: ActionType.HORROR
-  }),
-  changeKidsFamily: () => ({
-    type: ActionType.KIDS_FAMILY
-  }),
-  changeRomance: () => ({
-    type: ActionType.ROMANCE
-  }),
-  changeSciFi: () => ({
-    type: ActionType.SCI_FI
-  }),
-  changeThrillers: () => ({
-    type: ActionType.THRILLERS
-  }),
-  changeAll: () => ({
-    type: ActionType.ALL
-  })
 };
-
-export default {ActionType};
