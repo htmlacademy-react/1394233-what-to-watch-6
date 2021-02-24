@@ -18,10 +18,11 @@ const Main = ({films, promoMovie, genre}) => {
       <div className="page-content">
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
-          <GenresList />
+          <GenresList
+            genre={genre}
+          />
           <MoviesList
             films={filterMovies(films, genre)}
-            genre={genre}
             maxFilms={MoviesAmmount.MAIN_PAGE}
           />
           <div className="catalog__more">
@@ -53,7 +54,7 @@ const mapStateToProps = (state) => ({
 Main.propTypes = {
   films: PropTypes.arrayOf(PropTypes.shape(MOVIES_PROP).isRequired).isRequired,
   promoMovie: PropTypes.shape(MOVIES_PROP).isRequired,
-  genre: PropTypes.string
+  genre: PropTypes.string.isRequired
 };
 
 export {Main};
