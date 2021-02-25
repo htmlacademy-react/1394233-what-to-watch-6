@@ -1,15 +1,19 @@
 import {FiltersType} from '../consts';
 import {ActionType} from './action';
+import films from '../mocks/films';
 
 
 const initialState = {
   genre: FiltersType.ALL,
+  genres: FiltersType,
+  films
 };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case ActionType.COMEDIES:
       return {
+        ...state,
         genre: FiltersType.COMEDIES,
       };
     case ActionType.CRIME:
