@@ -26,7 +26,7 @@ export const FiltersType = {
   THRILLERS: `Thriller`,
 };
 
-export const FiltersTabName = {
+export const Genres = {
   ALL: `All genres`,
   COMEDIES: `Comedies`,
   CRIME: `Crime`,

@@ -1,60 +1,22 @@
-import {FiltersType} from '../consts';
+import {FiltersType, Genres} from '../consts';
 import {ActionType} from './action';
 import films from '../mocks/films';
-
+import reviews from '../mocks/reviews';
 
 const initialState = {
   genre: FiltersType.ALL,
-  genres: FiltersType,
-  films
+  genres: Genres,
+  films,
+  promoMovie: films[0],
+  reviews
 };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case ActionType.COMEDIES:
+    case ActionType.CHANGE_GENRE:
       return {
         ...state,
-        genre: FiltersType.COMEDIES,
-      };
-    case ActionType.CRIME:
-      return {
-        ...state,
-        genre: FiltersType.CRIME,
-      };
-    case ActionType.DOCUMENTARY:
-      return {
-        ...state,
-        genre: FiltersType.DOCUMENTARY,
-      };
-    case ActionType.DRAMAS:
-      return {
-        ...state,
-        genre: FiltersType.DRAMAS,
-      };
-    case ActionType.HORROR:
-      return {
-        ...state,
-        genre: FiltersType.HORROR,
-      };
-    case ActionType.KIDS_FAMILY:
-      return {
-        ...state,
-        genre: FiltersType.KIDS_FAMILY,
-      };
-    case ActionType.ROMANCE:
-      return {
-        ...state,
-        genre: FiltersType.ROMANCE,
-      };
-    case ActionType.SCI_FI:
-      return {
-        ...state,
-        genre: FiltersType.SCI_FI,
-      };
-    case ActionType.THRILLERS:
-      return {
-        ...state,
-        genre: FiltersType.THRILLERS,
+        genre: action.payload,
       };
     default:
       return {
