@@ -5,7 +5,7 @@ import {MoviesAmmount, Urls} from '../../consts';
 import MoviesList from '../movies-list/movies-list';
 import {MOVIES_PROP, REVIEW_PROP} from '../../utils/validate';
 import MovieTabs from '../movie-tabs/movie-tabs';
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 
 const getSimilarMovies = (films, genre, name) => films.filter((film) => film.genre === genre && film.name !== name);
 
