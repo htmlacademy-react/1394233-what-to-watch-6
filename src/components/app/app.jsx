@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {Switch, Route, BrowserRouter} from 'react-router-dom';
+import {connect} from 'react-redux';
 import Main from '../main/main';
 import Movie from '../movie/movie';
 import MyList from '../my-list/my-list';
@@ -11,30 +12,24 @@ import NotFoundPage from '../not-found-page/not-found-page';
 import {Urls} from '../../consts';
 import {MOVIES_PROP, REVIEW_PROP} from '../../utils/validate';
 
-const App = ({films, promoMovie, reviews}) => {
+const App = ({films, reviews}) => {
   return (
     <BrowserRouter>
       <Switch>
         <Route exact path={Urls.MAIN}>
-          <Main
-            films={films}
-            promoMovie={promoMovie}
-          />
+          <Main />
         </Route>
         <Route exact path={Urls.SIGN_IN}>
           <SignIn />
         </Route>
         <Route exact path={Urls.MY_LIST}>
-          <MyList
-            films={films}
-          />
+          <MyList />
         </Route>
         <Route exact path={Urls.MOVIE} render={({match}) => {
           const id = match.params.id;
           const film = films[id - 1];
           return <Movie
             film={film}
-            films={films}
             reviews={reviews[id]}
           />;
         }}/>
@@ -66,8 +61,13 @@ const App = ({films, promoMovie, reviews}) => {
 
 App.propTypes = {
   films: PropTypes.arrayOf(PropTypes.shape(MOVIES_PROP).isRequired).isRequired,
-  promoMovie: PropTypes.shape(MOVIES_PROP).isRequired,
   reviews: PropTypes.objectOf(PropTypes.arrayOf(PropTypes.shape(REVIEW_PROP))).isRequired
 };
 
-export default App;
+const mapStateToProps = ({films, reviews}) => ({
+  films,
+  reviews
+});
+
+export {App};
+export default connect(mapStateToProps, null)(App);

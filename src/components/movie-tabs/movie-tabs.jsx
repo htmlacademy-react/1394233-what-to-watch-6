@@ -14,10 +14,10 @@ const MovieTabs = ({film, reviews}) => {
         genre={film.genre}
         released={film.released}
         director={film.director}
-        starrimg={film.starring}
+        starring={film.starring}
       />;
     } else if (activeTab.overview) {
-      return <MovieOverview film={film}
+      return <MovieOverview
         rating={film.rating}
         scoresCount={film.scoresCount}
         description={film.description}

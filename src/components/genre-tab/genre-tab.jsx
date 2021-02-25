@@ -1,16 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {ActionType} from '../../store/action';
-import {FiltersTabName, FiltersType} from '../../consts';
+import {Genres, FiltersType} from '../../consts';
 
 const GenreTab = ({tab, genre, onChangeGenres}) => {
   return (
     <li className={`catalog__genres-item ${genre === FiltersType[tab] ? `catalog__genres-item--active` : ``}`}>
       <a href="#" className="catalog__genres-link" onClick={(evt) => {
         evt.preventDefault();
-        onChangeGenres(ActionType[tab]);
-      }}>{FiltersTabName[tab]}</a>
+        onChangeGenres(FiltersType[tab]);
+      }}>{Genres[tab]}</a>
     </li>
   );
 };
@@ -21,8 +20,8 @@ GenreTab.propTypes = {
   tab: PropTypes.string.isRequired
 };
 
-const mapStateToProps = (state) => ({
-  genre: state.genre,
+const mapStateToProps = ({genre}) => ({
+  genre,
 });
 
 export {GenreTab};

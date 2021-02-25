@@ -46,16 +46,17 @@ const Main = ({films, promoMovie, genre}) => {
   );
 };
 
-const mapStateToProps = (state) => ({
-  genre: state.genre,
-});
-
-
 Main.propTypes = {
   films: PropTypes.arrayOf(PropTypes.shape(MOVIES_PROP).isRequired).isRequired,
   promoMovie: PropTypes.shape(MOVIES_PROP).isRequired,
   genre: PropTypes.string.isRequired
 };
+
+const mapStateToProps = ({genre, promoMovie, films}) => ({
+  genre,
+  promoMovie,
+  films
+});
 
 export {Main};
 export default connect(mapStateToProps, null)(Main);
