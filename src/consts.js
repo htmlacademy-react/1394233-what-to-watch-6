@@ -12,3 +12,29 @@ export const MoviesAmmount = {
   MY_LIST_PAGE: 8,
   MOVIE_PAGE: 4
 };
+
+export const FiltersType = {
+  ALL: `All`,
+  COMEDIES: `Comedy`,
+  CRIME: `Crime`,
+  DOCUMENTARY: `Documentary`,
+  DRAMAS: `Drama`,
+  HORROR: `Horror`,
+  KIDS_FAMILY: `Kids & Family`,
+  ROMANCE: `Romance`,
+  SCI_FI: `Sci-Fi`,
+  THRILLERS: `Thriller`,
+};
+
+export const Genres = {
+  ALL: `All genres`,
+  COMEDIES: `Comedies`,
+  CRIME: `Crime`,
+  DOCUMENTARY: `Documentary`,
+  DRAMAS: `Dramas`,
+  HORROR: `Horror`,
+  KIDS_FAMILY: `Kids & Family`,
+  ROMANCE: `Romance`,
+  SCI_FI: `Sci-Fi`,
+  THRILLERS: `Thrillers`,
+};
