@@ -25,6 +25,16 @@ const reducer = (state = initialState, action) => {
         ...state,
         amountShowFilms: state.amountShowFilms + FILMS_AMOUNT_PER_STEP,
       };
+    case ActionType.RESET_AMOUNT_SHOW_FILMS:
+      return {
+        ...state,
+        amountShowFilms: FILMS_AMOUNT_PER_STEP,
+      };
+    case ActionType.CHANGE_AMOUNT_FILMS:
+      return {
+        ...state,
+        amountFilms: action.payload,
+      };
     default:
       return {
         ...initialState

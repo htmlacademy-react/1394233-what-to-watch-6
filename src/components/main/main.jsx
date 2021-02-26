@@ -3,12 +3,10 @@ import PropTypes from 'prop-types';
 import PromoMovie from '../promo-movie/promo-movie';
 import MoviesList from '../movies-list/movies-list';
 import GenresList from '../genres-list/genres-list';
-import {FILMS_AMOUNT_PER_STEP, FiltersType, MoviesAmmount} from '../../consts';
 import {MOVIES_PROP} from '../../utils/validate';
 import {connect} from 'react-redux';
 import ShowMoreButton from '../show-more-button/show-more-button';
-
-const filterMovies = (movies, genre) => genre === FiltersType.ALL ? movies : movies.filter((movie) => movie.genre === genre);
+import {getFilteredMovies} from '../../utils/common';
 
 const Main = ({films, genre, amountShowFilms, amountFilms}) => {
   return (
@@ -21,7 +19,7 @@ const Main = ({films, genre, amountShowFilms, amountFilms}) => {
             genre={genre}
           />
           <MoviesList
-            films={filterMovies(films, genre)}
+            films={getFilteredMovies(films, genre)}
             maxFilms={amountShowFilms}
           />
           {amountShowFilms < amountFilms ? <ShowMoreButton /> : ``}
