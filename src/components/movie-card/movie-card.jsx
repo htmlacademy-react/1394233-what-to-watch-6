@@ -2,8 +2,8 @@ import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
 import VideoPreview from '../video-preview/video-preview';
-import { connect } from 'react-redux';
-import { ActionCreator } from '../../store/action';
+import {connect} from 'react-redux';
+import {ActionCreator} from '../../store/action';
 
 const MovieCard = ({title, poster, id, setActiveIdFilm, previewVideoLink, onResetAmountShowFilms}) => {
 
