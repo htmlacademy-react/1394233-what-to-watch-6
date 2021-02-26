@@ -8,7 +8,7 @@ export const Urls = {
 };
 
 export const MoviesAmmount = {
-  MAIN_PAGE: 8,
+  MAIN_PAGE: 4,
   MY_LIST_PAGE: 8,
   MOVIE_PAGE: 4
 };
@@ -40,3 +40,5 @@ export const GenreTabNames = {
 };
 
 export const Genres = [`ALL`, `COMEDIES`, `CRIME`, `DOCUMENTARY`, `DRAMAS`, `HORROR`, `KIDS_FAMILY`, `ROMANCE`, `SCI_FI`, `THRILLERS`];
+
+export const FILMS_AMOUNT_PER_STEP = 4;
