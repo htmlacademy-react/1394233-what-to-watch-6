@@ -26,7 +26,7 @@ export const FiltersType = {
   THRILLERS: `Thriller`,
 };
 
-export const Genres = {
+export const GenreTabNames = {
   ALL: `All genres`,
   COMEDIES: `Comedies`,
   CRIME: `Crime`,
@@ -38,3 +38,5 @@ export const Genres = {
   SCI_FI: `Sci-Fi`,
   THRILLERS: `Thrillers`,
 };
+
+export const Genres = [`ALL`, `COMEDIES`, `CRIME`, `DOCUMENTARY`, `DRAMAS`, `HORROR`, `KIDS_FAMILY`, `ROMANCE`, `SCI_FI`, `THRILLERS`];

@@ -7,7 +7,7 @@ import GenreTab from '../genre-tab/genre-tab';
 const GenresList = ({onChangeGenres, genres}) => {
   return (
     <ul className="catalog__genres-list">
-      {Object.keys(genres).map((tab) => <GenreTab
+      {genres.map((tab) => <GenreTab
         tab={tab}
         key={tab}
         onChangeGenres={onChangeGenres}
@@ -18,7 +18,7 @@ const GenresList = ({onChangeGenres, genres}) => {
 
 GenresList.propTypes = {
   onChangeGenres: PropTypes.func.isRequired,
-  genres: PropTypes.object.isRequired
+  genres: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired
 };
 
 const mapDispatchToProps = (dispatch) => ({

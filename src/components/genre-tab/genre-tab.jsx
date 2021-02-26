@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {Genres, FiltersType} from '../../consts';
+import {FiltersType, GenreTabNames} from '../../consts';
 
 const GenreTab = ({tab, genre, onChangeGenres}) => {
   return (
@@ -9,7 +9,7 @@ const GenreTab = ({tab, genre, onChangeGenres}) => {
       <a href="#" className="catalog__genres-link" onClick={(evt) => {
         evt.preventDefault();
         onChangeGenres(FiltersType[tab]);
-      }}>{Genres[tab]}</a>
+      }}>{GenreTabNames[tab]}</a>
     </li>
   );
 };
