@@ -1,25 +1,27 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
+import {ActionCreator} from '../../store/action';
 
-const ShowMoreButton = (props) => {
+const ShowMoreButton = ({onShowMoreFilms}) => {
   return (
     <div className="catalog__more">
-      <button className="catalog__button" type="button">Show more</button>
+      <button className="catalog__button" type="button" onClick={() => {
+        onShowMoreFilms();
+      }}>Show more</button>
     </div>
   );
 };
 
-// GenreTab.propTypes = {
-//   onChangeGenres: PropTypes.func.isRequired,
-//   genre: PropTypes.string.isRequired,
-//   tab: PropTypes.string.isRequired
-// };
+ShowMoreButton.propTypes = {
+  onShowMoreFilms: PropTypes.func.isRequired,
+};
 
-// const mapStateToProps = ({genre}) => ({
-//   genre,
-// });
+const mapDispatchToProps = (dispatch) => ({
+  onShowMoreFilms() {
+    dispatch(ActionCreator.showMoreFilms());
+  },
+});
 
-// export {GenreTab};
-// export default connect(mapStateToProps)(GenreTab);
-
-export default ShowMoreButton;
+export {ShowMoreButton};
+export default connect(null, mapDispatchToProps)(ShowMoreButton);

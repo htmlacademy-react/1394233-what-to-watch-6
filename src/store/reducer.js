@@ -20,6 +20,11 @@ const reducer = (state = initialState, action) => {
         ...state,
         genre: action.payload,
       };
+    case ActionType.SHOW_MORE_FILMS:
+      return {
+        ...state,
+        amountShowFilms: state.amountShowFilms + FILMS_AMOUNT_PER_STEP,
+      };
     default:
       return {
         ...initialState
