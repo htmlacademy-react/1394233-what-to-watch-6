@@ -27,8 +27,8 @@ const mapDispatchToProps = (dispatch) => ({
   },
 });
 
-const mapStateToProps = (state) => ({
-  genres: state.genres,
+const mapStateToProps = ({genres}) => ({
+  genres,
 });
 
 export {GenresList};

@@ -118,4 +118,4 @@ const mapStateToProps = ({films}) => ({
 });
 
 export {Movie};
-export default connect(mapStateToProps, null)(Movie);
+export default connect(mapStateToProps)(Movie);

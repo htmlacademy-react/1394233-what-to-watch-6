@@ -25,4 +25,4 @@ const mapStateToProps = ({genre}) => ({
 });
 
 export {GenreTab};
-export default connect(mapStateToProps, null)(GenreTab);
+export default connect(mapStateToProps)(GenreTab);

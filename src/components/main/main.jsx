@@ -46,7 +46,6 @@ const Main = ({films, genre}) => {
 
 Main.propTypes = {
   films: PropTypes.arrayOf(PropTypes.shape(MOVIES_PROP).isRequired).isRequired,
-  promoMovie: PropTypes.shape(MOVIES_PROP).isRequired,
   genre: PropTypes.string.isRequired
 };
 
@@ -56,4 +55,4 @@ const mapStateToProps = ({genre, films}) => ({
 });
 
 export {Main};
-export default connect(mapStateToProps, null)(Main);
+export default connect(mapStateToProps)(Main);
