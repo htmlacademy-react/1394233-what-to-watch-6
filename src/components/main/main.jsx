@@ -9,12 +9,10 @@ import {connect} from 'react-redux';
 
 const filterMovies = (movies, genre) => genre === FiltersType.ALL ? movies : movies.filter((movie) => movie.genre === genre);
 
-const Main = ({films, promoMovie, genre}) => {
+const Main = ({films, genre}) => {
   return (
     <React.Fragment>
-      <PromoMovie
-        promoMovie={promoMovie}
-      />
+      <PromoMovie />
       <div className="page-content">
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
@@ -52,9 +50,8 @@ Main.propTypes = {
   genre: PropTypes.string.isRequired
 };
 
-const mapStateToProps = ({genre, promoMovie, films}) => ({
+const mapStateToProps = ({genre, films}) => ({
   genre,
-  promoMovie,
   films
 });
 
