@@ -3,13 +3,12 @@ import PropTypes from 'prop-types';
 import PromoMovie from '../promo-movie/promo-movie';
 import MoviesList from '../movies-list/movies-list';
 import GenresList from '../genres-list/genres-list';
-import {FiltersType, MoviesAmmount} from '../../consts';
 import {MOVIES_PROP} from '../../utils/validate';
 import {connect} from 'react-redux';
+import ShowMoreButton from '../show-more-button/show-more-button';
+import {getFilteredMovies} from '../../utils/common';
 
-const filterMovies = (movies, genre) => genre === FiltersType.ALL ? movies : movies.filter((movie) => movie.genre === genre);
-
-const Main = ({films, genre}) => {
+const Main = ({films, genre, amountShowFilms, amountFilms}) => {
   return (
     <React.Fragment>
       <PromoMovie />
@@ -20,12 +19,10 @@ const Main = ({films, genre}) => {
             genre={genre}
           />
           <MoviesList
-            films={filterMovies(films, genre)}
-            maxFilms={MoviesAmmount.MAIN_PAGE}
+            films={getFilteredMovies(films, genre)}
+            maxFilms={amountShowFilms}
           />
-          <div className="catalog__more">
-            <button className="catalog__button" type="button">Show more</button>
-          </div>
+          {amountShowFilms < amountFilms ? <ShowMoreButton /> : ``}
         </section>
         <footer className="page-footer">
           <div className="logo">
@@ -46,14 +43,17 @@ const Main = ({films, genre}) => {
 
 Main.propTypes = {
   films: PropTypes.arrayOf(PropTypes.shape(MOVIES_PROP).isRequired).isRequired,
-  promoMovie: PropTypes.shape(MOVIES_PROP).isRequired,
-  genre: PropTypes.string.isRequired
+  genre: PropTypes.string.isRequired,
+  amountShowFilms: PropTypes.number.isRequired,
+  amountFilms: PropTypes.number.isRequired
 };
 
-const mapStateToProps = ({genre, films}) => ({
+const mapStateToProps = ({genre, films, amountFilms, amountShowFilms}) => ({
   genre,
-  films
+  films,
+  amountFilms,
+  amountShowFilms
 });
 
 export {Main};
-export default connect(mapStateToProps, null)(Main);
+export default connect(mapStateToProps)(Main);
