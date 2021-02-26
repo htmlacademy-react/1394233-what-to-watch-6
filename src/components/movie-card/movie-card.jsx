@@ -2,8 +2,10 @@ import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
 import VideoPreview from '../video-preview/video-preview';
+import { connect } from 'react-redux';
+import { ActionCreator } from '../../store/action';
 
-const MovieCard = ({title, poster, id, setActiveIdFilm, previewVideoLink}) => {
+const MovieCard = ({title, poster, id, setActiveIdFilm, previewVideoLink, onResetAmountShowFilms}) => {
 
   const [isActive, setIsActive] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -28,7 +30,7 @@ const MovieCard = ({title, poster, id, setActiveIdFilm, previewVideoLink}) => {
         {isActive ? <VideoPreview poster={poster} url={previewVideoLink} isPlaying={isPlaying} setIsPlaying={setIsPlaying} /> : <img src={poster} alt={title} width={280} height={175} />}
       </div>
       <h3 className="small-movie-card__title">
-        <Link className="small-movie-card__link" to={`/films/${id}`}>{title}</Link>
+        <Link className="small-movie-card__link" to={`/films/${id}`} onClick={() => onResetAmountShowFilms()}>{title}</Link>
       </h3>
     </article>
   );
@@ -40,6 +42,14 @@ MovieCard.propTypes = {
   id: PropTypes.number.isRequired,
   setActiveIdFilm: PropTypes.func.isRequired,
   previewVideoLink: PropTypes.string.isRequired,
+  onResetAmountShowFilms: PropTypes.func.isRequired
 };
 
-export default MovieCard;
+const mapDispatchToProps = (dispatch) => ({
+  onResetAmountShowFilms() {
+    dispatch(ActionCreator.resetAmountShowFilms());
+  },
+});
+
+export {MovieCard};
+export default connect(null, mapDispatchToProps)(MovieCard);
