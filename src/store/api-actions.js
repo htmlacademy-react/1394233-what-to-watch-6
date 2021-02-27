@@ -33,5 +33,8 @@ const adaptToClient = (film) => {
 export const fetchFilmsList = () => (dispatch, _getState, api) => (
   api.get(`/films`)
     .then(({data}) => data.map(adaptToClient))
-    .then((data) => dispatch(ActionCreator.loadFilms(data)))
+    .then((data) => {
+      dispatch(ActionCreator.changeAmountFilms(data.length));
+      return dispatch(ActionCreator.loadFilms(data));
+    })
 );
