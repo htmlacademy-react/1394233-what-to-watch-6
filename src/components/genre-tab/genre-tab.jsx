@@ -7,14 +7,14 @@ import {getFilteredMovies} from '../../utils/common';
 import {MOVIES_PROP} from '../../utils/validate';
 
 
-const GenreTab = ({tab, genre, onChangeGenres, onResetAmountShowFilms, onChangeAmountFilms, films}) => {
+const GenreTab = ({tab, genre, onChangeGenres, resetAmountShowFilms, changeAmountFilms, films}) => {
   return (
     <li className={`catalog__genres-item ${genre === FiltersType[tab] ? `catalog__genres-item--active` : ``}`}>
       <a href="#" className="catalog__genres-link" onClick={(evt) => {
         evt.preventDefault();
-        onResetAmountShowFilms();
+        resetAmountShowFilms();
         onChangeGenres(FiltersType[tab]);
-        onChangeAmountFilms(getFilteredMovies(films, FiltersType[tab]).length);
+        changeAmountFilms(getFilteredMovies(films, FiltersType[tab]).length);
       }}>{GenreTabNames[tab]}</a>
     </li>
   );
@@ -22,8 +22,8 @@ const GenreTab = ({tab, genre, onChangeGenres, onResetAmountShowFilms, onChangeA
 
 GenreTab.propTypes = {
   onChangeGenres: PropTypes.func.isRequired,
-  onResetAmountShowFilms: PropTypes.func.isRequired,
-  onChangeAmountFilms: PropTypes.func.isRequired,
+  resetAmountShowFilms: PropTypes.func.isRequired,
+  changeAmountFilms: PropTypes.func.isRequired,
   films: PropTypes.arrayOf(PropTypes.shape(MOVIES_PROP).isRequired).isRequired,
   genre: PropTypes.string.isRequired,
   tab: PropTypes.string.isRequired
@@ -35,10 +35,10 @@ const mapStateToProps = ({genre, films}) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onResetAmountShowFilms() {
+  resetAmountShowFilms() {
     dispatch(ActionCreator.resetAmountShowFilms());
   },
-  onChangeAmountFilms(amount) {
+  changeAmountFilms(amount) {
     dispatch(ActionCreator.changeAmountFilms(amount));
   }
 });

@@ -11,10 +11,10 @@ import {fetchFilmsList} from "../../store/api-actions";
 import LoadingScreen from '../loading-screen/loading-screen';
 import {ActionCreator} from '../../store/action';
 
-const Main = ({films, genre, amountShowFilms, amountFilms, isFilmsLoaded, onLoadFilms}) => {
+const Main = ({films, genre, amountShowFilms, amountFilms, isFilmsLoaded, loadFilms}) => {
   useEffect(() => {
     if (!isFilmsLoaded) {
-      onLoadFilms();
+      loadFilms();
     }
   }, [isFilmsLoaded]);
 
@@ -56,7 +56,7 @@ Main.propTypes = {
   amountShowFilms: PropTypes.number.isRequired,
   amountFilms: PropTypes.number.isRequired,
   isFilmsLoaded: PropTypes.bool.isRequired,
-  onLoadFilms: PropTypes.func.isRequired,
+  loadFilms: PropTypes.func.isRequired,
   changeAmountFilms: PropTypes.func.isRequired,
 };
 
@@ -69,7 +69,7 @@ const mapStateToProps = ({genre, films, amountFilms, amountShowFilms, isFilmsLoa
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onLoadFilms() {
+  loadFilms() {
     dispatch(fetchFilmsList());
   },
   changeAmountFilms(filmsAmount) {
