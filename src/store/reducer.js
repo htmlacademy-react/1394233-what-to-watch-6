@@ -1,16 +1,17 @@
-import {FILMS_AMOUNT_PER_STEP, FiltersType, Genres} from '../consts';
+import {FILMS_AMOUNT_PER_STEP, FiltersType, GENRES} from '../consts';
 import {ActionType} from './action';
 import films from '../mocks/films';
 import reviews from '../mocks/reviews';
 
 const initialState = {
   genre: FiltersType.ALL,
-  genres: Genres,
+  genres: GENRES,
   amountFilms: films.length,
   amountShowFilms: FILMS_AMOUNT_PER_STEP,
-  films,
+  films: [],
   promoMovie: films[0],
-  reviews
+  reviews,
+  isFilmsLoaded: false
 };
 
 const reducer = (state = initialState, action) => {
@@ -35,12 +36,17 @@ const reducer = (state = initialState, action) => {
         ...state,
         amountFilms: action.payload,
       };
+    case ActionType.LOAD_FILMS:
+      return {
+        ...state,
+        films: action.payload,
+        isFilmsLoaded: true
+      };
     default:
       return {
         ...initialState
       };
   }
 };
-
 
 export {reducer};
