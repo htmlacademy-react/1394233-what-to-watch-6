@@ -48,6 +48,10 @@ const reducer = (state = initialState, action) => {
         ...state,
         authorizationStatus: action.payload,
       };
+    case ActionType.REDIRECT_TO_ROUTE:
+      return {
+        ...state,
+      };
     default:
       return {
         ...initialState

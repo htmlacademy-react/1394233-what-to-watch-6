@@ -3,7 +3,8 @@ import {ActionCreator} from "./action";
 
 const Routes = {
   FILMS: `/films`,
-  LOGIN: `/login`
+  LOGIN: `/login`,
+  LOGOUT: `/logout`
 };
 
 const adaptToClient = (film) => {
@@ -54,5 +55,11 @@ export const checkLogin = () => (dispatch, _getState, api) => (
 export const login = ({login: email, password}) => (dispatch, _getState, api) => (
   api.post(Routes.LOGIN, {email, password})
     .then(() => dispatch(ActionCreator.authorization(AuthorizationStatuses.AUTH)))
+    .then(() => dispatch(ActionCreator.redirectToRoute(Urls.MAIN)))
+);
+
+export const logout = () => (dispatch, _getState, api) => (
+  api.get(Routes.LOGOUT)
+    .then(() => dispatch(ActionCreator.authorization(AuthorizationStatuses.NO_AUTH)))
     .then(() => dispatch(ActionCreator.redirectToRoute(Urls.MAIN)))
 );
