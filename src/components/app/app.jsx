@@ -7,7 +7,7 @@ import Main from '../main/main';
 import Movie from '../movie/movie';
 import MyList from '../my-list/my-list';
 import AddReview from '../add-review/add-review';
-import SignIn from '../sign-in/sign-in';
+import SignInScreen from '../sign-in-screen/sign-in-screen';
 import Player from '../player/player';
 import NotFoundPage from '../not-found-page/not-found-page';
 import {Urls} from '../../consts';
@@ -21,7 +21,7 @@ const App = ({films, reviews}) => {
           <Main />
         </Route>
         <Route exact path={Urls.SIGN_IN}>
-          <SignIn />
+          <SignInScreen />
         </Route>
         <PrivateRoute exact
           path={Urls.MY_LIST}

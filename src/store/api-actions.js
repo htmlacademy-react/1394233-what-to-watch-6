@@ -50,3 +50,8 @@ export const checkLogin = () => (dispatch, _getState, api) => (
     .then(() => dispatch(ActionCreator.authorization(AuthorizationStatuses.AUTH)))
     .catch(() => {})
 );
+
+export const login = ({login: email, password}) => (dispatch, _getState, api) => (
+  api.post(Routes.LOGIN, {email, password})
+    .then(() => dispatch(ActionCreator.authorization(AuthorizationStatuses.AUTH)))
+);
