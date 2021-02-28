@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Link, useHistory} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import {MoviesAmmount, Urls} from '../../consts';
 import MoviesList from '../movies-list/movies-list';
 import {MOVIES_PROP, REVIEW_PROP} from '../../utils/validate';
@@ -9,7 +9,7 @@ import {connect} from 'react-redux';
 
 const getSimilarMovies = (films, genre, name) => films.filter((film) => film.genre === genre && film.name !== name);
 
-const Movie = ({film, reviews, films}) => {
+const Movie = ({film, reviews, films, onPlayMovie, onAddFavoriteMovie}) => {
   const {
     backgroundImage,
     name,
@@ -18,8 +18,6 @@ const Movie = ({film, reviews, films}) => {
     posterImage,
     id
   } = film;
-
-  const history = useHistory();
 
   return (
     <React.Fragment>
@@ -51,13 +49,13 @@ const Movie = ({film, reviews, films}) => {
                 <span className="movie-card__year">{released}</span>
               </p>
               <div className="movie-card__buttons">
-                <button className="btn btn--play movie-card__button" type="button" onClick={() => history.push(`/player/${id}`)}>
+                <button className="btn btn--play movie-card__button" type="button" onClick={() => onPlayMovie()}>
                   <svg viewBox="0 0 19 19" width={19} height={19}>
                     <use xlinkHref="#play-s" />
                   </svg>
                   <span>Play</span>
                 </button>
-                <button className="btn btn--list movie-card__button" type="button" onClick={() => history.push(Urls.MY_LIST)}>
+                <button className="btn btn--list movie-card__button" type="button" onClick={() => onAddFavoriteMovie()}>
                   <svg viewBox="0 0 19 20" width={19} height={20}>
                     <use xlinkHref="#add" />
                   </svg>
@@ -110,7 +108,9 @@ const Movie = ({film, reviews, films}) => {
 Movie.propTypes = {
   films: PropTypes.arrayOf(PropTypes.shape(MOVIES_PROP)).isRequired,
   film: PropTypes.shape(MOVIES_PROP).isRequired,
-  reviews: PropTypes.arrayOf(PropTypes.shape(REVIEW_PROP)).isRequired
+  reviews: PropTypes.arrayOf(PropTypes.shape(REVIEW_PROP)).isRequired,
+  onPlayMovie: PropTypes.func.isRequired,
+  onAddFavoriteMovie: PropTypes.func.isRequired
 };
 
 const mapStateToProps = ({films}) => ({

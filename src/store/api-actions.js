@@ -1,4 +1,4 @@
-import {AuthorizationStatuses} from "../consts";
+import {AuthorizationStatuses, Urls} from "../consts";
 import {ActionCreator} from "./action";
 
 const Routes = {
@@ -54,4 +54,5 @@ export const checkLogin = () => (dispatch, _getState, api) => (
 export const login = ({login: email, password}) => (dispatch, _getState, api) => (
   api.post(Routes.LOGIN, {email, password})
     .then(() => dispatch(ActionCreator.authorization(AuthorizationStatuses.AUTH)))
+    .then(() => dispatch(ActionCreator.redirectToRoute(Urls.MAIN)))
 );

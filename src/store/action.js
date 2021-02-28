@@ -6,7 +6,8 @@ export const ActionType = {
   CHANGE_AMOUNT_FILMS: `films/changeAmount`,
   LOAD_FILMS: `films/load`,
   LOAD_COMMENTS: `comments/load`,
-  AUTHORIZATION: `site/authorization`
+  AUTHORIZATION: `site/authorization`,
+  REDIRECT_TO_ROUTE: `site/redirectToRoute`,
 };
 
 export const ActionCreator = {
@@ -31,5 +32,9 @@ export const ActionCreator = {
   authorization: (action) => ({
     type: ActionType.AUTHORIZATION,
     payload: action
+  }),
+  redirectToRoute: (url) => ({
+    type: ActionType.REDIRECT_TO_ROUTE,
+    payload: url,
   }),
 };
