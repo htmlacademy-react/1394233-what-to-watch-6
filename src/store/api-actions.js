@@ -1,6 +1,11 @@
 import {AuthorizationStatuses} from "../consts";
 import {ActionCreator} from "./action";
 
+const Routes = {
+  FILMS: `/films`,
+  LOGIN: `/login`
+};
+
 const adaptToClient = (film) => {
   const adaptedFilm = Object.assign(
       {},
@@ -32,7 +37,7 @@ const adaptToClient = (film) => {
 };
 
 export const fetchFilmsList = () => (dispatch, _getState, api) => (
-  api.get(`/films`)
+  api.get(Routes.FILMS)
     .then(({data}) => data.map(adaptToClient))
     .then((data) => {
       dispatch(ActionCreator.changeAmountFilms(data.length));
@@ -41,7 +46,7 @@ export const fetchFilmsList = () => (dispatch, _getState, api) => (
 );
 
 export const checkLogin = () => (dispatch, _getState, api) => (
-  api.get(`/login`)
+  api.get(Routes.LOGIN)
     .then(() => dispatch(ActionCreator.authorization(AuthorizationStatuses.AUTH)))
     .catch(() => {})
 );
