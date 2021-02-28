@@ -56,6 +56,7 @@ export const login = ({login: email, password}) => (dispatch, _getState, api) =>
   api.post(Routes.LOGIN, {email, password})
     .then(() => dispatch(ActionCreator.authorization(AuthorizationStatuses.AUTH)))
     .then(() => dispatch(ActionCreator.redirectToRoute(Urls.MAIN)))
+    .catch(() => {})
 );
 
 export const logout = () => (dispatch, _getState, api) => (

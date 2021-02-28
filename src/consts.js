@@ -47,3 +47,8 @@ export const AuthorizationStatuses = {
   AUTH: `Auth`,
   NO_AUTH: `NoAuth`
 };
+
+export const AuthorizationErrorMessage = {
+  DEFAULT: ``,
+  EMAIL: `Please enter a valid email address or password`
+};

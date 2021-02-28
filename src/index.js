@@ -13,7 +13,8 @@ import {checkLogin} from './store/api-actions';
 import {redirect} from "./store/middlewares/redirect";
 
 const api = createAPI(
-    () => store.dispatch(ActionCreator.authorization(AuthorizationStatuses.NO_AUTH))
+    () => store.dispatch(ActionCreator.authorization(AuthorizationStatuses.NO_AUTH)),
+    () => store.dispatch(ActionCreator.authorizationFailed())
 );
 
 const store = createStore(

@@ -1,4 +1,4 @@
-import {AuthorizationStatuses, FILMS_AMOUNT_PER_STEP, FiltersType, GENRES} from '../consts';
+import {AuthorizationErrorMessage, AuthorizationStatuses, FILMS_AMOUNT_PER_STEP, FiltersType, GENRES} from '../consts';
 import {ActionType} from './action';
 import films from '../mocks/films';
 import reviews from '../mocks/reviews';
@@ -12,7 +12,9 @@ const initialState = {
   promoMovie: films[0],
   reviews,
   isFilmsLoaded: false,
-  authorizationStatus: AuthorizationStatuses.NO_AUTH
+  authorizationStatus: AuthorizationStatuses.NO_AUTH,
+  isAuthorisationFailed: false,
+  errorMessage: AuthorizationErrorMessage.DEFAULT,
 };
 
 const reducer = (state = initialState, action) => {
@@ -47,6 +49,14 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         authorizationStatus: action.payload,
+        isAuthorisationFailed: false,
+        errorMessage: AuthorizationErrorMessage.DEFAULT,
+      };
+    case ActionType.AUTHORIZATION_FAILED:
+      return {
+        ...state,
+        errorMessage: action.payload,
+        isAuthorisationFailed: true
       };
     case ActionType.REDIRECT_TO_ROUTE:
       return {

@@ -1,3 +1,4 @@
+import {AuthorizationErrorMessage} from "../consts";
 
 export const ActionType = {
   CHANGE_GENRE: `genre/change`,
@@ -7,6 +8,7 @@ export const ActionType = {
   LOAD_FILMS: `films/load`,
   LOAD_COMMENTS: `comments/load`,
   AUTHORIZATION: `site/authorization`,
+  AUTHORIZATION_FAILED: `site/authorizationFailed`,
   REDIRECT_TO_ROUTE: `site/redirectToRoute`,
 };
 
@@ -32,6 +34,10 @@ export const ActionCreator = {
   authorization: (action) => ({
     type: ActionType.AUTHORIZATION,
     payload: action
+  }),
+  authorizationFailed: () => ({
+    type: ActionType.AUTHORIZATION_FAILED,
+    payload: AuthorizationErrorMessage.EMAIL
   }),
   redirectToRoute: (url) => ({
     type: ActionType.REDIRECT_TO_ROUTE,

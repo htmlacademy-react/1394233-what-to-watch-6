@@ -4,8 +4,9 @@ import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {login} from '../../store/api-actions';
 import {Urls} from '../../consts';
+import ErrorMessage from '../error-message/error-message';
 
-const SignInScreen = ({onSubmit}) => {
+const SignInScreen = ({onSubmit, isAuthorisationFailed}) => {
   const loginRef = useRef();
   const passwordRef = useRef();
 
@@ -32,6 +33,7 @@ const SignInScreen = ({onSubmit}) => {
       </header>
       <div className="sign-in user-page__content">
         <form action="#" className="sign-in__form" onSubmit={handleSubmit}>
+          {isAuthorisationFailed ? <ErrorMessage /> : ``}
           <div className="sign-in__fields">
             <div className="sign-in__field">
               <input
@@ -80,6 +82,7 @@ const SignInScreen = ({onSubmit}) => {
 
 SignInScreen.propTypes = {
   onSubmit: PropTypes.func.isRequired,
+  isAuthorisationFailed: PropTypes.bool.isRequired
 };
 
 const mapDispatchToProps = (dispatch) => ({
@@ -88,5 +91,9 @@ const mapDispatchToProps = (dispatch) => ({
   }
 });
 
+const mapStateToProps = ({isAuthorisationFailed}) => ({
+  isAuthorisationFailed,
+});
+
 export {SignInScreen};
-export default connect(null, mapDispatchToProps)(SignInScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(SignInScreen);
