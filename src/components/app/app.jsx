@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {Switch, Route, BrowserRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
+import PrivateRoute from '../private-route/private-route';
 import Main from '../main/main';
 import Movie from '../movie/movie';
 import MyList from '../my-list/my-list';
@@ -22,9 +23,10 @@ const App = ({films, reviews}) => {
         <Route exact path={Urls.SIGN_IN}>
           <SignIn />
         </Route>
-        <Route exact path={Urls.MY_LIST}>
-          <MyList />
-        </Route>
+        <PrivateRoute exact
+          path={Urls.MY_LIST}
+          render={() => <MyList />}
+        />
         <Route exact path={Urls.MOVIE} render={({match}) => {
           const id = match.params.id;
           const film = films[id - 1];
@@ -33,16 +35,19 @@ const App = ({films, reviews}) => {
             reviews={reviews[id]}
           />;
         }}/>
-        <Route exact path={Urls.ADD_REVIEW} render={({match}) => {
-          const id = match.params.id;
-          const film = films[id - 1];
-          return <AddReview
-            title={film.name}
-            poster={film.posterImage}
-            backgroundImage={film.backgroundImage}
-            id={film.id}
-          />;
-        }} />
+        <PrivateRoute exact
+          path={Urls.ADD_REVIEW}
+          render={({match}) => {
+            const id = match.params.id;
+            const film = films[id - 1];
+            return <AddReview
+              title={film.name}
+              poster={film.posterImage}
+              backgroundImage={film.backgroundImage}
+              id={film.id}
+            />;
+          }}
+        />
         <Route exact path={Urls.PLAYER} render={({match}) => {
           const id = match.params.id;
           const film = films[id - 1];
