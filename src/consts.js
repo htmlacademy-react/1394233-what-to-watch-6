@@ -41,3 +41,8 @@ export const GenreTabNames = {
 export const GENRES = [`ALL`, `COMEDIES`, `CRIME`, `DOCUMENTARY`, `DRAMAS`, `HORROR`, `KIDS_FAMILY`, `ROMANCE`, `SCI_FI`, `THRILLERS`];
 
 export const FILMS_AMOUNT_PER_STEP = 8;
+
+export const AuthorizationStatuses = {
+  AUTH: `Auth`,
+  NO_AUTH: `NoAuth`
+};

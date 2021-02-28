@@ -1,3 +1,4 @@
+import {AuthorizationStatuses} from "../consts";
 import {ActionCreator} from "./action";
 
 const adaptToClient = (film) => {
@@ -37,4 +38,10 @@ export const fetchFilmsList = () => (dispatch, _getState, api) => (
       dispatch(ActionCreator.changeAmountFilms(data.length));
       return dispatch(ActionCreator.loadFilms(data));
     })
+);
+
+export const checkLogin = () => (dispatch, _getState, api) => (
+  api.get(`/login`)
+    .then(() => dispatch(ActionCreator.authorization(AuthorizationStatuses.AUTH)))
+    .catch(() => {})
 );
