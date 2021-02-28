@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Switch, Route, Router as BrowserRouter} from 'react-router-dom';
+import {Switch, Route, Router as BrowserRouter, Redirect} from 'react-router-dom';
 import {connect} from 'react-redux';
 import PrivateRoute from '../private-route/private-route';
 import Main from '../main/main';
@@ -11,18 +11,23 @@ import SignInScreen from '../sign-in-screen/sign-in-screen';
 import Player from '../player/player';
 import NotFoundPage from '../not-found-page/not-found-page';
 import browserHistory from "../../browser-history";
-import {Urls} from '../../consts';
+import {AuthorizationStatuses, Urls} from '../../consts';
 import {MOVIES_PROP, REVIEW_PROP} from '../../utils/validate';
 
-const App = ({films, reviews}) => {
+const App = ({films, reviews, authorizationStatus}) => {
   return (
     <BrowserRouter history={browserHistory}>
       <Switch>
         <Route exact path={Urls.MAIN}>
           <Main />
         </Route>
-        <Route exact path={Urls.SIGN_IN}>
-          <SignInScreen />
+        <Route exact path={Urls.SIGN_IN} render={() => {
+          return (
+            authorizationStatus === AuthorizationStatuses.AUTH
+              ? <Redirect to={Urls.MAIN} />
+              : <SignInScreen />
+          );
+        }}>
         </Route>
         <PrivateRoute exact
           path={Urls.MY_LIST}
@@ -69,12 +74,14 @@ const App = ({films, reviews}) => {
 
 App.propTypes = {
   films: PropTypes.arrayOf(PropTypes.shape(MOVIES_PROP).isRequired).isRequired,
-  reviews: PropTypes.objectOf(PropTypes.arrayOf(PropTypes.shape(REVIEW_PROP))).isRequired
+  reviews: PropTypes.objectOf(PropTypes.arrayOf(PropTypes.shape(REVIEW_PROP))).isRequired,
+  authorizationStatus: PropTypes.string.isRequired
 };
 
-const mapStateToProps = ({films, reviews}) => ({
+const mapStateToProps = ({films, reviews, authorizationStatus}) => ({
   films,
-  reviews
+  reviews,
+  authorizationStatus
 });
 
 export {App};
