@@ -4,6 +4,7 @@ import {useHistory} from 'react-router-dom';
 import {Urls} from '../../consts';
 import {MOVIES_PROP} from '../../utils/validate';
 import {connect} from 'react-redux';
+import UserBlock from '../user-block/user-block';
 import {ActionCreator} from '../../store/action';
 
 const PromoMovie = ({promoMovie, resetAmountShowFilms}) => {
@@ -22,11 +23,7 @@ const PromoMovie = ({promoMovie, resetAmountShowFilms}) => {
             <span className="logo__letter logo__letter--3">W</span>
           </a>
         </div>
-        <div className="user-block">
-          <div className="user-block__avatar">
-            <img src="img/avatar.jpg" alt="User avatar" width={63} height={63} />
-          </div>
-        </div>
+        <UserBlock />
       </header>
       <div className="movie-card__wrap">
         <div className="movie-card__info">

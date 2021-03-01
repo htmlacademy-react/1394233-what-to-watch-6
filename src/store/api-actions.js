@@ -1,4 +1,11 @@
+import {AuthorizationStatuses, Urls} from "../consts";
 import {ActionCreator} from "./action";
+
+const Routes = {
+  FILMS: `/films`,
+  LOGIN: `/login`,
+  LOGOUT: `/logout`
+};
 
 const adaptToClient = (film) => {
   const adaptedFilm = Object.assign(
@@ -31,10 +38,29 @@ const adaptToClient = (film) => {
 };
 
 export const fetchFilmsList = () => (dispatch, _getState, api) => (
-  api.get(`/films`)
+  api.get(Routes.FILMS)
     .then(({data}) => data.map(adaptToClient))
     .then((data) => {
       dispatch(ActionCreator.changeAmountFilms(data.length));
       return dispatch(ActionCreator.loadFilms(data));
     })
+);
+
+export const checkLogin = () => (dispatch, _getState, api) => (
+  api.get(Routes.LOGIN)
+    .then(() => dispatch(ActionCreator.authorization(AuthorizationStatuses.AUTH)))
+    .catch(() => {})
+);
+
+export const login = ({login: email, password}) => (dispatch, _getState, api) => (
+  api.post(Routes.LOGIN, {email, password})
+    .then(() => dispatch(ActionCreator.authorization(AuthorizationStatuses.AUTH)))
+    .then(() => dispatch(ActionCreator.redirectToRoute(Urls.MAIN)))
+    .catch(() => {})
+);
+
+export const logout = () => (dispatch, _getState, api) => (
+  api.get(Routes.LOGOUT)
+    .then(() => dispatch(ActionCreator.authorization(AuthorizationStatuses.NO_AUTH)))
+    .then(() => dispatch(ActionCreator.redirectToRoute(Urls.MAIN)))
 );

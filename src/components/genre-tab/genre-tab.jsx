@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {FiltersType, GenreTabNames} from '../../consts';
 import {ActionCreator} from '../../store/action';
-import {getFilteredMovies} from '../../utils/common';
+import {getFilteredMovies, getGenres} from '../../utils/common';
 import {MOVIES_PROP} from '../../utils/validate';
 
 
 const GenreTab = ({tab, genre, onChangeGenres, resetAmountShowFilms, changeAmountFilms, films}) => {
+  const FiltersType = Object.fromEntries(getGenres(films));
   return (
     <li className={`catalog__genres-item ${genre === FiltersType[tab] ? `catalog__genres-item--active` : ``}`}>
       <a href="#" className="catalog__genres-link" onClick={(evt) => {
@@ -15,7 +15,7 @@ const GenreTab = ({tab, genre, onChangeGenres, resetAmountShowFilms, changeAmoun
         resetAmountShowFilms();
         onChangeGenres(FiltersType[tab]);
         changeAmountFilms(getFilteredMovies(films, FiltersType[tab]).length);
-      }}>{GenreTabNames[tab]}</a>
+      }}>{FiltersType[tab]}</a>
     </li>
   );
 };
@@ -29,9 +29,10 @@ GenreTab.propTypes = {
   tab: PropTypes.string.isRequired
 };
 
-const mapStateToProps = ({genre, films}) => ({
+const mapStateToProps = ({genre, films, genres}) => ({
   genre,
   films,
+  genres,
 });
 
 const mapDispatchToProps = (dispatch) => ({
