@@ -5,9 +5,10 @@ import {ActionCreator} from '../../store/action';
 import GenreTab from '../genre-tab/genre-tab';
 
 const GenresList = ({onChangeGenres, genres}) => {
+  const GENRES = Array.from(genres.values());
   return (
     <ul className="catalog__genres-list">
-      {genres.map((tab) => <GenreTab
+      {GENRES.map((tab) => <GenreTab
         tab={tab}
         key={tab}
         onChangeGenres={onChangeGenres}

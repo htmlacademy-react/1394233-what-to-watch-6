@@ -1,11 +1,12 @@
-import {AuthorizationErrorMessage, AuthorizationStatuses, FILMS_AMOUNT_PER_STEP, FiltersType, GENRES} from '../consts';
+import {AuthorizationErrorMessage, AuthorizationStatuses, FILMS_AMOUNT_PER_STEP, ALL_GENRES_NAME_TAB} from '../consts';
 import {ActionType} from './action';
 import films from '../mocks/films';
 import reviews from '../mocks/reviews';
+import {getGenres} from '../utils/common';
 
 const initialState = {
-  genre: FiltersType.ALL,
-  genres: GENRES,
+  genre: ALL_GENRES_NAME_TAB,
+  genres: [],
   amountFilms: films.length,
   amountShowFilms: FILMS_AMOUNT_PER_STEP,
   films: [],
@@ -43,7 +44,8 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         films: action.payload,
-        isFilmsLoaded: true
+        genres: Array.from(getGenres(action.payload).keys()),
+        isFilmsLoaded: true,
       };
     case ActionType.AUTHORIZATION:
       return {
