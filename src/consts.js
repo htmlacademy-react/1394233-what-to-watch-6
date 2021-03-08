@@ -5,7 +5,8 @@ export const Urls = {
   MOVIE: `/films/:id`,
   ADD_REVIEW: `/films/:id/review`,
   PLAYER: `/player/:id`,
-  LOG_OUT: `/logout`
+  LOG_OUT: `/logout`,
+  NOT_FOUND: `/404`
 };
 
 export const MoviesAmmount = {

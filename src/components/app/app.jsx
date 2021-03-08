@@ -46,19 +46,18 @@ const App = ({films, reviews, authorizationStatus, loadFilm, loadedFilm, isFilmL
               onAddFavoriteMovie={() => history.push(Urls.MY_LIST)}
             />;
           }
-          loadFilm(id);
-
-          if (isFilmLoaded) {
-            return <Movie
-              film={loadedFilm}
-              id={id}
-              reviews={reviews[id]}
-              onPlayMovie={() => history.push(`/player/${id}`)}
-              onAddFavoriteMovie={() => history.push(Urls.MY_LIST)}
-            />;
+          if (!isFilmLoaded) {
+            loadFilm(id);
+            return <LoadingScreen />;
           }
 
-          return <LoadingScreen />;
+          return <Movie
+            film={loadedFilm}
+            id={id}
+            reviews={reviews[id]}
+            onPlayMovie={() => history.push(`/player/${id}`)}
+            onAddFavoriteMovie={() => history.push(Urls.MY_LIST)}
+          />;
         }}/>
         <PrivateRoute exact
           path={Urls.ADD_REVIEW}
@@ -94,6 +93,9 @@ const App = ({films, reviews, authorizationStatus, loadFilm, loadedFilm, isFilmL
             title={film.name}
           />;
         }} />
+        <Route exact path={Urls.NOT_FOUND}>
+          <NotFoundPage />
+        </Route>
         <Route>
           <NotFoundPage />
         </Route>

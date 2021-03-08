@@ -49,8 +49,8 @@ export const fetchFilmsList = () => (dispatch, _getState, api) => (
 export const fetchFilm = (id) => (dispatch, _getState, api) => (
   api.get(`/films/${id}`)
     .then(({data}) => adaptToClient(data))
-    .then((data) => dispatch(ActionCreator.loadFilm(data))
-    )
+    .then((data) => dispatch(ActionCreator.loadFilm(data)))
+    .catch(() => dispatch(ActionCreator.redirectToRoute(Urls.NOT_FOUND)))
 );
 
 export const checkLogin = () => (dispatch, _getState, api) => (
