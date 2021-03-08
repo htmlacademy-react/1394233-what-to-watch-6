@@ -10,9 +10,11 @@ const initialState = {
   amountFilms: films.length,
   amountShowFilms: FILMS_AMOUNT_PER_STEP,
   films: [],
+  loadedFilm: {},
   promoMovie: films[0],
   reviews,
   isFilmsLoaded: false,
+  isFilmLoaded: false,
   authorizationStatus: AuthorizationStatuses.NO_AUTH,
   isAuthorisationFailed: false,
   errorMessage: AuthorizationErrorMessage.DEFAULT,
@@ -46,6 +48,12 @@ const reducer = (state = initialState, action) => {
         films: action.payload,
         genres: Array.from(getGenres(action.payload).keys()),
         isFilmsLoaded: true,
+      };
+    case ActionType.LOAD_FILM:
+      return {
+        ...state,
+        loadedFilm: action.payload,
+        isFilmLoaded: true,
       };
     case ActionType.AUTHORIZATION:
       return {

@@ -4,7 +4,7 @@ import {ActionCreator} from "./action";
 const Routes = {
   FILMS: `/films`,
   LOGIN: `/login`,
-  LOGOUT: `/logout`
+  LOGOUT: `/logout`,
 };
 
 const adaptToClient = (film) => {
@@ -44,6 +44,13 @@ export const fetchFilmsList = () => (dispatch, _getState, api) => (
       dispatch(ActionCreator.changeAmountFilms(data.length));
       return dispatch(ActionCreator.loadFilms(data));
     })
+);
+
+export const fetchFilm = (id) => (dispatch, _getState, api) => (
+  api.get(`/films/${id}`)
+    .then(({data}) => adaptToClient(data))
+    .then((data) => dispatch(ActionCreator.loadFilm(data))
+    )
 );
 
 export const checkLogin = () => (dispatch, _getState, api) => (

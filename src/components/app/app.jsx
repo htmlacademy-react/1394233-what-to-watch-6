@@ -12,9 +12,11 @@ import Player from '../player/player';
 import NotFoundPage from '../not-found-page/not-found-page';
 import browserHistory from "../../browser-history";
 import {AuthorizationStatuses, Urls} from '../../consts';
-import {MOVIES_PROP, REVIEW_PROP} from '../../utils/validate';
+import {MOVIES_PROP, REVIEW_PROP, MOVIES_NOT_REQUIRE_PROP} from '../../utils/validate';
+import {fetchFilm} from '../../store/api-actions';
+import LoadingScreen from '../loading-screen/loading-screen';
 
-const App = ({films, reviews, authorizationStatus}) => {
+const App = ({films, reviews, authorizationStatus, loadFilm, loadedFilm, isFilmLoaded, isFilmsLoaded}) => {
   return (
     <BrowserRouter history={browserHistory}>
       <Switch>
@@ -35,25 +37,53 @@ const App = ({films, reviews, authorizationStatus}) => {
         />
         <Route exact path={Urls.MOVIE} render={({history, match}) => {
           const id = match.params.id;
-          const film = films[id - 1];
-          return <Movie
-            film={film}
-            reviews={reviews[id]}
-            onPlayMovie={() => history.push(`/player/${id}`)}
-            onAddFavoriteMovie={() => history.push(Urls.MY_LIST)}
-          />;
+          if (isFilmsLoaded) {
+            return <Movie
+              film={films[id - 1]}
+              id={id}
+              reviews={reviews[id]}
+              onPlayMovie={() => history.push(`/player/${id}`)}
+              onAddFavoriteMovie={() => history.push(Urls.MY_LIST)}
+            />;
+          }
+          loadFilm(id);
+
+          if (isFilmLoaded) {
+            return <Movie
+              film={loadedFilm}
+              id={id}
+              reviews={reviews[id]}
+              onPlayMovie={() => history.push(`/player/${id}`)}
+              onAddFavoriteMovie={() => history.push(Urls.MY_LIST)}
+            />;
+          }
+
+          return <LoadingScreen />;
         }}/>
         <PrivateRoute exact
           path={Urls.ADD_REVIEW}
           render={({match}) => {
             const id = match.params.id;
-            const film = films[id - 1];
-            return <AddReview
-              title={film.name}
-              poster={film.posterImage}
-              backgroundImage={film.backgroundImage}
-              id={film.id}
-            />;
+            if (isFilmsLoaded) {
+              const film = films[id - 1];
+              return <AddReview
+                title={film.name}
+                poster={film.posterImage}
+                backgroundImage={film.backgroundImage}
+                id={film.id}
+              />;
+            }
+            if (isFilmLoaded) {
+              const film = loadedFilm;
+              return <AddReview
+                title={film.name}
+                poster={film.posterImage}
+                backgroundImage={film.backgroundImage}
+                id={film.id}
+              />;
+            }
+
+            return <LoadingScreen />;
           }}
         />
         <Route exact path={Urls.PLAYER} render={({match}) => {
@@ -74,15 +104,29 @@ const App = ({films, reviews, authorizationStatus}) => {
 
 App.propTypes = {
   films: PropTypes.arrayOf(PropTypes.shape(MOVIES_PROP).isRequired).isRequired,
+  loadedFilm: PropTypes.shape(MOVIES_NOT_REQUIRE_PROP).isRequired,
+  loadFilm: PropTypes.func.isRequired,
+  isFilmLoaded: PropTypes.bool.isRequired,
+  isFilmsLoaded: PropTypes.bool.isRequired,
   reviews: PropTypes.objectOf(PropTypes.arrayOf(PropTypes.shape(REVIEW_PROP))).isRequired,
   authorizationStatus: PropTypes.string.isRequired
 };
 
-const mapStateToProps = ({films, reviews, authorizationStatus}) => ({
+const mapStateToProps = ({films, reviews, authorizationStatus, loadedFilm, isFilmLoaded, isFilmsLoaded}) => ({
   films,
+  loadedFilm,
   reviews,
-  authorizationStatus
+  authorizationStatus,
+  isFilmLoaded,
+  isFilmsLoaded
 });
 
+const mapDispatchToProps = (dispatch) => ({
+  loadFilm(id) {
+    dispatch(fetchFilm(id));
+  },
+});
+
+
 export {App};
-export default connect(mapStateToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -6,6 +6,7 @@ export const ActionType = {
   RESET_AMOUNT_SHOW_FILMS: `films/resetAmountShow`,
   CHANGE_AMOUNT_FILMS: `films/changeAmount`,
   LOAD_FILMS: `films/load`,
+  LOAD_FILM: `film/load`,
   LOAD_COMMENTS: `comments/load`,
   AUTHORIZATION: `site/authorization`,
   AUTHORIZATION_FAILED: `site/authorizationFailed`,
@@ -30,6 +31,10 @@ export const ActionCreator = {
   loadFilms: (films) => ({
     type: ActionType.LOAD_FILMS,
     payload: films
+  }),
+  loadFilm: (film) => ({
+    type: ActionType.LOAD_FILM,
+    payload: film
   }),
   authorization: (action) => ({
     type: ActionType.AUTHORIZATION,
