@@ -8,6 +8,8 @@ export const ActionType = {
   LOAD_FILMS: `films/load`,
   LOAD_FILM: `film/load`,
   LOAD_COMMENTS: `comments/load`,
+  POST_COMMENT: `comment/post`,
+  ACTIVE_FORM: `comment/activeForm`,
   AUTHORIZATION: `site/authorization`,
   AUTHORIZATION_FAILED: `site/authorizationFailed`,
   REDIRECT_TO_ROUTE: `site/redirectToRoute`,
@@ -35,6 +37,13 @@ export const ActionCreator = {
   loadFilm: (film) => ({
     type: ActionType.LOAD_FILM,
     payload: film
+  }),
+  postComment: () => ({
+    type: ActionType.POST_COMMENT,
+  }),
+  activeForm: (boolean) => ({
+    type: ActionType.ACTIVE_FORM,
+    payload: boolean
   }),
   authorization: (action) => ({
     type: ActionType.AUTHORIZATION,

@@ -37,6 +37,20 @@ const adaptToClient = (film) => {
   return adaptedFilm;
 };
 
+const adaptToServer = (comment) => {
+  const adaptedComment = Object.assign(
+      {},
+      comment,
+      {
+        comment: comment.text
+      }
+  );
+
+  delete adaptedComment.text;
+
+  return adaptedComment;
+};
+
 export const fetchFilmsList = () => (dispatch, _getState, api) => (
   api.get(Routes.FILMS)
     .then(({data}) => data.map(adaptToClient))
@@ -51,6 +65,15 @@ export const fetchFilm = (id) => (dispatch, _getState, api) => (
     .then(({data}) => adaptToClient(data))
     .then((data) => dispatch(ActionCreator.loadFilm(data)))
     .catch(() => dispatch(ActionCreator.redirectToRoute(Urls.NOT_FOUND)))
+);
+
+export const postComment = (id, comment) => (dispatch, _getState, api) => (
+  api.post(`/comments/${id}`, adaptToServer(comment))
+    .then((data) => {
+      console.log(`пришел ответ ${data}`);
+    })
+    .then(() => dispatch(ActionCreator.postComment()))
+    .catch(() => {})
 );
 
 export const checkLogin = () => (dispatch, _getState, api) => (

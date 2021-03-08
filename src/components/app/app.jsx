@@ -50,7 +50,6 @@ const App = ({films, reviews, authorizationStatus, loadFilm, loadedFilm, isFilmL
             loadFilm(id);
             return <LoadingScreen />;
           }
-
           return <Movie
             film={loadedFilm}
             id={id}

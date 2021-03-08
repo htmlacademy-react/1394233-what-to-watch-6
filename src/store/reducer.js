@@ -13,6 +13,7 @@ const initialState = {
   loadedFilm: {},
   promoMovie: films[0],
   reviews,
+  isActiveAddCommentForm: false,
   isFilmsLoaded: false,
   isFilmLoaded: false,
   authorizationStatus: AuthorizationStatuses.NO_AUTH,
@@ -54,6 +55,16 @@ const reducer = (state = initialState, action) => {
         ...state,
         loadedFilm: action.payload,
         isFilmLoaded: true,
+      };
+    case ActionType.POST_COMMENT:
+      return {
+        ...state,
+        isActiveAddCommentForm: true,
+      };
+    case ActionType.ACTIVE_FORM:
+      return {
+        ...state,
+        isActiveAddCommentForm: action.payload,
       };
     case ActionType.AUTHORIZATION:
       return {

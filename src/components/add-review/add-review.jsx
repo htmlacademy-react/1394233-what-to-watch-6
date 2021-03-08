@@ -40,7 +40,9 @@ const AddReview = ({title, poster, backgroundImage, id}) => {
         </div>
       </div>
       <div className="add-review">
-        <AddReviewForm />
+        <AddReviewForm
+          id={id}
+        />
       </div>
     </section>
   );
