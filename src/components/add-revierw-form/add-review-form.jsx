@@ -21,7 +21,7 @@ const AddReviewForm = ({id, onSubmit, active, isActiveAddCommentForm}) => {
   return (
     <form action="#" className="add-review__form" onSubmit={(evt) => {
       evt.preventDefault();
-
+      active(false);
       onSubmit(id, userReview);
     }}>
       <div className="rating">

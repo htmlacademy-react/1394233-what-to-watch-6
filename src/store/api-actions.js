@@ -69,11 +69,9 @@ export const fetchFilm = (id) => (dispatch, _getState, api) => (
 
 export const postComment = (id, comment) => (dispatch, _getState, api) => (
   api.post(`/comments/${id}`, adaptToServer(comment))
-    .then((data) => {
-      console.log(`пришел ответ ${data}`);
-    })
     .then(() => dispatch(ActionCreator.postComment()))
-    .catch(() => {})
+    .then(() => dispatch(ActionCreator.redirectToRoute(`/films/${id}`)))
+    .catch(() => dispatch(ActionCreator.postComment()))
 );
 
 export const checkLogin = () => (dispatch, _getState, api) => (
