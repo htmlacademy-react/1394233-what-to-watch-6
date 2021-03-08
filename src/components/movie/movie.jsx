@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
-import {MoviesAmmount, Urls} from '../../consts';
+import {AuthorizationStatuses, MoviesAmmount, Urls} from '../../consts';
 import MoviesList from '../movies-list/movies-list';
 import {MOVIES_PROP, REVIEW_PROP} from '../../utils/validate';
 import MovieTabs from '../movie-tabs/movie-tabs';
@@ -9,7 +9,7 @@ import {connect} from 'react-redux';
 
 const getSimilarMovies = (films, genre, name) => films.filter((film) => film.genre === genre && film.name !== name);
 
-const Movie = ({film, reviews, films, onPlayMovie, onAddFavoriteMovie}) => {
+const Movie = ({film, reviews, films, onPlayMovie, onAddFavoriteMovie, authorizationStatus}) => {
   const {
     backgroundImage,
     name,
@@ -61,7 +61,10 @@ const Movie = ({film, reviews, films, onPlayMovie, onAddFavoriteMovie}) => {
                   </svg>
                   <span>My list</span>
                 </button>
-                <Link to={`/films/${id}/review`} className="btn movie-card__button">Add review</Link>
+                {authorizationStatus === AuthorizationStatuses.AUTH
+                  ? <Link to={`/films/${id}/review`} className="btn movie-card__button">Add review</Link>
+                  : ``
+                }
               </div>
             </div>
           </div>
@@ -110,11 +113,13 @@ Movie.propTypes = {
   film: PropTypes.shape(MOVIES_PROP).isRequired,
   reviews: PropTypes.arrayOf(PropTypes.shape(REVIEW_PROP)).isRequired,
   onPlayMovie: PropTypes.func.isRequired,
-  onAddFavoriteMovie: PropTypes.func.isRequired
+  onAddFavoriteMovie: PropTypes.func.isRequired,
+  authorizationStatus: PropTypes.string.isRequired
 };
 
-const mapStateToProps = ({films}) => ({
+const mapStateToProps = ({films, authorizationStatus}) => ({
   films,
+  authorizationStatus
 });
 
 export {Movie};
