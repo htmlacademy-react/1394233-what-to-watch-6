@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {login} from '../../store/api-actions';
-import {Urls} from '../../consts';
+import {Url} from '../../consts';
 import ErrorMessage from '../error-message/error-message';
 
 const SignInScreen = ({onSubmit, isAuthorisationFailed}) => {
@@ -23,7 +23,7 @@ const SignInScreen = ({onSubmit, isAuthorisationFailed}) => {
     <div className="user-page">
       <header className="page-header user-page__head">
         <div className="logo">
-          <Link to={Urls.MAIN} className="logo__link">
+          <Link to={Url.MAIN} className="logo__link">
             <span className="logo__letter logo__letter--1">W</span>
             <span className="logo__letter logo__letter--2">T</span>
             <span className="logo__letter logo__letter--3">W</span>
@@ -65,7 +65,7 @@ const SignInScreen = ({onSubmit, isAuthorisationFailed}) => {
       </div>
       <footer className="page-footer">
         <div className="logo">
-          <Link to={Urls.MAIN} className="logo__link logo__link--light">
+          <Link to={Url.MAIN} className="logo__link logo__link--light">
             <span className="logo__letter logo__letter--1">W</span>
             <span className="logo__letter logo__letter--2">T</span>
             <span className="logo__letter logo__letter--3">W</span>

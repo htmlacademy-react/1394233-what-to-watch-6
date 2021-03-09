@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
-import {AuthorizationStatuses, MoviesAmmount, Urls} from '../../consts';
+import {AuthorizationStatuses, MoviesAmmount, Url} from '../../consts';
 import MoviesList from '../movies-list/movies-list';
 import {MOVIES_PROP, REVIEW_PROP} from '../../utils/validate';
 import MovieTabs from '../movie-tabs/movie-tabs';
@@ -29,7 +29,7 @@ const Movie = ({film, reviews, films, onPlayMovie, onAddFavoriteMovie, authoriza
           <h1 className="visually-hidden">WTW</h1>
           <header className="page-header movie-card__head">
             <div className="logo">
-              <Link to={Urls.MAIN} className="logo__link">
+              <Link to={Url.MAIN} className="logo__link">
                 <span className="logo__letter logo__letter--1">W</span>
                 <span className="logo__letter logo__letter--2">T</span>
                 <span className="logo__letter logo__letter--3">W</span>
@@ -93,7 +93,7 @@ const Movie = ({film, reviews, films, onPlayMovie, onAddFavoriteMovie, authoriza
         </section>
         <footer className="page-footer">
           <div className="logo">
-            <Link to={Urls.MAIN} className="logo__link logo__link--light">
+            <Link to={Url.MAIN} className="logo__link logo__link--light">
               <span className="logo__letter logo__letter--1">W</span>
               <span className="logo__letter logo__letter--2">T</span>
               <span className="logo__letter logo__letter--3">W</span>

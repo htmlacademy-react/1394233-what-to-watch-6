@@ -1,13 +1,13 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import {Urls} from '../../consts';
+import {Url} from '../../consts';
 
 const NotFoundPage = () => {
   return (
     <div className="user-page">
       <header className="page-header user-page__head">
         <div className="logo">
-          <Link to={Urls.MAIN} className="logo__link">
+          <Link to={Url.MAIN} className="logo__link">
             <span className="logo__letter logo__letter--1">W</span>
             <span className="logo__letter logo__letter--2">T</span>
             <span className="logo__letter logo__letter--3">W</span>
@@ -21,11 +21,11 @@ const NotFoundPage = () => {
         </div>
       </header>
       <section className="catalog">
-        <Link to={Urls.MAIN} className="catalog__genres-link">Вернуться на главную</Link>
+        <Link to={Url.MAIN} className="catalog__genres-link">Вернуться на главную</Link>
       </section>
       <footer className="page-footer">
         <div className="logo">
-          <Link to={Urls.MAIN} className="logo__link logo__link--light">
+          <Link to={Url.MAIN} className="logo__link logo__link--light">
             <span className="logo__letter logo__letter--1">W</span>
             <span className="logo__letter logo__letter--2">T</span>
             <span className="logo__letter logo__letter--3">W</span>

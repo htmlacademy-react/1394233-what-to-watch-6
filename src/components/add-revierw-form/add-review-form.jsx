@@ -7,22 +7,23 @@ import {ActionCreator} from '../../store/action';
 
 const RATING_STARS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
-const AddReviewForm = ({id, onSubmit, active, isActiveAddCommentForm}) => {
+const CommentLength = {
+  MIN: 50,
+  MAX: 400
+};
+
+const AddReviewForm = ({filmID, submit, activateForm, isActiveForm}) => {
   const [userReview, setUserReview] = useState({rating: 10, text: ``});
 
   useEffect(() => {
-    if (userReview.text.length >= 50 && userReview.text.length <= 400) {
-      active(true);
-    } else {
-      active(false);
-    }
+    activateForm(userReview.text.length >= CommentLength.MIN && userReview.text.length <= CommentLength.MAX);
   }, [userReview]);
 
   return (
     <form action="#" className="add-review__form" onSubmit={(evt) => {
       evt.preventDefault();
-      active(false);
-      onSubmit(id, userReview);
+      activateForm(false);
+      submit(filmID, userReview);
     }}>
       <div className="rating">
         <div className="rating__stars">
@@ -42,7 +43,7 @@ const AddReviewForm = ({id, onSubmit, active, isActiveAddCommentForm}) => {
           });
         }} />
         <div className="add-review__submit">
-          <button className="add-review__btn" type="submit" disabled={isActiveAddCommentForm ? `` : `disabled`}>Post</button>
+          <button className="add-review__btn" type="submit" disabled={isActiveForm ? `` : `disabled`}>Post</button>
         </div>
       </div>
     </form>
@@ -51,23 +52,23 @@ const AddReviewForm = ({id, onSubmit, active, isActiveAddCommentForm}) => {
 
 
 AddReviewForm.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
-  active: PropTypes.func.isRequired,
-  isActiveAddCommentForm: PropTypes.bool.isRequired,
-  id: PropTypes.number.isRequired
+  submit: PropTypes.func.isRequired,
+  activateForm: PropTypes.func.isRequired,
+  isActiveForm: PropTypes.bool.isRequired,
+  filmID: PropTypes.number.isRequired
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  onSubmit(filmID, comment) {
+  submit(filmID, comment) {
     dispatch(postComment(filmID, comment));
   },
-  active(boolean) {
+  activateForm(boolean) {
     dispatch(ActionCreator.activeForm(boolean));
   }
 });
 
 const mapStateToProps = ({isActiveAddCommentForm}) => ({
-  isActiveAddCommentForm,
+  isActiveForm: isActiveAddCommentForm,
 });
 
 export {AddReviewForm};
