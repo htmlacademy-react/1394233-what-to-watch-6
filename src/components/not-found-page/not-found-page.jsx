@@ -1,5 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
+import {UserBlock} from '../user-block/user-block';
 import {Url} from '../../consts';
 
 const NotFoundPage = () => {
@@ -14,11 +15,7 @@ const NotFoundPage = () => {
           </Link>
         </div>
         <h1 className="page-title user-page__title">404 Not Found</h1>
-        <div className="user-block">
-          <div className="user-block__avatar">
-            <img src="img/avatar.jpg" alt="User avatar" width={63} height={63} />
-          </div>
-        </div>
+        <UserBlock />
       </header>
       <section className="catalog">
         <Link to={Url.MAIN} className="catalog__genres-link">Вернуться на главную</Link>

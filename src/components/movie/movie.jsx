@@ -1,11 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
-import {AuthorizationStatuses, MoviesAmmount, Url} from '../../consts';
-import MoviesList from '../movies-list/movies-list';
-import {MOVIES_PROP, REVIEW_PROP} from '../../utils/validate';
-import MovieTabs from '../movie-tabs/movie-tabs';
 import {connect} from 'react-redux';
+import {UserBlock} from '../user-block/user-block';
+import MoviesList from '../movies-list/movies-list';
+import MovieTabs from '../movie-tabs/movie-tabs';
+import {AuthorizationStatuses, MoviesAmmount, Url} from '../../consts';
+import {MOVIES_PROP, REVIEW_PROP} from '../../utils/validate';
+
 
 const getSimilarMovies = (films, genre, name) => films.filter((film) => film.genre === genre && film.name !== name);
 
@@ -35,11 +37,7 @@ const Movie = ({film, reviews, films, onPlayMovie, onAddFavoriteMovie, authoriza
                 <span className="logo__letter logo__letter--3">W</span>
               </Link>
             </div>
-            <div className="user-block">
-              <div className="user-block__avatar">
-                <img src="img/avatar.jpg" alt="User avatar" width={63} height={63} />
-              </div>
-            </div>
+            <UserBlock />
           </header>
           <div className="movie-card__wrap">
             <div className="movie-card__desc">
