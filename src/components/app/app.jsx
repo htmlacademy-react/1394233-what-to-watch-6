@@ -61,23 +61,23 @@ const App = ({films, reviews, authorizationStatus, loadFilm, loadedFilm, isFilmL
         <PrivateRoute exact
           path={Url.ADD_REVIEW}
           render={({match}) => {
-            const id = match.params.id;
+            const filmID = match.params.id;
             if (isFilmsLoaded) {
-              const film = films[id - 1];
+              const {name, posterImage, backgroundImage, id} = films[filmID - 1];
               return <AddReview
-                title={film.name}
-                poster={film.posterImage}
-                backgroundImage={film.backgroundImage}
-                id={film.id}
+                title={name}
+                poster={posterImage}
+                backgroundImage={backgroundImage}
+                id={id}
               />;
             }
             if (isFilmLoaded) {
-              const film = loadedFilm;
+              const {name, posterImage, backgroundImage, id} = loadedFilm;
               return <AddReview
-                title={film.name}
-                poster={film.posterImage}
-                backgroundImage={film.backgroundImage}
-                id={film.id}
+                title={name}
+                poster={posterImage}
+                backgroundImage={backgroundImage}
+                filmID={id}
               />;
             }
 
