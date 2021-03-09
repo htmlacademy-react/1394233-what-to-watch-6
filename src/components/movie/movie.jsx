@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
-import {UserBlock} from '../user-block/user-block';
+import UserBlock from '../user-block/user-block';
 import MoviesList from '../movies-list/movies-list';
 import MovieTabs from '../movie-tabs/movie-tabs';
 import {AuthorizationStatuses, MoviesAmmount, Url} from '../../consts';

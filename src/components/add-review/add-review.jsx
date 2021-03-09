@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
 import AddReviewForm from '../add-revierw-form/add-review-form';
-import {UserBlock} from '../user-block/user-block';
+import UserBlock from '../user-block/user-block';
 
 const AddReview = ({title, poster, backgroundImage, id}) => {
   return (

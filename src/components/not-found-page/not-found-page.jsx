@@ -1,6 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import {UserBlock} from '../user-block/user-block';
+import UserBlock from '../user-block/user-block';
 import {Url} from '../../consts';
 
 const NotFoundPage = () => {
