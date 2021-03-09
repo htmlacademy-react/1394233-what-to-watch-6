@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Urls} from '../../consts';
+import {Url} from '../../consts';
 import {useHistory} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {logout} from '../../store/api-actions';
@@ -14,7 +14,7 @@ const UserAvatar = ({userLogout}) => {
         userLogout();
       }}>Log Out</a>
       <div className="user-block__avatar" onClick={() => {
-        history.push(Urls.MY_LIST);
+        history.push(Url.MY_LIST);
       }}>
         <img src="img/avatar.jpg" alt="User avatar" width={63} height={63} />
       </div>

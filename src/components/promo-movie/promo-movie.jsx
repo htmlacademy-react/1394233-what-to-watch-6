@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {useHistory} from 'react-router-dom';
-import {Urls} from '../../consts';
+import {Url} from '../../consts';
 import {MOVIES_PROP} from '../../utils/validate';
 import {connect} from 'react-redux';
 import UserBlock from '../user-block/user-block';
@@ -47,7 +47,7 @@ const PromoMovie = ({promoMovie, resetAmountShowFilms}) => {
                 <span>Play</span>
               </button>
               <button className="btn btn--list movie-card__button" type="button" onClick={() => {
-                history.push(Urls.MY_LIST);
+                history.push(Url.MY_LIST);
                 resetAmountShowFilms();
               }}>
                 <svg viewBox="0 0 19 20" width={19} height={20}>

@@ -10,9 +10,12 @@ const initialState = {
   amountFilms: films.length,
   amountShowFilms: FILMS_AMOUNT_PER_STEP,
   films: [],
+  loadedFilm: {},
   promoMovie: films[0],
   reviews,
+  isActiveAddCommentForm: false,
   isFilmsLoaded: false,
+  isFilmLoaded: false,
   authorizationStatus: AuthorizationStatuses.NO_AUTH,
   isAuthorisationFailed: false,
   errorMessage: AuthorizationErrorMessage.DEFAULT,
@@ -46,6 +49,22 @@ const reducer = (state = initialState, action) => {
         films: action.payload,
         genres: Array.from(getGenres(action.payload).keys()),
         isFilmsLoaded: true,
+      };
+    case ActionType.LOAD_FILM:
+      return {
+        ...state,
+        loadedFilm: action.payload,
+        isFilmLoaded: true,
+      };
+    case ActionType.POST_COMMENT:
+      return {
+        ...state,
+        isActiveAddCommentForm: true,
+      };
+    case ActionType.ACTIVE_FORM:
+      return {
+        ...state,
+        isActiveAddCommentForm: action.payload,
       };
     case ActionType.AUTHORIZATION:
       return {

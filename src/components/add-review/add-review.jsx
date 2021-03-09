@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
 import AddReviewForm from '../add-revierw-form/add-review-form';
+import UserBlock from '../user-block/user-block';
 
 const AddReview = ({title, poster, backgroundImage, id}) => {
   return (
@@ -29,18 +30,16 @@ const AddReview = ({title, poster, backgroundImage, id}) => {
               </li>
             </ul>
           </nav>
-          <div className="user-block">
-            <div className="user-block__avatar">
-              <img src="img/avatar.jpg" alt="User avatar" width={63} height={63} />
-            </div>
-          </div>
+          <UserBlock />
         </header>
         <div className="movie-card__poster movie-card__poster--small">
           <img src={poster} alt={title} width={218} height={327} />
         </div>
       </div>
       <div className="add-review">
-        <AddReviewForm />
+        <AddReviewForm
+          id={id}
+        />
       </div>
     </section>
   );
