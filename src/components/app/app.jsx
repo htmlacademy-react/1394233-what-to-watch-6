@@ -68,7 +68,7 @@ const App = ({films, reviews, authorizationStatus, loadFilm, loadedFilm, isFilmL
                 title={name}
                 poster={posterImage}
                 backgroundImage={backgroundImage}
-                id={id}
+                filmID={id}
               />;
             }
             if (isFilmLoaded) {
