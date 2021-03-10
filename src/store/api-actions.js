@@ -1,3 +1,4 @@
+import browserHistory from "../browser-history";
 import {AuthorizationStatuses, Url} from "../consts";
 import {ActionCreator} from "./action";
 
@@ -90,5 +91,9 @@ export const login = ({login: email, password}) => (dispatch, _getState, api) =>
 export const logout = () => (dispatch, _getState, api) => (
   api.get(Routes.LOGOUT)
     .then(() => dispatch(ActionCreator.authorization(AuthorizationStatuses.NO_AUTH)))
-    .then(() => dispatch(ActionCreator.redirectToRoute(Url.MAIN)))
+    .then(() => {
+      if (browserHistory.location.pathname !== Url.MAIN) {
+        dispatch(ActionCreator.redirectToRoute(Url.MAIN));
+      }
+    })
 );
