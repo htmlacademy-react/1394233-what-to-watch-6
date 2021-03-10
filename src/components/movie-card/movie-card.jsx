@@ -5,7 +5,7 @@ import VideoPreview from '../video-preview/video-preview';
 import {connect} from 'react-redux';
 import {ActionCreator} from '../../store/action';
 
-const MovieCard = ({title, poster, id, setActiveIdFilm, previewVideoLink, resetAmountShowFilms}) => {
+const MovieCard = ({title, poster, id, previewVideoLink, resetAmountShowFilms}) => {
 
   const [isActive, setIsActive] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -22,7 +22,6 @@ const MovieCard = ({title, poster, id, setActiveIdFilm, previewVideoLink, resetA
   return (
     <article className="small-movie-card catalog__movies-card"
       onMouseEnter={() => {
-        setActiveIdFilm(id);
         onMouseEnterMovieCard();
       }}
       onMouseLeave={() => onMouseLeaveMovieCard()}>
@@ -40,7 +39,6 @@ MovieCard.propTypes = {
   poster: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   id: PropTypes.number.isRequired,
-  setActiveIdFilm: PropTypes.func.isRequired,
   previewVideoLink: PropTypes.string.isRequired,
   resetAmountShowFilms: PropTypes.func.isRequired
 };
