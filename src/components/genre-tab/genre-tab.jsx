@@ -29,10 +29,10 @@ GenreTab.propTypes = {
   tab: PropTypes.string.isRequired
 };
 
-const mapStateToProps = ({genre, films, genres}) => ({
-  genre,
-  films,
-  genres,
+const mapStateToProps = ({GENRE, FILMS}) => ({
+  genre: GENRE.genre,
+  films: FILMS.films,
+  genres: FILMS.genres,
 });
 
 const mapDispatchToProps = (dispatch) => ({

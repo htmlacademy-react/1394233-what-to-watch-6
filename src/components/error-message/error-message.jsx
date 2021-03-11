@@ -15,9 +15,8 @@ ErrorMessage.propTypes = {
   errorMessage: PropTypes.string.isRequired,
 };
 
-
-const mapStateToProps = ({errorMessage}) => ({
-  errorMessage,
+const mapStateToProps = ({AUTH}) => ({
+  errorMessage: AUTH.errorMessage,
 });
 
 export {ErrorMessage};

@@ -68,8 +68,8 @@ const mapDispatchToProps = (dispatch) => ({
   }
 });
 
-const mapStateToProps = ({isActiveAddCommentForm}) => ({
-  isActiveForm: isActiveAddCommentForm,
+const mapStateToProps = ({COMMENT}) => ({
+  isActiveForm: COMMENT.isActiveAddCommentForm,
 });
 
 export {AddReviewForm};

@@ -17,8 +17,6 @@ RatingStar.propTypes = {
   setUserReviewRating: PropTypes.func.isRequired
 };
 
-// export default RatingStar;
-
 export default memo(RatingStar, (prevProps, nextProps) => {
   return prevProps.rating === nextProps.rating;
 });

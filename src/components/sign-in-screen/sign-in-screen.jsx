@@ -91,8 +91,8 @@ const mapDispatchToProps = (dispatch) => ({
   }
 });
 
-const mapStateToProps = ({isAuthorisationFailed}) => ({
-  isAuthorisationFailed,
+const mapStateToProps = ({AUTH}) => ({
+  isAuthorisationFailed: AUTH.isAuthorisationFailed,
 });
 
 export {SignInScreen};

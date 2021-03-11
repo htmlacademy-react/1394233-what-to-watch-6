@@ -39,12 +39,12 @@ const mapDispatchToProps = (dispatch) => ({
   },
 });
 
-const mapStateToProps = ({genre, films, amountFilms, amountShowFilms, isFilmsLoaded}) => ({
-  genre,
-  films,
-  amountFilms,
-  amountShowFilms,
-  isFilmsLoaded
+const mapStateToProps = ({GENRE, FILMS}) => ({
+  genre: GENRE.genre,
+  films: FILMS.films,
+  amountFilms: FILMS.amountFilms,
+  amountShowFilms: FILMS.amountShowFilms,
+  isFilmsLoaded: FILMS.isFilmsLoaded
 });
 
 export {Catalog};

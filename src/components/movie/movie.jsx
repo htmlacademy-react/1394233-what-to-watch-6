@@ -115,9 +115,9 @@ Movie.propTypes = {
   authorizationStatus: PropTypes.string.isRequired
 };
 
-const mapStateToProps = ({films, authorizationStatus}) => ({
-  films,
-  authorizationStatus
+const mapStateToProps = ({FILMS, AUTH}) => ({
+  films: FILMS.films,
+  authorizationStatus: AUTH.authorizationStatus
 });
 
 export {Movie};

@@ -48,8 +48,8 @@ MyList.propTypes = {
   films: PropTypes.arrayOf(PropTypes.shape(MOVIES_PROP).isRequired).isRequired,
 };
 
-const mapStateToProps = ({films}) => ({
-  films,
+const mapStateToProps = ({FILMS}) => ({
+  films: FILMS.films,
 });
 
 export {MyList};

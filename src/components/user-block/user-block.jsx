@@ -17,8 +17,8 @@ UserBlock.propTypes = {
   authorizationStatus: PropTypes.string.isRequired,
 };
 
-const mapStateToProps = ({authorizationStatus}) => ({
-  authorizationStatus,
+const mapStateToProps = ({AUTH}) => ({
+  authorizationStatus: AUTH.authorizationStatus,
 });
 
 export {UserBlock};

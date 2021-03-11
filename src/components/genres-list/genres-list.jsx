@@ -28,8 +28,8 @@ const mapDispatchToProps = (dispatch) => ({
   },
 });
 
-const mapStateToProps = ({genres}) => ({
-  genres,
+const mapStateToProps = ({FILMS}) => ({
+  genres: FILMS.genres,
 });
 
 export {GenresList};

@@ -39,8 +39,8 @@ Main.propTypes = {
   loadFilms: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = ({isFilmsLoaded}) => ({
-  isFilmsLoaded
+const mapStateToProps = ({FILMS}) => ({
+  isFilmsLoaded: FILMS.isFilmsLoaded
 });
 
 const mapDispatchToProps = (dispatch) => ({

@@ -69,8 +69,8 @@ PromoMovie.propTypes = {
 };
 
 
-const mapStateToProps = ({promoMovie}) => ({
-  promoMovie,
+const mapStateToProps = ({FILM}) => ({
+  promoMovie: FILM.promoMovie,
 });
 
 const mapDispatchToProps = (dispatch) => ({

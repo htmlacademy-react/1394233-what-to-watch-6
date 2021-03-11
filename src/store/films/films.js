@@ -2,9 +2,11 @@ import {ActionType} from '../action';
 import {getGenres} from '../../utils/common';
 import {FILMS_AMOUNT_PER_STEP} from '../../consts';
 
+const INITIAL_AMOUNT_FILMS = 0;
+
 const initialState = {
   genres: [],
-  amountFilms: null,
+  amountFilms: INITIAL_AMOUNT_FILMS,
   amountShowFilms: FILMS_AMOUNT_PER_STEP,
   films: [],
   isFilmsLoaded: false,
