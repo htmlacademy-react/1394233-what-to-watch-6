@@ -13,6 +13,7 @@ const MoviesList = ({films, maxFilms}) => {
         title={film.name}
         poster={film.previeImage}
         previewVideoLink = {film.previewVideoLink}
+        genre={film.genre}
       />)}
     </div>
   );

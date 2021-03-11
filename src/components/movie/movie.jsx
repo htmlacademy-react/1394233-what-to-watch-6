@@ -9,10 +9,9 @@ import {AuthorizationStatuses, MoviesAmmount, Url} from '../../consts';
 import {MOVIES_PROP, REVIEW_PROP} from '../../utils/validate';
 import {getSimmilarMoviesWithGenre} from '../../store/films/selectors';
 import {getAuthorizationStatus} from '../../store/auth/selectors';
-import {ActionCreator} from '../../store/action';
 
 
-const Movie = ({film, reviews, films, onPlayMovie, onAddFavoriteMovie, authorizationStatus, getFilmGenre, getFilmName}) => {
+const Movie = ({film, reviews, films, onPlayMovie, onAddFavoriteMovie, authorizationStatus}) => {
   const {
     backgroundImage,
     name,
@@ -21,9 +20,6 @@ const Movie = ({film, reviews, films, onPlayMovie, onAddFavoriteMovie, authoriza
     posterImage,
     id
   } = film;
-
-  getFilmName(name);
-  getFilmGenre(genre);
 
   return (
     <React.Fragment>
@@ -115,8 +111,6 @@ Movie.propTypes = {
   film: PropTypes.shape(MOVIES_PROP).isRequired,
   reviews: PropTypes.arrayOf(PropTypes.shape(REVIEW_PROP)).isRequired,
   onPlayMovie: PropTypes.func.isRequired,
-  getFilmGenre: PropTypes.func.isRequired,
-  getFilmName: PropTypes.func.isRequired,
   onAddFavoriteMovie: PropTypes.func.isRequired,
   authorizationStatus: PropTypes.string.isRequired
 };
@@ -126,14 +120,6 @@ const mapStateToProps = (state) => ({
   authorizationStatus: getAuthorizationStatus(state)
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  getFilmGenre(genre) {
-    dispatch(ActionCreator.getFilmGenre(genre));
-  },
-  getFilmName(name) {
-    dispatch(ActionCreator.getFilmName(name));
-  },
-});
 
 export {Movie};
-export default connect(mapStateToProps, mapDispatchToProps)(Movie);
+export default connect(mapStateToProps)(Movie);
