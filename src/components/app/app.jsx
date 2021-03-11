@@ -1,7 +1,6 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import {Switch, Route, Router as BrowserRouter, Redirect} from 'react-router-dom';
-import {connect} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import PrivateRoute from '../private-route/private-route';
 import Main from '../main/main';
 import Movie from '../movie/movie';
@@ -12,15 +11,17 @@ import Player from '../player/player';
 import NotFoundPage from '../not-found-page/not-found-page';
 import browserHistory from "../../browser-history";
 import {AuthorizationStatuses, Url} from '../../consts';
-import {MOVIES_PROP, REVIEW_PROP, MOVIES_NOT_REQUIRE_PROP} from '../../utils/validate';
 import {fetchFilm} from '../../store/api-actions';
 import LoadingScreen from '../loading-screen/loading-screen';
-import {getFilms, getFilmsLoadedStatus} from '../../store/films/selectors';
-import {getFilmLoadedStatus, getLoadedFilm} from '../../store/film/selectors';
-import {getReviews} from '../../store/comment/selectors';
-import {getAuthorizationStatus} from '../../store/auth/selectors';
 
-const App = ({films, reviews, authorizationStatus, loadFilm, loadedFilm, isFilmLoaded, isFilmsLoaded}) => {
+const App = () => {
+  const {films, isFilmsLoaded} = useSelector((state) => state.FILMS);
+  const {loadedFilm, isFilmLoaded} = useSelector((state) => state.FILM);
+  const {authorizationStatus} = useSelector((state) => state.AUTH);
+  const {reviews} = useSelector((state) => state.COMMENT);
+
+  const dispatch = useDispatch();
+
   return (
     <BrowserRouter history={browserHistory}>
       <Switch>
@@ -51,7 +52,7 @@ const App = ({films, reviews, authorizationStatus, loadFilm, loadedFilm, isFilmL
             />;
           }
           if (!isFilmLoaded) {
-            loadFilm(id);
+            dispatch(fetchFilm(id));
             return <LoadingScreen />;
           }
           return <Movie
@@ -107,31 +108,4 @@ const App = ({films, reviews, authorizationStatus, loadFilm, loadedFilm, isFilmL
   );
 };
 
-App.propTypes = {
-  films: PropTypes.arrayOf(PropTypes.shape(MOVIES_PROP).isRequired).isRequired,
-  loadedFilm: PropTypes.shape(MOVIES_NOT_REQUIRE_PROP).isRequired,
-  loadFilm: PropTypes.func.isRequired,
-  isFilmLoaded: PropTypes.bool.isRequired,
-  isFilmsLoaded: PropTypes.bool.isRequired,
-  reviews: PropTypes.objectOf(PropTypes.arrayOf(PropTypes.shape(REVIEW_PROP))).isRequired,
-  authorizationStatus: PropTypes.string.isRequired
-};
-
-const mapStateToProps = (state) => ({
-  films: getFilms(state),
-  loadedFilm: getLoadedFilm(state),
-  reviews: getReviews(state),
-  authorizationStatus: getAuthorizationStatus(state),
-  isFilmLoaded: getFilmLoadedStatus(state),
-  isFilmsLoaded: getFilmsLoadedStatus(state)
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  loadFilm(id) {
-    dispatch(fetchFilm(id));
-  },
-});
-
-
-export {App};
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default App;
