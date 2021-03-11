@@ -1,9 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {applyMiddleware, createStore} from 'redux';
 import {Provider} from 'react-redux';
-import {composeWithDevTools} from 'redux-devtools-extension';
-import thunk from "redux-thunk";
+import {configureStore} from '@reduxjs/toolkit';
 import {createAPI} from "./services/api";
 import App from './components/app/app';
 import mainReducer from './store/main-reducer';
@@ -17,13 +15,15 @@ const api = createAPI(
     () => store.dispatch(ActionCreator.authorizationFailed())
 );
 
-const store = createStore(
-    mainReducer,
-    composeWithDevTools(
-        applyMiddleware(thunk.withExtraArgument(api)),
-        applyMiddleware(redirect)
-    )
-);
+const store = configureStore({
+  reducer: mainReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      thunk: {
+        extraArgument: api
+      },
+    }).concat(redirect)
+});
 
 store.dispatch(checkLogin());
 
