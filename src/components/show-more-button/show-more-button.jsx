@@ -1,25 +1,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {ActionCreator} from '../../store/action';
+import {showMoreFilms} from '../../store/action';
 
-const ShowMoreButton = ({showMoreFilms}) => {
+const ShowMoreButton = ({showMoreMovies}) => {
   return (
     <div className="catalog__more">
       <button className="catalog__button" type="button" onClick={() => {
-        showMoreFilms();
+        showMoreMovies();
       }}>Show more</button>
     </div>
   );
 };
 
 ShowMoreButton.propTypes = {
-  showMoreFilms: PropTypes.func.isRequired,
+  showMoreMovies: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  showMoreFilms() {
-    dispatch(ActionCreator.showMoreFilms());
+  showMoreMovies() {
+    dispatch(showMoreFilms());
   },
 });
 

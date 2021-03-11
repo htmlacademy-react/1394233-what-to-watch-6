@@ -5,14 +5,14 @@ import {configureStore} from '@reduxjs/toolkit';
 import {createAPI} from "./services/api";
 import App from './components/app/app';
 import mainReducer from './store/main-reducer';
-import {ActionCreator} from './store/action';
+import {authorization, authorizationFailed} from './store/action';
 import {AuthorizationStatuses} from './consts';
 import {checkLogin} from './store/api-actions';
 import {redirect} from "./store/middlewares/redirect";
 
 const api = createAPI(
-    () => store.dispatch(ActionCreator.authorization(AuthorizationStatuses.NO_AUTH)),
-    () => store.dispatch(ActionCreator.authorizationFailed())
+    () => store.dispatch(authorization(AuthorizationStatuses.NO_AUTH)),
+    () => store.dispatch(authorizationFailed())
 );
 
 const store = configureStore({

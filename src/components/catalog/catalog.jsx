@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {ActionCreator} from '../../store/action';
+import {changeGenres} from '../../store/action';
 import GenresList from '../genres-list/genres-list';
 import MoviesList from '../movies-list/movies-list';
 import LoadingScreen from '../loading-screen/loading-screen';
@@ -36,7 +36,7 @@ Catalog.propTypes = {
 
 const mapDispatchToProps = (dispatch) => ({
   onChangeGenres(type) {
-    dispatch(ActionCreator.changeGenres(type));
+    dispatch(changeGenres(type));
   },
 });
 

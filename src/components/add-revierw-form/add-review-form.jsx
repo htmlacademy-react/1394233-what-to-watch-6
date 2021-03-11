@@ -2,8 +2,8 @@ import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import RatingStar from '../rating-star/rating-star';
-import {postComment} from '../../store/api-actions';
-import {ActionCreator} from '../../store/action';
+import {addComment} from '../../store/api-actions';
+import {activeForm} from '../../store/action';
 import {getActiveCommentFormStatus} from '../../store/comment/selectors';
 
 const RATING_STARS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
@@ -62,10 +62,10 @@ AddReviewForm.propTypes = {
 
 const mapDispatchToProps = (dispatch) => ({
   submit(filmID, comment) {
-    dispatch(postComment(filmID, comment));
+    dispatch(addComment(filmID, comment));
   },
   activateForm(boolean) {
-    dispatch(ActionCreator.activeForm(boolean));
+    dispatch(activeForm(boolean));
   }
 });
 

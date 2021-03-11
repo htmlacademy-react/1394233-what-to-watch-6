@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
 import VideoPreview from '../video-preview/video-preview';
 import {connect} from 'react-redux';
-import {ActionCreator} from '../../store/action';
+import {getFilmGenre, getFilmName, resetAmountShowFilms} from '../../store/action';
 
-const MovieCard = ({title, poster, id, genre, previewVideoLink, resetAmountShowFilms, getFilmName, getFilmGenre}) => {
+const MovieCard = ({title, poster, id, genre, previewVideoLink, resetShowFilmsAmount, getName, getGenre}) => {
 
   const [isActive, setIsActive] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -30,9 +30,9 @@ const MovieCard = ({title, poster, id, genre, previewVideoLink, resetAmountShowF
       </div>
       <h3 className="small-movie-card__title">
         <Link className="small-movie-card__link" to={`/films/${id}`} onClick={() => {
-          resetAmountShowFilms();
-          getFilmName(title);
-          getFilmGenre(genre);
+          resetShowFilmsAmount();
+          getName(title);
+          getGenre(genre);
         }}>{title}</Link>
       </h3>
     </article>
@@ -45,20 +45,20 @@ MovieCard.propTypes = {
   genre: PropTypes.string.isRequired,
   id: PropTypes.number.isRequired,
   previewVideoLink: PropTypes.string.isRequired,
-  resetAmountShowFilms: PropTypes.func.isRequired,
-  getFilmGenre: PropTypes.func.isRequired,
-  getFilmName: PropTypes.func.isRequired,
+  resetShowFilmsAmount: PropTypes.func.isRequired,
+  getGenre: PropTypes.func.isRequired,
+  getName: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  resetAmountShowFilms() {
-    dispatch(ActionCreator.resetAmountShowFilms());
+  resetShowFilmsAmount() {
+    dispatch(resetAmountShowFilms());
   },
-  getFilmGenre(genre) {
-    dispatch(ActionCreator.getFilmGenre(genre));
+  getGenre(genre) {
+    dispatch(getFilmGenre(genre));
   },
-  getFilmName(name) {
-    dispatch(ActionCreator.getFilmName(name));
+  getName(name) {
+    dispatch(getFilmName(name));
   },
 });
 
