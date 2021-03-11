@@ -6,6 +6,7 @@ import MoviesList from '../movies-list/movies-list';
 import UserBlock from '../user-block/user-block';
 import {MoviesAmmount, Url} from '../../consts';
 import {MOVIES_PROP} from '../../utils/validate';
+import {getFilms} from '../../store/films/selectors';
 
 const MyList = ({films}) => {
   return (
@@ -48,8 +49,8 @@ MyList.propTypes = {
   films: PropTypes.arrayOf(PropTypes.shape(MOVIES_PROP).isRequired).isRequired,
 };
 
-const mapStateToProps = ({FILMS}) => ({
-  films: FILMS.films,
+const mapStateToProps = (state) => ({
+  films: getFilms(state),
 });
 
 export {MyList};

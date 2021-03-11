@@ -6,6 +6,7 @@ import {MOVIES_PROP} from '../../utils/validate';
 import {connect} from 'react-redux';
 import UserBlock from '../user-block/user-block';
 import {ActionCreator} from '../../store/action';
+import {getPromoMovie} from '../../store/film/selectors';
 
 const PromoMovie = ({promoMovie, resetAmountShowFilms}) => {
   const history = useHistory();
@@ -69,8 +70,8 @@ PromoMovie.propTypes = {
 };
 
 
-const mapStateToProps = ({FILM}) => ({
-  promoMovie: FILM.promoMovie,
+const mapStateToProps = (state) => ({
+  promoMovie: getPromoMovie(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

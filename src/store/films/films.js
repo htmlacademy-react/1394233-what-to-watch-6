@@ -1,5 +1,5 @@
 import {ActionType} from '../action';
-import {getGenres} from '../../utils/common';
+import {getGenresName} from '../../utils/common';
 import {FILMS_AMOUNT_PER_STEP} from '../../consts';
 
 const INITIAL_AMOUNT_FILMS = 0;
@@ -33,7 +33,7 @@ const films = (state = initialState, action) => {
       return {
         ...state,
         films: action.payload,
-        genres: Array.from(getGenres(action.payload).keys()),
+        genres: Array.from(getGenresName(action.payload).keys()),
         isFilmsLoaded: true,
       };
   }

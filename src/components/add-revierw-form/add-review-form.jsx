@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import RatingStar from '../rating-star/rating-star';
 import {postComment} from '../../store/api-actions';
 import {ActionCreator} from '../../store/action';
+import {getActiveCommentFormStatus} from '../../store/comment/selectors';
 
 const RATING_STARS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 const DEFAULT_RATING = 10;
@@ -68,8 +69,8 @@ const mapDispatchToProps = (dispatch) => ({
   }
 });
 
-const mapStateToProps = ({COMMENT}) => ({
-  isActiveForm: COMMENT.isActiveAddCommentForm,
+const mapStateToProps = (state) => ({
+  isActiveForm: getActiveCommentFormStatus(state),
 });
 
 export {AddReviewForm};

@@ -7,6 +7,8 @@ import MoviesList from '../movies-list/movies-list';
 import MovieTabs from '../movie-tabs/movie-tabs';
 import {AuthorizationStatuses, MoviesAmmount, Url} from '../../consts';
 import {MOVIES_PROP, REVIEW_PROP} from '../../utils/validate';
+import {getFilms} from '../../store/films/selectors';
+import {getAuthorizationStatus} from '../../store/auth/selectors';
 
 
 const getSimilarMovies = (films, genre, name) => films.filter((film) => film.genre === genre && film.name !== name);
@@ -115,9 +117,9 @@ Movie.propTypes = {
   authorizationStatus: PropTypes.string.isRequired
 };
 
-const mapStateToProps = ({FILMS, AUTH}) => ({
-  films: FILMS.films,
-  authorizationStatus: AUTH.authorizationStatus
+const mapStateToProps = (state) => ({
+  films: getFilms(state),
+  authorizationStatus: getAuthorizationStatus(state)
 });
 
 export {Movie};

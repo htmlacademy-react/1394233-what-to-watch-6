@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
+import {getErrorMessage} from '../../store/auth/selectors';
 
 const ErrorMessage = ({errorMessage}) => {
   return (
@@ -15,8 +16,8 @@ ErrorMessage.propTypes = {
   errorMessage: PropTypes.string.isRequired,
 };
 
-const mapStateToProps = ({AUTH}) => ({
-  errorMessage: AUTH.errorMessage,
+const mapStateToProps = (state) => ({
+  errorMessage: getErrorMessage(state),
 });
 
 export {ErrorMessage};

@@ -8,6 +8,8 @@ import LoadingScreen from '../loading-screen/loading-screen';
 import ShowMoreButton from '../show-more-button/show-more-button';
 import {getFilteredMovies} from '../../utils/common';
 import {MOVIES_PROP} from '../../utils/validate';
+import {getActiveGenre} from '../../store/genre/selectors';
+import {getAmountFilms, getAmountShowFilms, getFilms, getFilmsLoadedStatus} from '../../store/films/selectors';
 
 const Catalog = ({genre, films, amountFilms, amountShowFilms, isFilmsLoaded}) => {
   return (
@@ -39,12 +41,12 @@ const mapDispatchToProps = (dispatch) => ({
   },
 });
 
-const mapStateToProps = ({GENRE, FILMS}) => ({
-  genre: GENRE.genre,
-  films: FILMS.films,
-  amountFilms: FILMS.amountFilms,
-  amountShowFilms: FILMS.amountShowFilms,
-  isFilmsLoaded: FILMS.isFilmsLoaded
+const mapStateToProps = (state) => ({
+  genre: getActiveGenre(state),
+  films: getFilms(state),
+  amountFilms: getAmountFilms(state),
+  amountShowFilms: getAmountShowFilms(state),
+  isFilmsLoaded: getFilmsLoadedStatus(state)
 });
 
 export {Catalog};

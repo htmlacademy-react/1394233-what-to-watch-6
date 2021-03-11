@@ -4,6 +4,7 @@ import PromoMovie from '../promo-movie/promo-movie';
 import Catalog from '../catalog/catalog';
 import {connect} from 'react-redux';
 import {fetchFilmsList} from "../../store/api-actions";
+import {getFilmsLoadedStatus} from '../../store/films/selectors';
 
 const Main = ({isFilmsLoaded, loadFilms}) => {
   useEffect(() => {
@@ -39,8 +40,8 @@ Main.propTypes = {
   loadFilms: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = ({FILMS}) => ({
-  isFilmsLoaded: FILMS.isFilmsLoaded
+const mapStateToProps = (state) => ({
+  isFilmsLoaded: getFilmsLoadedStatus(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({

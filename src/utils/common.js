@@ -10,7 +10,7 @@ export const getDuration = (duration) => {
 
 export const getFilteredMovies = (movies, genre) => genre === ALL_GENRES_NAME_TAB ? movies : movies.filter((movie) => movie.genre === genre);
 
-export const getGenres = (films) => {
+export const getGenresName = (films) => {
   let genres = new Map();
   genres.set(ALL_GENRES_NAME_TAB, ALL_GENRES_NAME_TAB);
 

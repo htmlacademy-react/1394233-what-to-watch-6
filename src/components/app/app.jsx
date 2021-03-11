@@ -15,6 +15,10 @@ import {AuthorizationStatuses, Url} from '../../consts';
 import {MOVIES_PROP, REVIEW_PROP, MOVIES_NOT_REQUIRE_PROP} from '../../utils/validate';
 import {fetchFilm} from '../../store/api-actions';
 import LoadingScreen from '../loading-screen/loading-screen';
+import {getFilms, getFilmsLoadedStatus} from '../../store/films/selectors';
+import {getFilmLoadedStatus, getLoadedFilm} from '../../store/film/selectors';
+import {getReviews} from '../../store/comment/selectors';
+import {getAuthorizationStatus} from '../../store/auth/selectors';
 
 const App = ({films, reviews, authorizationStatus, loadFilm, loadedFilm, isFilmLoaded, isFilmsLoaded}) => {
   return (
@@ -113,13 +117,13 @@ App.propTypes = {
   authorizationStatus: PropTypes.string.isRequired
 };
 
-const mapStateToProps = ({FILMS, FILM, COMMENT, AUTH}) => ({
-  films: FILMS.films,
-  loadedFilm: FILM.loadedFilm,
-  reviews: COMMENT.reviews,
-  authorizationStatus: AUTH.authorizationStatus,
-  isFilmLoaded: FILM.isFilmLoaded,
-  isFilmsLoaded: FILMS.isFilmsLoaded
+const mapStateToProps = (state) => ({
+  films: getFilms(state),
+  loadedFilm: getLoadedFilm(state),
+  reviews: getReviews(state),
+  authorizationStatus: getAuthorizationStatus(state),
+  isFilmLoaded: getFilmLoadedStatus(state),
+  isFilmsLoaded: getFilmsLoadedStatus(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({
