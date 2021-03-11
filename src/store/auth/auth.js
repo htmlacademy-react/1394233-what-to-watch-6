@@ -1,3 +1,4 @@
+import {createReducer} from '@reduxjs/toolkit';
 import {ActionType} from '../action';
 import {AuthorizationErrorMessage, AuthorizationStatuses} from '../../consts';
 
@@ -7,24 +8,16 @@ const initialState = {
   errorMessage: AuthorizationErrorMessage.DEFAULT,
 };
 
-const auth = (state = initialState, action) => {
-  switch (action.type) {
-    case ActionType.AUTHORIZATION:
-      return {
-        ...state,
-        authorizationStatus: action.payload,
-        isAuthorisationFailed: false,
-        errorMessage: AuthorizationErrorMessage.DEFAULT,
-      };
-    case ActionType.AUTHORIZATION_FAILED:
-      return {
-        ...state,
-        errorMessage: action.payload,
-        isAuthorisationFailed: true
-      };
-  }
-
-  return state;
-};
+const auth = createReducer(initialState, (builder) => {
+  builder.addCase(ActionType.AUTHORIZATION, (state, action) => {
+    state.isAuthorisationFailed = false;
+    state.authorizationStatus = action.payload;
+    state.errorMessage = AuthorizationErrorMessage.DEFAULT;
+  });
+  builder.addCase(ActionType.AUTHORIZATION_FAILED, (state, action) => {
+    state.isAuthorisationFailed = true;
+    state.errorMessage = action.payload;
+  });
+});
 
 export {auth};
