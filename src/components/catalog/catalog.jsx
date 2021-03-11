@@ -6,10 +6,9 @@ import GenresList from '../genres-list/genres-list';
 import MoviesList from '../movies-list/movies-list';
 import LoadingScreen from '../loading-screen/loading-screen';
 import ShowMoreButton from '../show-more-button/show-more-button';
-import {getFilteredMovies} from '../../utils/common';
 import {MOVIES_PROP} from '../../utils/validate';
 import {getActiveGenre} from '../../store/genre/selectors';
-import {getAmountFilms, getAmountShowFilms, getFilms, getFilmsLoadedStatus} from '../../store/films/selectors';
+import {getAmountFilms, getAmountShowFilms, getFilmsLoadedStatus, getFilmsWithGenre} from '../../store/films/selectors';
 
 const Catalog = ({genre, films, amountFilms, amountShowFilms, isFilmsLoaded}) => {
   return (
@@ -19,7 +18,7 @@ const Catalog = ({genre, films, amountFilms, amountShowFilms, isFilmsLoaded}) =>
         genre={genre}
       />
       {isFilmsLoaded ? <MoviesList
-        films={getFilteredMovies(films, genre)}
+        films={films}
         maxFilms={amountShowFilms}
       /> : <LoadingScreen />}
       {amountShowFilms < amountFilms ? <ShowMoreButton /> : ``}
@@ -43,7 +42,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 const mapStateToProps = (state) => ({
   genre: getActiveGenre(state),
-  films: getFilms(state),
+  films: getFilmsWithGenre(state),
   amountFilms: getAmountFilms(state),
   amountShowFilms: getAmountShowFilms(state),
   isFilmsLoaded: getFilmsLoadedStatus(state)

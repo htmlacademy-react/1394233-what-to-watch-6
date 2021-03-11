@@ -7,6 +7,8 @@ export const ActionType = {
   CHANGE_AMOUNT_FILMS: `films/changeAmount`,
   LOAD_FILMS: `films/load`,
   LOAD_FILM: `film/load`,
+  FILM_GENRE: `film/genre`,
+  FILM_NAME: `film/name`,
   LOAD_COMMENTS: `comments/load`,
   POST_COMMENT: `comment/post`,
   ACTIVE_FORM: `comment/activeForm`,
@@ -37,6 +39,14 @@ export const ActionCreator = {
   loadFilm: (film) => ({
     type: ActionType.LOAD_FILM,
     payload: film
+  }),
+  getFilmGenre: (genre) => ({
+    type: ActionType.FILM_GENRE,
+    payload: genre
+  }),
+  getFilmName: (name) => ({
+    type: ActionType.FILM_NAME,
+    payload: name
   }),
   postComment: () => ({
     type: ActionType.POST_COMMENT,

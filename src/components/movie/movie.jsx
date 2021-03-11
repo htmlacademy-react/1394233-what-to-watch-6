@@ -7,13 +7,12 @@ import MoviesList from '../movies-list/movies-list';
 import MovieTabs from '../movie-tabs/movie-tabs';
 import {AuthorizationStatuses, MoviesAmmount, Url} from '../../consts';
 import {MOVIES_PROP, REVIEW_PROP} from '../../utils/validate';
-import {getFilms} from '../../store/films/selectors';
+import {getSimmilarMoviesWithGenre} from '../../store/films/selectors';
 import {getAuthorizationStatus} from '../../store/auth/selectors';
+import {ActionCreator} from '../../store/action';
 
 
-const getSimilarMovies = (films, genre, name) => films.filter((film) => film.genre === genre && film.name !== name);
-
-const Movie = ({film, reviews, films, onPlayMovie, onAddFavoriteMovie, authorizationStatus}) => {
+const Movie = ({film, reviews, films, onPlayMovie, onAddFavoriteMovie, authorizationStatus, getFilmGenre, getFilmName}) => {
   const {
     backgroundImage,
     name,
@@ -22,6 +21,9 @@ const Movie = ({film, reviews, films, onPlayMovie, onAddFavoriteMovie, authoriza
     posterImage,
     id
   } = film;
+
+  getFilmName(name);
+  getFilmGenre(genre);
 
   return (
     <React.Fragment>
@@ -87,7 +89,7 @@ const Movie = ({film, reviews, films, onPlayMovie, onAddFavoriteMovie, authoriza
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
           <MoviesList
-            films={getSimilarMovies(films, genre, name)}
+            films={films}
             maxFilms={MoviesAmmount.MOVIE_PAGE}
           />
         </section>
@@ -113,14 +115,25 @@ Movie.propTypes = {
   film: PropTypes.shape(MOVIES_PROP).isRequired,
   reviews: PropTypes.arrayOf(PropTypes.shape(REVIEW_PROP)).isRequired,
   onPlayMovie: PropTypes.func.isRequired,
+  getFilmGenre: PropTypes.func.isRequired,
+  getFilmName: PropTypes.func.isRequired,
   onAddFavoriteMovie: PropTypes.func.isRequired,
   authorizationStatus: PropTypes.string.isRequired
 };
 
 const mapStateToProps = (state) => ({
-  films: getFilms(state),
+  films: getSimmilarMoviesWithGenre(state),
   authorizationStatus: getAuthorizationStatus(state)
 });
 
+const mapDispatchToProps = (dispatch) => ({
+  getFilmGenre(genre) {
+    dispatch(ActionCreator.getFilmGenre(genre));
+  },
+  getFilmName(name) {
+    dispatch(ActionCreator.getFilmName(name));
+  },
+});
+
 export {Movie};
-export default connect(mapStateToProps)(Movie);
+export default connect(mapStateToProps, mapDispatchToProps)(Movie);

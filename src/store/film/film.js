@@ -5,6 +5,8 @@ const initialState = {
   loadedFilm: {},
   isFilmLoaded: false,
   promoMovie: films[0],
+  activeFilmGenre: ``,
+  activeFilmName: ``
 };
 
 const film = (state = initialState, action) => {
@@ -14,6 +16,16 @@ const film = (state = initialState, action) => {
         ...state,
         loadedFilm: action.payload,
         isFilmLoaded: true,
+      };
+    case ActionType.FILM_GENRE:
+      return {
+        ...state,
+        activeFilmGenre: action.payload,
+      };
+    case ActionType.FILM_NAME:
+      return {
+        ...state,
+        activeFilmName: action.payload,
       };
   }
 
