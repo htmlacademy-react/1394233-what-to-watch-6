@@ -5,9 +5,10 @@ import {Url} from '../../consts';
 import {MOVIES_PROP} from '../../utils/validate';
 import {connect} from 'react-redux';
 import UserBlock from '../user-block/user-block';
-import {ActionCreator} from '../../store/action';
+import {resetAmountShowFilms} from '../../store/action';
+import {getPromoMovie} from '../../store/film/selectors';
 
-const PromoMovie = ({promoMovie, resetAmountShowFilms}) => {
+const PromoMovie = ({promoMovie, resetShowFilmsAmount}) => {
   const history = useHistory();
   return (
     <section className="movie-card">
@@ -39,7 +40,7 @@ const PromoMovie = ({promoMovie, resetAmountShowFilms}) => {
             <div className="movie-card__buttons">
               <button className="btn btn--play movie-card__button" type="button" onClick={() => {
                 history.push(`/player/${promoMovie.id}`);
-                resetAmountShowFilms();
+                resetShowFilmsAmount();
               }}>
                 <svg viewBox="0 0 19 19" width={19} height={19}>
                   <use xlinkHref="#play-s" />
@@ -65,17 +66,17 @@ const PromoMovie = ({promoMovie, resetAmountShowFilms}) => {
 
 PromoMovie.propTypes = {
   promoMovie: PropTypes.shape(MOVIES_PROP).isRequired,
-  resetAmountShowFilms: PropTypes.func.isRequired
+  resetShowFilmsAmount: PropTypes.func.isRequired
 };
 
 
-const mapStateToProps = ({promoMovie}) => ({
-  promoMovie,
+const mapStateToProps = (state) => ({
+  promoMovie: getPromoMovie(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  resetAmountShowFilms() {
-    dispatch(ActionCreator.resetAmountShowFilms());
+  resetShowFilmsAmount() {
+    dispatch(resetAmountShowFilms());
   },
 });
 

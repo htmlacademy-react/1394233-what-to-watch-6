@@ -3,8 +3,10 @@ import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import MoviesList from '../movies-list/movies-list';
+import UserBlock from '../user-block/user-block';
 import {MoviesAmmount, Url} from '../../consts';
 import {MOVIES_PROP} from '../../utils/validate';
+import {getFilms} from '../../store/films/selectors';
 
 const MyList = ({films}) => {
   return (
@@ -18,11 +20,7 @@ const MyList = ({films}) => {
           </Link>
         </div>
         <h1 className="page-title user-page__title">My list</h1>
-        <div className="user-block">
-          <div className="user-block__avatar">
-            <img src="img/avatar.jpg" alt="User avatar" width={63} height={63} />
-          </div>
-        </div>
+        <UserBlock />
       </header>
       <section className="catalog">
         <h2 className="catalog__title visually-hidden">Catalog</h2>
@@ -51,8 +49,8 @@ MyList.propTypes = {
   films: PropTypes.arrayOf(PropTypes.shape(MOVIES_PROP).isRequired).isRequired,
 };
 
-const mapStateToProps = ({films}) => ({
-  films,
+const mapStateToProps = (state) => ({
+  films: getFilms(state),
 });
 
 export {MyList};

@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {ActionCreator} from '../../store/action';
 import GenreTab from '../genre-tab/genre-tab';
+import {getGenres} from '../../store/films/selectors';
+import {changeGenres} from '../../store/action';
 
 const GenresList = ({onChangeGenres, genres}) => {
   const GENRES = Array.from(genres.values());
@@ -24,12 +25,12 @@ GenresList.propTypes = {
 
 const mapDispatchToProps = (dispatch) => ({
   onChangeGenres(type) {
-    dispatch(ActionCreator.changeGenres(type));
+    dispatch(changeGenres(type));
   },
 });
 
-const mapStateToProps = ({genres}) => ({
-  genres,
+const mapStateToProps = (state) => ({
+  genres: getGenres(state),
 });
 
 export {GenresList};

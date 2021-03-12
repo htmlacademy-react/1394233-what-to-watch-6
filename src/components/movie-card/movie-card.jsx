@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
 import VideoPreview from '../video-preview/video-preview';
 import {connect} from 'react-redux';
-import {ActionCreator} from '../../store/action';
+import {getFilmGenre, getFilmName, resetAmountShowFilms} from '../../store/action';
 
-const MovieCard = ({title, poster, id, setActiveIdFilm, previewVideoLink, resetAmountShowFilms}) => {
+const MovieCard = ({title, poster, id, genre, previewVideoLink, resetShowFilmsAmount, getName, getGenre}) => {
 
   const [isActive, setIsActive] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -22,7 +22,6 @@ const MovieCard = ({title, poster, id, setActiveIdFilm, previewVideoLink, resetA
   return (
     <article className="small-movie-card catalog__movies-card"
       onMouseEnter={() => {
-        setActiveIdFilm(id);
         onMouseEnterMovieCard();
       }}
       onMouseLeave={() => onMouseLeaveMovieCard()}>
@@ -30,7 +29,11 @@ const MovieCard = ({title, poster, id, setActiveIdFilm, previewVideoLink, resetA
         {isActive ? <VideoPreview poster={poster} url={previewVideoLink} isPlaying={isPlaying} setIsPlaying={setIsPlaying} /> : <img src={poster} alt={title} width={280} height={175} />}
       </div>
       <h3 className="small-movie-card__title">
-        <Link className="small-movie-card__link" to={`/films/${id}`} onClick={() => resetAmountShowFilms()}>{title}</Link>
+        <Link className="small-movie-card__link" to={`/films/${id}`} onClick={() => {
+          resetShowFilmsAmount();
+          getName(title);
+          getGenre(genre);
+        }}>{title}</Link>
       </h3>
     </article>
   );
@@ -39,15 +42,23 @@ const MovieCard = ({title, poster, id, setActiveIdFilm, previewVideoLink, resetA
 MovieCard.propTypes = {
   poster: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
+  genre: PropTypes.string.isRequired,
   id: PropTypes.number.isRequired,
-  setActiveIdFilm: PropTypes.func.isRequired,
   previewVideoLink: PropTypes.string.isRequired,
-  resetAmountShowFilms: PropTypes.func.isRequired
+  resetShowFilmsAmount: PropTypes.func.isRequired,
+  getGenre: PropTypes.func.isRequired,
+  getName: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  resetAmountShowFilms() {
-    dispatch(ActionCreator.resetAmountShowFilms());
+  resetShowFilmsAmount() {
+    dispatch(resetAmountShowFilms());
+  },
+  getGenre(genre) {
+    dispatch(getFilmGenre(genre));
+  },
+  getName(name) {
+    dispatch(getFilmName(name));
   },
 });
 

@@ -1,5 +1,6 @@
+import browserHistory from "../browser-history";
 import {AuthorizationStatuses, Url} from "../consts";
-import {ActionCreator} from "./action";
+import {changeAmountFilms, loadFilm, loadFilms, redirectToRoute, postComment, authorization} from "./action";
 
 const Routes = {
   FILMS: `/films`,
@@ -55,40 +56,44 @@ export const fetchFilmsList = () => (dispatch, _getState, api) => (
   api.get(Routes.FILMS)
     .then(({data}) => data.map(adaptToClient))
     .then((data) => {
-      dispatch(ActionCreator.changeAmountFilms(data.length));
-      return dispatch(ActionCreator.loadFilms(data));
+      dispatch(changeAmountFilms(data.length));
+      return dispatch(loadFilms(data));
     })
 );
 
 export const fetchFilm = (id) => (dispatch, _getState, api) => (
   api.get(`/films/${id}`)
     .then(({data}) => adaptToClient(data))
-    .then((data) => dispatch(ActionCreator.loadFilm(data)))
-    .catch(() => dispatch(ActionCreator.redirectToRoute(Url.NOT_FOUND)))
+    .then((data) => dispatch(loadFilm(data)))
+    .catch(() => dispatch(redirectToRoute(Url.NOT_FOUND)))
 );
 
-export const postComment = (id, comment) => (dispatch, _getState, api) => (
+export const addComment = (id, comment) => (dispatch, _getState, api) => (
   api.post(`/comments/${id}`, adaptToServer(comment))
-    .then(() => dispatch(ActionCreator.postComment()))
-    .then(() => dispatch(ActionCreator.redirectToRoute(`/films/${id}`)))
-    .catch(() => dispatch(ActionCreator.postComment()))
+    .then(() => dispatch(postComment()))
+    .then(() => dispatch(redirectToRoute(`/films/${id}`)))
+    .catch(() => {})
 );
 
 export const checkLogin = () => (dispatch, _getState, api) => (
   api.get(Routes.LOGIN)
-    .then(() => dispatch(ActionCreator.authorization(AuthorizationStatuses.AUTH)))
+    .then(() => dispatch(authorization(AuthorizationStatuses.AUTH)))
     .catch(() => {})
 );
 
 export const login = ({login: email, password}) => (dispatch, _getState, api) => (
   api.post(Routes.LOGIN, {email, password})
-    .then(() => dispatch(ActionCreator.authorization(AuthorizationStatuses.AUTH)))
-    .then(() => dispatch(ActionCreator.redirectToRoute(Url.MAIN)))
+    .then(() => dispatch(authorization(AuthorizationStatuses.AUTH)))
+    .then(() => dispatch(redirectToRoute(Url.MAIN)))
     .catch(() => {})
 );
 
 export const logout = () => (dispatch, _getState, api) => (
   api.get(Routes.LOGOUT)
-    .then(() => dispatch(ActionCreator.authorization(AuthorizationStatuses.NO_AUTH)))
-    .then(() => dispatch(ActionCreator.redirectToRoute(Url.MAIN)))
+    .then(() => dispatch(authorization(AuthorizationStatuses.NO_AUTH)))
+    .then(() => {
+      if (browserHistory.location.pathname !== Url.MAIN) {
+        dispatch(redirectToRoute(Url.MAIN));
+      }
+    })
 );

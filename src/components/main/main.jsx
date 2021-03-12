@@ -1,17 +1,12 @@
 import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
 import PromoMovie from '../promo-movie/promo-movie';
-import MoviesList from '../movies-list/movies-list';
-import GenresList from '../genres-list/genres-list';
-import {MOVIES_PROP} from '../../utils/validate';
+import Catalog from '../catalog/catalog';
 import {connect} from 'react-redux';
-import ShowMoreButton from '../show-more-button/show-more-button';
-import {getFilteredMovies} from '../../utils/common';
 import {fetchFilmsList} from "../../store/api-actions";
-import LoadingScreen from '../loading-screen/loading-screen';
-import {ActionCreator} from '../../store/action';
+import {getFilmsLoadedStatus} from '../../store/films/selectors';
 
-const Main = ({films, genre, amountShowFilms, amountFilms, isFilmsLoaded, loadFilms}) => {
+const Main = ({isFilmsLoaded, loadFilms}) => {
   useEffect(() => {
     if (!isFilmsLoaded) {
       loadFilms();
@@ -22,17 +17,7 @@ const Main = ({films, genre, amountShowFilms, amountFilms, isFilmsLoaded, loadFi
     <React.Fragment>
       <PromoMovie />
       <div className="page-content">
-        <section className="catalog">
-          <h2 className="catalog__title visually-hidden">Catalog</h2>
-          <GenresList
-            genre={genre}
-          />
-          {isFilmsLoaded ? <MoviesList
-            films={getFilteredMovies(films, genre)}
-            maxFilms={amountShowFilms}
-          /> : <LoadingScreen />}
-          {amountShowFilms < amountFilms ? <ShowMoreButton /> : ``}
-        </section>
+        <Catalog />
         <footer className="page-footer">
           <div className="logo">
             <a className="logo__link logo__link--light">
@@ -51,29 +36,17 @@ const Main = ({films, genre, amountShowFilms, amountFilms, isFilmsLoaded, loadFi
 };
 
 Main.propTypes = {
-  films: PropTypes.arrayOf(PropTypes.shape(MOVIES_PROP).isRequired).isRequired,
-  genre: PropTypes.string.isRequired,
-  amountShowFilms: PropTypes.number.isRequired,
-  amountFilms: PropTypes.number.isRequired,
   isFilmsLoaded: PropTypes.bool.isRequired,
   loadFilms: PropTypes.func.isRequired,
-  changeAmountFilms: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = ({genre, films, amountFilms, amountShowFilms, isFilmsLoaded}) => ({
-  genre,
-  films,
-  amountFilms,
-  amountShowFilms,
-  isFilmsLoaded
+const mapStateToProps = (state) => ({
+  isFilmsLoaded: getFilmsLoadedStatus(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({
   loadFilms() {
     dispatch(fetchFilmsList());
-  },
-  changeAmountFilms(filmsAmount) {
-    dispatch(ActionCreator.changeAmountFilms(filmsAmount));
   }
 });
 

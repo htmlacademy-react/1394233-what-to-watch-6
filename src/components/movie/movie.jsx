@@ -7,9 +7,9 @@ import MoviesList from '../movies-list/movies-list';
 import MovieTabs from '../movie-tabs/movie-tabs';
 import {AuthorizationStatuses, MoviesAmmount, Url} from '../../consts';
 import {MOVIES_PROP, REVIEW_PROP} from '../../utils/validate';
+import {getSimmilarMoviesWithGenre} from '../../store/films/selectors';
+import {getAuthorizationStatus} from '../../store/auth/selectors';
 
-
-const getSimilarMovies = (films, genre, name) => films.filter((film) => film.genre === genre && film.name !== name);
 
 const Movie = ({film, reviews, films, onPlayMovie, onAddFavoriteMovie, authorizationStatus}) => {
   const {
@@ -85,7 +85,7 @@ const Movie = ({film, reviews, films, onPlayMovie, onAddFavoriteMovie, authoriza
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
           <MoviesList
-            films={getSimilarMovies(films, genre, name)}
+            films={films}
             maxFilms={MoviesAmmount.MOVIE_PAGE}
           />
         </section>
@@ -115,10 +115,11 @@ Movie.propTypes = {
   authorizationStatus: PropTypes.string.isRequired
 };
 
-const mapStateToProps = ({films, authorizationStatus}) => ({
-  films,
-  authorizationStatus
+const mapStateToProps = (state) => ({
+  films: getSimmilarMoviesWithGenre(state),
+  authorizationStatus: getAuthorizationStatus(state)
 });
+
 
 export {Movie};
 export default connect(mapStateToProps)(Movie);
