@@ -89,11 +89,25 @@ const App = ({films, reviews, authorizationStatus, loadFilm, loadedFilm, isFilmL
           }}
         />
         <Route exact path={Url.PLAYER} render={({match}) => {
-          const id = match.params.id;
-          const film = films[id - 1];
+          const filmID = match.params.id;
+          if (isFilmsLoaded) {
+            const {name, posterImage, videoLink} = films[filmID - 1];
+            return <Player
+              title={name}
+              video={videoLink}
+              poster={posterImage}
+            />;
+          }
+          if (!isFilmLoaded) {
+            loadFilm(filmID);
+            return <LoadingScreen />;
+          }
+
+          const {name, posterImage, videoLink} = loadedFilm;
           return <Player
-            duration={film.runTime}
-            title={film.name}
+            title={name}
+            video={videoLink}
+            poster={posterImage}
           />;
         }} />
         <Route exact path={Url.NOT_FOUND}>
