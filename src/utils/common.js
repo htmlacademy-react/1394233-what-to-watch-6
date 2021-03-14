@@ -20,7 +20,7 @@ export const getRemainedDuration = (duration) => {
 export const getFilteredMovies = (movies, genre) => genre === ALL_GENRES_NAME_TAB ? movies : movies.filter((movie) => movie.genre === genre);
 
 export const getGenresName = (films) => {
-  let genres = new Map();
+  const genres = new Map();
   genres.set(ALL_GENRES_NAME_TAB, ALL_GENRES_NAME_TAB);
 
   films.forEach((film) => {
