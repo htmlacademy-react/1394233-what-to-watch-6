@@ -9,6 +9,7 @@ export const ActionType = {
   LOAD_FILMS: `films/load`,
   LOAD_FAVORITE_FILMS: `films/loadFavorite`,
   ADD_FAVORITE_FILM: `films/addFavorite`,
+  REMOVE_FAVORITE_FILM: `films/removeFavorite`,
   LOAD_FILM: `film/load`,
   FILM_GENRE: `film/genre`,
   FILM_NAME: `film/name`,
@@ -71,6 +72,12 @@ export const postComment = createAction(ActionType.POST_COMMENT);
 export const addFavoriteFilmsList = createAction(ActionType.ADD_FAVORITE_FILM, (film) => {
   return {
     payload: film,
+  };
+});
+
+export const removeFavoriteFilmsList = createAction(ActionType.REMOVE_FAVORITE_FILM, (id) => {
+  return {
+    payload: id,
   };
 });
 

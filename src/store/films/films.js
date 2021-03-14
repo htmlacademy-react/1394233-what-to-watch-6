@@ -5,6 +5,8 @@ import {FILMS_AMOUNT_PER_STEP} from '../../consts';
 
 const INITIAL_AMOUNT_FILMS = 0;
 
+const findFilmIndex = (films, id) => films.findIndex((film) => film.id === id);
+
 const initialState = {
   genres: [],
   amountFilms: INITIAL_AMOUNT_FILMS,
@@ -35,10 +37,27 @@ const films = createReducer(initialState, (builder) => {
     state.isFavoriteFilmsLoaded = true;
   });
   builder.addCase(ActionType.ADD_FAVORITE_FILM, (state, action) => {
+    const currentIndexFilm = findFilmIndex(state.films, action.payload.id);
+
     state.favoriteFilms = [
       ...state.favoriteFilms,
       action.payload
     ];
+    state.films[currentIndexFilm] = Object.assign(
+        {},
+        state.films[currentIndexFilm],
+        {isFavorite: !state.films[currentIndexFilm].isFavorite}
+    );
+  });
+  builder.addCase(ActionType.REMOVE_FAVORITE_FILM, (state, action) => {
+    const currentIndexFilm = findFilmIndex(state.films, action.payload);
+
+    state.favoriteFilms = state.favoriteFilms.filter((film) => film.id !== action.payload);
+    state.films[currentIndexFilm] = Object.assign(
+        {},
+        state.films[currentIndexFilm],
+        {isFavorite: !state.films[currentIndexFilm].isFavorite}
+    );
   });
 });
 

@@ -1,6 +1,6 @@
 import browserHistory from "../browser-history";
 import {AuthorizationStatuses, Url} from "../consts";
-import {changeAmountFilms, loadFilm, loadFilms, redirectToRoute, postComment, authorization, loadFavoriteFilms, addFavoriteFilmsList} from "./action";
+import {changeAmountFilms, loadFilm, loadFilms, redirectToRoute, postComment, authorization, loadFavoriteFilms, addFavoriteFilmsList, removeFavoriteFilmsList} from "./action";
 
 const Routes = {
   FILMS: `/films`,
@@ -85,8 +85,9 @@ export const addComment = (id, comment) => (dispatch, _getState, api) => (
 export const addFavorite = (id, status) => (dispatch, _getState, api) => (
   api.post(`/favorite/${id}/${status}`)
     .then(({data}) => adaptToClient(data))
-    .then((data) => dispatch(addFavoriteFilmsList(data)))
-    // .then(() => dispatch(redirectToRoute(`/films/${id}`)))
+    .then((data) => {
+      return status === 1 ? dispatch(addFavoriteFilmsList(data)) : dispatch(removeFavoriteFilmsList(data.id));
+    })
     .catch(() => {})
 );
 
