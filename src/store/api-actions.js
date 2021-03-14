@@ -6,7 +6,8 @@ const Routes = {
   FILMS: `/films`,
   LOGIN: `/login`,
   LOGOUT: `/logout`,
-  FAVORITE: `/favorite`
+  FAVORITE: `/favorite`,
+  PROMO: `/films/promo`
 };
 
 const adaptToClient = (film) => {
@@ -70,6 +71,13 @@ export const fetchFavoriteFilmsList = () => (dispatch, _getState, api) => (
 
 export const fetchFilm = (id) => (dispatch, _getState, api) => (
   api.get(`/films/${id}`)
+    .then(({data}) => adaptToClient(data))
+    .then((data) => dispatch(loadFilm(data)))
+    .catch(() => dispatch(redirectToRoute(Url.NOT_FOUND)))
+);
+
+export const fetchPromoFilm = () => (dispatch, _getState, api) => (
+  api.get(Routes.PROMO)
     .then(({data}) => adaptToClient(data))
     .then((data) => dispatch(loadFilm(data)))
     .catch(() => dispatch(redirectToRoute(Url.NOT_FOUND)))

@@ -1,14 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {useHistory} from 'react-router-dom';
-import {Url} from '../../consts';
 import {MOVIES_PROP} from '../../utils/validate';
 import {connect} from 'react-redux';
 import UserBlock from '../user-block/user-block';
 import {resetAmountShowFilms} from '../../store/action';
 import {getPromoMovie} from '../../store/film/selectors';
+import {addFavorite} from '../../store/api-actions';
 
-const PromoMovie = ({promoMovie, resetShowFilmsAmount}) => {
+const FavoriteStatus = {
+  ADD: 1,
+  REMOVE: 0
+};
+
+const PromoMovie = ({promoMovie, resetShowFilmsAmount, addFavoriteFilm}) => {
   const history = useHistory();
   return (
     <section className="movie-card">
@@ -47,7 +52,13 @@ const PromoMovie = ({promoMovie, resetShowFilmsAmount}) => {
                 </svg>
                 <span>Play</span>
               </button>
-              <button className="btn btn--list movie-card__button" type="button" onClick={() => {
+              <button className="btn btn--list movie-card__button" type="button" onClick={() => addFavoriteFilm(promoMovie.id, promoMovie.isFavorite ? FavoriteStatus.REMOVE : FavoriteStatus.ADD)}>
+                <svg viewBox="0 0 19 20" width={19} height={20}>
+                  <use xlinkHref={promoMovie.isFavorite ? `#in-list` : `#add`} />
+                </svg>
+                <span>My list</span>
+              </button>
+              {/* <button className="btn btn--list movie-card__button" type="button" onClick={() => {
                 history.push(Url.MY_LIST);
                 resetAmountShowFilms();
               }}>
@@ -55,7 +66,7 @@ const PromoMovie = ({promoMovie, resetShowFilmsAmount}) => {
                   <use xlinkHref="#add" />
                 </svg>
                 <span>My list</span>
-              </button>
+              </button> */}
             </div>
           </div>
         </div>
@@ -66,7 +77,8 @@ const PromoMovie = ({promoMovie, resetShowFilmsAmount}) => {
 
 PromoMovie.propTypes = {
   promoMovie: PropTypes.shape(MOVIES_PROP).isRequired,
-  resetShowFilmsAmount: PropTypes.func.isRequired
+  resetShowFilmsAmount: PropTypes.func.isRequired,
+  addFavoriteFilm: PropTypes.func.isRequired
 };
 
 
@@ -78,6 +90,9 @@ const mapDispatchToProps = (dispatch) => ({
   resetShowFilmsAmount() {
     dispatch(resetAmountShowFilms());
   },
+  addFavoriteFilm(id, status) {
+    dispatch(addFavorite(id, status));
+  }
 });
 
 export {PromoMovie};

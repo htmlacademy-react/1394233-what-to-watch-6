@@ -38,7 +38,7 @@ const films = createReducer(initialState, (builder) => {
   });
   builder.addCase(ActionType.ADD_FAVORITE_FILM, (state, action) => {
     const currentIndexFilm = findFilmIndex(state.films, action.payload.id);
-
+    console.log(state.promoMovie);
     state.favoriteFilms = [
       ...state.favoriteFilms,
       action.payload
