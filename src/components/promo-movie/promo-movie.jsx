@@ -5,7 +5,7 @@ import {MOVIES_PROP} from '../../utils/validate';
 import {connect} from 'react-redux';
 import UserBlock from '../user-block/user-block';
 import {resetAmountShowFilms} from '../../store/action';
-import {getPromoMovie} from '../../store/film/selectors';
+import {getPromoMovie} from '../../store/films/selectors';
 import {addFavorite} from '../../store/api-actions';
 
 const FavoriteStatus = {

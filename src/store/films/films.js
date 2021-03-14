@@ -2,6 +2,7 @@ import {createReducer} from '@reduxjs/toolkit';
 import {ActionType} from '../action';
 import {getGenresName} from '../../utils/common';
 import {FILMS_AMOUNT_PER_STEP} from '../../consts';
+import filmsMocs from '../../mocks/films';
 
 const INITIAL_AMOUNT_FILMS = 0;
 
@@ -15,6 +16,11 @@ const initialState = {
   favoriteFilms: [],
   isFilmsLoaded: false,
   isFavoriteFilmsLoaded: false,
+  loadedFilm: {},
+  isFilmLoaded: false,
+  promoMovie: filmsMocs[0],
+  activeFilmGenre: ``,
+  activeFilmName: ``
 };
 
 const films = createReducer(initialState, (builder) => {
@@ -38,7 +44,6 @@ const films = createReducer(initialState, (builder) => {
   });
   builder.addCase(ActionType.ADD_FAVORITE_FILM, (state, action) => {
     const currentIndexFilm = findFilmIndex(state.films, action.payload.id);
-    console.log(state.promoMovie);
     state.favoriteFilms = [
       ...state.favoriteFilms,
       action.payload
@@ -48,6 +53,13 @@ const films = createReducer(initialState, (builder) => {
         state.films[currentIndexFilm],
         {isFavorite: !state.films[currentIndexFilm].isFavorite}
     );
+    if (state.promoMovie.id === action.payload.id) {
+      state.promoMovie = Object.assign(
+          {},
+          state.promoMovie,
+          {isFavorite: !state.promoMovie.isFavorite}
+      );
+    }
   });
   builder.addCase(ActionType.REMOVE_FAVORITE_FILM, (state, action) => {
     const currentIndexFilm = findFilmIndex(state.films, action.payload);
@@ -58,6 +70,23 @@ const films = createReducer(initialState, (builder) => {
         state.films[currentIndexFilm],
         {isFavorite: !state.films[currentIndexFilm].isFavorite}
     );
+    if (state.promoMovie.id === action.payload) {
+      state.promoMovie = Object.assign(
+          {},
+          state.promoMovie,
+          {isFavorite: !state.promoMovie.isFavorite}
+      );
+    }
+  });
+  builder.addCase(ActionType.LOAD_FILM, (state, action) => {
+    state.loadedFilm = action.payload;
+    state.isFilmLoaded = true;
+  });
+  builder.addCase(ActionType.FILM_GENRE, (state, action) => {
+    state.activeFilmGenre = action.payload;
+  });
+  builder.addCase(ActionType.FILM_NAME, (state, action) => {
+    state.activeFilmName = action.payload;
   });
 });
 

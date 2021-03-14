@@ -15,8 +15,7 @@ import {AuthorizationStatuses, Url} from '../../consts';
 import {MOVIES_PROP, REVIEW_PROP, MOVIES_NOT_REQUIRE_PROP} from '../../utils/validate';
 import {fetchFilm} from '../../store/api-actions';
 import LoadingScreen from '../loading-screen/loading-screen';
-import {getFilms, getFilmsLoadedStatus} from '../../store/films/selectors';
-import {getFilmLoadedStatus, getLoadedFilm} from '../../store/film/selectors';
+import {getFilms, getFilmsLoadedStatus, getFilmLoadedStatus, getLoadedFilm} from '../../store/films/selectors';
 import {getReviews} from '../../store/comment/selectors';
 import {getAuthorizationStatus} from '../../store/auth/selectors';
 

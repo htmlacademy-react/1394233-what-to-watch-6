@@ -1,6 +1,5 @@
 import {createSelector} from 'reselect';
 import {getFilteredMovies} from '../../utils/common';
-import {getActiveFilmGenre, getActiveFilmName} from '../film/selectors';
 import {getActiveGenre} from '../genre/selectors';
 import {NameSpace} from '../main-reducer';
 
@@ -13,6 +12,11 @@ export const getFavoriteFilmsLoadedStatus = (state) => state[NameSpace.FILMS].is
 export const getGenres = (state) => state[NameSpace.FILMS].genres;
 export const getAmountFilms = (state) => state[NameSpace.FILMS].amountFilms;
 export const getAmountShowFilms = (state) => state[NameSpace.FILMS].amountShowFilms;
+export const getFilmLoadedStatus = (state) => state[NameSpace.FILMS].isFilmLoaded;
+export const getLoadedFilm = (state) => state[NameSpace.FILMS].loadedFilm;
+export const getPromoMovie = (state) => state[NameSpace.FILMS].promoMovie;
+export const getActiveFilmGenre = (state) => state[NameSpace.FILMS].activeFilmGenre;
+export const getActiveFilmName = (state) => state[NameSpace.FILMS].activeFilmName;
 
 export const getFilmsWithGenre = createSelector(
     getFilms,
