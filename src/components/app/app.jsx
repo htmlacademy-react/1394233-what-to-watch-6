@@ -59,7 +59,6 @@ const App = ({films, reviews, authorizationStatus, loadFilm, loadedFilm, isFilmL
             id={id}
             reviews={reviews[id]}
             onPlayMovie={() => history.push(`/player/${id}`)}
-            onAddFavoriteMovie={() => history.push(Url.MY_LIST)}
           />;
         }}/>
         <PrivateRoute exact

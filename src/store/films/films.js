@@ -34,6 +34,12 @@ const films = createReducer(initialState, (builder) => {
     state.favoriteFilms = action.payload;
     state.isFavoriteFilmsLoaded = true;
   });
+  builder.addCase(ActionType.ADD_FAVORITE_FILM, (state, action) => {
+    state.favoriteFilms = [
+      ...state.favoriteFilms,
+      action.payload
+    ];
+  });
 });
 
 export {films};

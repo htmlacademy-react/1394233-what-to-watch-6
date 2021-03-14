@@ -9,16 +9,22 @@ import {AuthorizationStatuses, MoviesAmmount, Url} from '../../consts';
 import {MOVIES_PROP, REVIEW_PROP} from '../../utils/validate';
 import {getSimmilarMoviesWithGenre} from '../../store/films/selectors';
 import {getAuthorizationStatus} from '../../store/auth/selectors';
+import {addFavorite} from '../../store/api-actions';
 
+const FavoriteStatus = {
+  ADD: 1,
+  REMOVE: 0
+};
 
-const Movie = ({film, reviews, films, onPlayMovie, onAddFavoriteMovie, authorizationStatus}) => {
+const Movie = ({film, reviews, films, onPlayMovie, authorizationStatus, addFavoriteFilm}) => {
   const {
     backgroundImage,
     name,
     genre,
     released,
     posterImage,
-    id
+    id,
+    isFavorite
   } = film;
 
   return (
@@ -53,7 +59,7 @@ const Movie = ({film, reviews, films, onPlayMovie, onAddFavoriteMovie, authoriza
                   </svg>
                   <span>Play</span>
                 </button>
-                <button className="btn btn--list movie-card__button" type="button" onClick={() => onAddFavoriteMovie()}>
+                <button className="btn btn--list movie-card__button" type="button" onClick={() => addFavoriteFilm(id, isFavorite ? FavoriteStatus.REMOVE : FavoriteStatus.ADD)}>
                   <svg viewBox="0 0 19 20" width={19} height={20}>
                     <use xlinkHref="#add" />
                   </svg>
@@ -111,7 +117,7 @@ Movie.propTypes = {
   film: PropTypes.shape(MOVIES_PROP).isRequired,
   reviews: PropTypes.arrayOf(PropTypes.shape(REVIEW_PROP)).isRequired,
   onPlayMovie: PropTypes.func.isRequired,
-  onAddFavoriteMovie: PropTypes.func.isRequired,
+  addFavoriteFilm: PropTypes.func.isRequired,
   authorizationStatus: PropTypes.string.isRequired
 };
 
@@ -120,6 +126,12 @@ const mapStateToProps = (state) => ({
   authorizationStatus: getAuthorizationStatus(state)
 });
 
+const mapDispatchToProps = (dispatch) => ({
+  addFavoriteFilm(id, status) {
+    dispatch(addFavorite(id, status));
+  }
+});
+
 
 export {Movie};
-export default connect(mapStateToProps)(Movie);
+export default connect(mapStateToProps, mapDispatchToProps)(Movie);
