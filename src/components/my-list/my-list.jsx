@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import MoviesList from '../movies-list/movies-list';
 import UserBlock from '../user-block/user-block';
-import {MoviesAmmount, Url} from '../../consts';
+import {Url} from '../../consts';
 import {MOVIES_PROP} from '../../utils/validate';
 import {fetchFavoriteFilmsList} from "../../store/api-actions";
 import {getFavoriteFilms, getFavoriteFilmsLoadedStatus} from '../../store/films/selectors';
@@ -33,7 +33,6 @@ const MyList = ({favoriteFilms, isFavoriteFilmsLoaded, loadFavoriteFilms}) => {
         <h2 className="catalog__title visually-hidden">Catalog</h2>
         <MoviesList
           films={favoriteFilms}
-          maxFilms={MoviesAmmount.MY_LIST_PAGE}
         />
       </section>
       <footer className="page-footer">

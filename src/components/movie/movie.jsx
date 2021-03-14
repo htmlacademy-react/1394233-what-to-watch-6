@@ -61,7 +61,7 @@ const Movie = ({film, reviews, films, onPlayMovie, authorizationStatus, addFavor
                 </button>
                 <button className="btn btn--list movie-card__button" type="button" onClick={() => addFavoriteFilm(id, isFavorite ? FavoriteStatus.REMOVE : FavoriteStatus.ADD)}>
                   <svg viewBox="0 0 19 20" width={19} height={20}>
-                    <use xlinkHref="#add" />
+                    <use xlinkHref={isFavorite ? `#in-list` : `#add`} />
                   </svg>
                   <span>My list</span>
                 </button>

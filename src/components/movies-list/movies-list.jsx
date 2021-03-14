@@ -7,14 +7,23 @@ const MoviesList = ({films, maxFilms}) => {
 
   return (
     <div className="catalog__movies-list">
-      {films.slice(0, maxFilms).map((film) => <MovieCard
-        key={film.id}
-        id={film.id}
-        title={film.name}
-        poster={film.previeImage}
-        previewVideoLink = {film.previewVideoLink}
-        genre={film.genre}
-      />)}
+      {maxFilms ?
+        films.slice(0, maxFilms).map((film) => <MovieCard
+          key={film.id}
+          id={film.id}
+          title={film.name}
+          poster={film.previeImage}
+          previewVideoLink = {film.previewVideoLink}
+          genre={film.genre}
+        />) :
+        films.map((film) => <MovieCard
+          key={film.id}
+          id={film.id}
+          title={film.name}
+          poster={film.previeImage}
+          previewVideoLink = {film.previewVideoLink}
+          genre={film.genre}
+        />)}
     </div>
   );
 };
