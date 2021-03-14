@@ -27,3 +27,8 @@ export const AuthorizationErrorMessage = {
   DEFAULT: ``,
   EMAIL: `Please enter a valid email address or password`
 };
+
+export const FavoriteStatus = {
+  ADD: 1,
+  REMOVE: 0
+};

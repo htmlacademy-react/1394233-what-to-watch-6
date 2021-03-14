@@ -5,16 +5,11 @@ import {connect} from 'react-redux';
 import UserBlock from '../user-block/user-block';
 import MoviesList from '../movies-list/movies-list';
 import MovieTabs from '../movie-tabs/movie-tabs';
-import {AuthorizationStatuses, MoviesAmmount, Url} from '../../consts';
+import {AuthorizationStatuses, FavoriteStatus, MoviesAmmount, Url} from '../../consts';
 import {MOVIES_PROP, REVIEW_PROP} from '../../utils/validate';
 import {getSimmilarMoviesWithGenre} from '../../store/films/selectors';
 import {getAuthorizationStatus} from '../../store/auth/selectors';
 import {addFavorite} from '../../store/api-actions';
-
-const FavoriteStatus = {
-  ADD: 1,
-  REMOVE: 0
-};
 
 const Movie = ({film, reviews, films, onPlayMovie, authorizationStatus, addFavoriteFilm}) => {
   const {

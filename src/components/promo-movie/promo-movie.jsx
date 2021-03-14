@@ -7,11 +7,7 @@ import UserBlock from '../user-block/user-block';
 import {resetAmountShowFilms} from '../../store/action';
 import {getPromoMovie} from '../../store/films/selectors';
 import {addFavorite} from '../../store/api-actions';
-
-const FavoriteStatus = {
-  ADD: 1,
-  REMOVE: 0
-};
+import {FavoriteStatus} from '../../consts';
 
 const PromoMovie = ({promoMovie, resetShowFilmsAmount, addFavoriteFilm}) => {
   const history = useHistory();
