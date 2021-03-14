@@ -10,7 +10,9 @@ const initialState = {
   amountFilms: INITIAL_AMOUNT_FILMS,
   amountShowFilms: FILMS_AMOUNT_PER_STEP,
   films: [],
+  favoriteFilms: [],
   isFilmsLoaded: false,
+  isFavoriteFilmsLoaded: false,
 };
 
 const films = createReducer(initialState, (builder) => {
@@ -27,6 +29,10 @@ const films = createReducer(initialState, (builder) => {
     state.films = action.payload;
     state.genres = Array.from(getGenresName(action.payload).keys());
     state.isFilmsLoaded = true;
+  });
+  builder.addCase(ActionType.LOAD_FAVORITE_FILMS, (state, action) => {
+    state.favoriteFilms = action.payload;
+    state.isFavoriteFilmsLoaded = true;
   });
 });
 

@@ -1,11 +1,12 @@
 import browserHistory from "../browser-history";
 import {AuthorizationStatuses, Url} from "../consts";
-import {changeAmountFilms, loadFilm, loadFilms, redirectToRoute, postComment, authorization} from "./action";
+import {changeAmountFilms, loadFilm, loadFilms, redirectToRoute, postComment, authorization, loadFavoriteFilms} from "./action";
 
 const Routes = {
   FILMS: `/films`,
   LOGIN: `/login`,
   LOGOUT: `/logout`,
+  FAVORITE: `/favorite`
 };
 
 const adaptToClient = (film) => {
@@ -59,6 +60,12 @@ export const fetchFilmsList = () => (dispatch, _getState, api) => (
       dispatch(changeAmountFilms(data.length));
       return dispatch(loadFilms(data));
     })
+);
+
+export const fetchFavoriteFilmsList = () => (dispatch, _getState, api) => (
+  api.get(Routes.FAVORITE)
+    .then(({data}) => data.map(adaptToClient))
+    .then((data) => dispatch(loadFavoriteFilms(data)))
 );
 
 export const fetchFilm = (id) => (dispatch, _getState, api) => (

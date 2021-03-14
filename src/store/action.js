@@ -7,6 +7,7 @@ export const ActionType = {
   RESET_AMOUNT_SHOW_FILMS: `films/resetAmountShow`,
   CHANGE_AMOUNT_FILMS: `films/changeAmount`,
   LOAD_FILMS: `films/load`,
+  LOAD_FAVORITE_FILMS: `films/loadFavorite`,
   LOAD_FILM: `film/load`,
   FILM_GENRE: `film/genre`,
   FILM_NAME: `film/name`,
@@ -35,6 +36,12 @@ export const changeAmountFilms = createAction(ActionType.CHANGE_AMOUNT_FILMS, (a
 });
 
 export const loadFilms = createAction(ActionType.LOAD_FILMS, (films) => {
+  return {
+    payload: films,
+  };
+});
+
+export const loadFavoriteFilms = createAction(ActionType.LOAD_FAVORITE_FILMS, (films) => {
   return {
     payload: films,
   };
@@ -83,55 +90,3 @@ export const redirectToRoute = createAction(ActionType.REDIRECT_TO_ROUTE, (url) 
     payload: url,
   };
 });
-
-// export const ActionCreator = {
-//   changeGenres: (genre) => ({
-//     type: ActionType.CHANGE_GENRE,
-//     payload: genre
-//   }),
-//   showMoreFilms: () => ({
-//     type: ActionType.SHOW_MORE_FILMS,
-//   }),
-//   resetAmountShowFilms: () => ({
-//     type: ActionType.RESET_AMOUNT_SHOW_FILMS,
-//   }),
-//   changeAmountFilms: (amount) => ({
-//     type: ActionType.CHANGE_AMOUNT_FILMS,
-//     payload: amount,
-//   }),
-//   loadFilms: (films) => ({
-//     type: ActionType.LOAD_FILMS,
-//     payload: films
-//   }),
-//   loadFilm: (film) => ({
-//     type: ActionType.LOAD_FILM,
-//     payload: film
-//   }),
-//   getFilmGenre: (genre) => ({
-//     type: ActionType.FILM_GENRE,
-//     payload: genre
-//   }),
-//   getFilmName: (name) => ({
-//     type: ActionType.FILM_NAME,
-//     payload: name
-//   }),
-//   postComment: () => ({
-//     type: ActionType.POST_COMMENT,
-//   }),
-//   activeForm: (boolean) => ({
-//     type: ActionType.ACTIVE_FORM,
-//     payload: boolean
-//   }),
-//   authorization: (action) => ({
-//     type: ActionType.AUTHORIZATION,
-//     payload: action
-//   }),
-//   authorizationFailed: () => ({
-//     type: ActionType.AUTHORIZATION_FAILED,
-//     payload: AuthorizationErrorMessage.EMAIL
-//   }),
-//   redirectToRoute: (url) => ({
-//     type: ActionType.REDIRECT_TO_ROUTE,
-//     payload: url,
-//   }),
-// };
