@@ -2,7 +2,6 @@ import {createReducer} from '@reduxjs/toolkit';
 import {ActionType} from '../action';
 import {getGenresName} from '../../utils/common';
 import {FILMS_AMOUNT_PER_STEP} from '../../consts';
-import filmsMocs from '../../mocks/films';
 
 const INITIAL_AMOUNT_FILMS = 0;
 
@@ -18,7 +17,8 @@ const initialState = {
   isFavoriteFilmsLoaded: false,
   loadedFilm: {},
   isFilmLoaded: false,
-  promoMovie: filmsMocs[0],
+  isPromoFilmLoaded: false,
+  promoMovie: {},
   activeFilmGenre: ``,
   activeFilmName: ``
 };
@@ -81,6 +81,10 @@ const films = createReducer(initialState, (builder) => {
   builder.addCase(ActionType.LOAD_FILM, (state, action) => {
     state.loadedFilm = action.payload;
     state.isFilmLoaded = true;
+  });
+  builder.addCase(ActionType.LOAD_PROMO_FILM, (state, action) => {
+    state.promoMovie = action.payload;
+    state.isPromoFilmLoaded = true;
   });
   builder.addCase(ActionType.FILM_GENRE, (state, action) => {
     state.activeFilmGenre = action.payload;

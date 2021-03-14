@@ -11,6 +11,7 @@ export const ActionType = {
   ADD_FAVORITE_FILM: `films/addFavorite`,
   REMOVE_FAVORITE_FILM: `films/removeFavorite`,
   LOAD_FILM: `film/load`,
+  LOAD_PROMO_FILM: `film/loadPromo`,
   FILM_GENRE: `film/genre`,
   FILM_NAME: `film/name`,
   LOAD_COMMENTS: `comments/load`,
@@ -34,6 +35,8 @@ export const loadFilms = createAction(ActionType.LOAD_FILMS, (films) => ({payloa
 export const loadFavoriteFilms = createAction(ActionType.LOAD_FAVORITE_FILMS, (films) => ({payload: films}));
 
 export const loadFilm = createAction(ActionType.LOAD_FILM, (film) => ({payload: film}));
+
+export const loadPromoFilm = createAction(ActionType.LOAD_PROMO_FILM, (film) => ({payload: film}));
 
 export const getFilmGenre = createAction(ActionType.FILM_GENRE, (genre) => ({payload: genre}));
 

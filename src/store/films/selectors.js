@@ -15,6 +15,7 @@ export const getAmountShowFilms = (state) => state[NameSpace.FILMS].amountShowFi
 export const getFilmLoadedStatus = (state) => state[NameSpace.FILMS].isFilmLoaded;
 export const getLoadedFilm = (state) => state[NameSpace.FILMS].loadedFilm;
 export const getPromoMovie = (state) => state[NameSpace.FILMS].promoMovie;
+export const getPromoMovieLoadStatus = (state) => state[NameSpace.FILMS].isPromoFilmLoaded;
 export const getActiveFilmGenre = (state) => state[NameSpace.FILMS].activeFilmGenre;
 export const getActiveFilmName = (state) => state[NameSpace.FILMS].activeFilmName;
 

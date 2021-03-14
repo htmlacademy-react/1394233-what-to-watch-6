@@ -58,15 +58,6 @@ const PromoMovie = ({promoMovie, resetShowFilmsAmount, addFavoriteFilm}) => {
                 </svg>
                 <span>My list</span>
               </button>
-              {/* <button className="btn btn--list movie-card__button" type="button" onClick={() => {
-                history.push(Url.MY_LIST);
-                resetAmountShowFilms();
-              }}>
-                <svg viewBox="0 0 19 20" width={19} height={20}>
-                  <use xlinkHref="#add" />
-                </svg>
-                <span>My list</span>
-              </button> */}
             </div>
           </div>
         </div>

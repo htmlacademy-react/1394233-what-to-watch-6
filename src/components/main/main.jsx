@@ -3,13 +3,19 @@ import PropTypes from 'prop-types';
 import PromoMovie from '../promo-movie/promo-movie';
 import Catalog from '../catalog/catalog';
 import {connect} from 'react-redux';
-import {fetchFilmsList} from "../../store/api-actions";
-import {getFilmsLoadedStatus} from '../../store/films/selectors';
+import {fetchFilmsList, fetchPromoFilm} from "../../store/api-actions";
+import {getFilmsLoadedStatus, getPromoMovieLoadStatus} from '../../store/films/selectors';
 
-const Main = ({isFilmsLoaded, loadFilms}) => {
+const Main = ({isFilmsLoaded, loadFilms, isPromoFilmLoaded, loadPromoFilm}) => {
   useEffect(() => {
     if (!isFilmsLoaded) {
       loadFilms();
+    }
+  }, [isFilmsLoaded]);
+
+  useEffect(() => {
+    if (!isPromoFilmLoaded) {
+      loadPromoFilm();
     }
   }, [isFilmsLoaded]);
 
@@ -37,16 +43,22 @@ const Main = ({isFilmsLoaded, loadFilms}) => {
 
 Main.propTypes = {
   isFilmsLoaded: PropTypes.bool.isRequired,
+  isPromoFilmLoaded: PropTypes.bool.isRequired,
   loadFilms: PropTypes.func.isRequired,
+  loadPromoFilm: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  isFilmsLoaded: getFilmsLoadedStatus(state)
+  isFilmsLoaded: getFilmsLoadedStatus(state),
+  isPromoFilmLoaded: getPromoMovieLoadStatus(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({
   loadFilms() {
     dispatch(fetchFilmsList());
+  },
+  loadPromoFilm() {
+    dispatch(fetchPromoFilm());
   }
 });
 
