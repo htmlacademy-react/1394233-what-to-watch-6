@@ -5,13 +5,13 @@ import {connect} from 'react-redux';
 import UserBlock from '../user-block/user-block';
 import MoviesList from '../movies-list/movies-list';
 import MovieTabs from '../movie-tabs/movie-tabs';
-import {AuthorizationStatuses, FavoriteStatus, MoviesAmmount, Url} from '../../consts';
+import AddFavorite from '../add-favorite/add-favorite';
+import {AuthorizationStatuses, MoviesAmmount, Url} from '../../consts';
 import {MOVIES_PROP, REVIEW_PROP} from '../../utils/validate';
 import {getSimmilarMoviesWithGenre} from '../../store/films/selectors';
 import {getAuthorizationStatus} from '../../store/auth/selectors';
-import {addFavorite} from '../../store/api-actions';
 
-const Movie = ({film, reviews, films, onPlayMovie, authorizationStatus, addFavoriteFilm}) => {
+const Movie = ({film, reviews, films, onPlayMovie, authorizationStatus}) => {
   const {
     backgroundImage,
     name,
@@ -54,12 +54,10 @@ const Movie = ({film, reviews, films, onPlayMovie, authorizationStatus, addFavor
                   </svg>
                   <span>Play</span>
                 </button>
-                <button className="btn btn--list movie-card__button" type="button" onClick={() => addFavoriteFilm(id, isFavorite ? FavoriteStatus.REMOVE : FavoriteStatus.ADD)}>
-                  <svg viewBox="0 0 19 20" width={19} height={20}>
-                    <use xlinkHref={isFavorite ? `#in-list` : `#add`} />
-                  </svg>
-                  <span>My list</span>
-                </button>
+                <AddFavorite
+                  id={id}
+                  isFavorite={isFavorite}
+                />
                 {authorizationStatus === AuthorizationStatuses.AUTH
                   ? <Link to={`/films/${id}/review`} className="btn movie-card__button">Add review</Link>
                   : ``
@@ -112,7 +110,6 @@ Movie.propTypes = {
   film: PropTypes.shape(MOVIES_PROP).isRequired,
   reviews: PropTypes.arrayOf(PropTypes.shape(REVIEW_PROP)).isRequired,
   onPlayMovie: PropTypes.func.isRequired,
-  addFavoriteFilm: PropTypes.func.isRequired,
   authorizationStatus: PropTypes.string.isRequired
 };
 
@@ -121,12 +118,6 @@ const mapStateToProps = (state) => ({
   authorizationStatus: getAuthorizationStatus(state)
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  addFavoriteFilm(id, status) {
-    dispatch(addFavorite(id, status));
-  }
-});
-
 
 export {Movie};
-export default connect(mapStateToProps, mapDispatchToProps)(Movie);
+export default connect(mapStateToProps)(Movie);
