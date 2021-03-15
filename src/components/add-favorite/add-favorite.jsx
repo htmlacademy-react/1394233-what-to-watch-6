@@ -2,11 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {addFavorite} from '../../store/api-actions';
-import {FavoriteStatus} from '../../consts';
 
 const AddFavorite = ({id, isFavorite, addFavoriteFilm}) => {
   return (
-    <button className="btn btn--list movie-card__button" type="button" onClick={() => addFavoriteFilm(id, isFavorite ? FavoriteStatus.REMOVE : FavoriteStatus.ADD)}>
+    <button className="btn btn--list movie-card__button" type="button" onClick={() => addFavoriteFilm(id, Number(!isFavorite))}>
       <svg viewBox="0 0 19 20" width={19} height={20}>
         <use xlinkHref={isFavorite ? `#in-list` : `#add`} />
       </svg>
