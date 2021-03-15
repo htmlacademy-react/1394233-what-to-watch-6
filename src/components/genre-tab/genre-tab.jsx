@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {changeAmountFilms, resetAmountShowFilms} from '../../store/action';
@@ -47,4 +47,4 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export {GenreTab};
-export default connect(mapStateToProps, mapDispatchToProps)(GenreTab);
+export default connect(mapStateToProps, mapDispatchToProps)(memo(GenreTab, (prevProps, nextProps) => prevProps.genre === nextProps.genre));

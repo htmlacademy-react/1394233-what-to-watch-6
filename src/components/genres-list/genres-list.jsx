@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import GenreTab from '../genre-tab/genre-tab';
@@ -34,4 +34,4 @@ const mapStateToProps = (state) => ({
 });
 
 export {GenresList};
-export default connect(mapStateToProps, mapDispatchToProps)(GenresList);
+export default connect(mapStateToProps, mapDispatchToProps)(memo(GenresList, (prevProps, nextProps) => prevProps.genres === nextProps.genres));

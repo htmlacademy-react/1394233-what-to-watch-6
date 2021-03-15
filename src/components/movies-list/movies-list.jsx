@@ -4,7 +4,6 @@ import MovieCard from '../movie-card/movie-card';
 import {MOVIES_PROP} from '../../utils/validate';
 
 const MoviesList = ({films, maxFilms}) => {
-
   return (
     <div className="catalog__movies-list">
       {maxFilms ?
