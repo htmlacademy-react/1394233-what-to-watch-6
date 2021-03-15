@@ -1,12 +1,13 @@
 import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
-import PromoMovie from '../promo-movie/promo-movie';
+import Header from '../header/header';
 import Catalog from '../catalog/catalog';
 import {connect} from 'react-redux';
 import {fetchFilmsList, fetchPromoFilm} from "../../store/api-actions";
-import {getFilmsLoadedStatus, getPromoMovieLoadStatus} from '../../store/films/selectors';
+import {getFilmsLoadedStatus, getPromoMovie, getPromoMovieLoadStatus} from '../../store/films/selectors';
+import {MOVIES_NOT_REQUIRE_PROP} from '../../utils/validate';
 
-const Main = ({isFilmsLoaded, loadFilms, isPromoFilmLoaded, loadPromoFilm}) => {
+const Main = ({isFilmsLoaded, loadFilms, isPromoFilmLoaded, loadPromoFilm, promoMovie}) => {
   useEffect(() => {
     if (!isFilmsLoaded) {
       loadFilms();
@@ -21,7 +22,10 @@ const Main = ({isFilmsLoaded, loadFilms, isPromoFilmLoaded, loadPromoFilm}) => {
 
   return (
     <React.Fragment>
-      <PromoMovie />
+      <Header
+        backgroundImage={promoMovie.backgroundImage}
+        title={promoMovie.name}
+      />
       <div className="page-content">
         <Catalog />
         <footer className="page-footer">
@@ -42,6 +46,7 @@ const Main = ({isFilmsLoaded, loadFilms, isPromoFilmLoaded, loadPromoFilm}) => {
 };
 
 Main.propTypes = {
+  promoMovie: PropTypes.shape(MOVIES_NOT_REQUIRE_PROP),
   isFilmsLoaded: PropTypes.bool.isRequired,
   isPromoFilmLoaded: PropTypes.bool.isRequired,
   loadFilms: PropTypes.func.isRequired,
@@ -50,7 +55,8 @@ Main.propTypes = {
 
 const mapStateToProps = (state) => ({
   isFilmsLoaded: getFilmsLoadedStatus(state),
-  isPromoFilmLoaded: getPromoMovieLoadStatus(state)
+  isPromoFilmLoaded: getPromoMovieLoadStatus(state),
+  promoMovie: getPromoMovie(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({
