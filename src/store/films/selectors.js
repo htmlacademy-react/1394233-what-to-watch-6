@@ -7,15 +7,11 @@ const getSimilarMovies = (films, genre, name) => films.filter((film) => film.gen
 
 export const getFilms = (state) => state[NameSpace.FILMS].films;
 export const getFavoriteFilms = (state) => state[NameSpace.FILMS].favoriteFilms;
-export const getFilmsLoadedStatus = (state) => state[NameSpace.FILMS].isFilmsLoaded;
-export const getFavoriteFilmsLoadedStatus = (state) => state[NameSpace.FILMS].isFavoriteFilmsLoaded;
 export const getGenres = (state) => state[NameSpace.FILMS].genres;
 export const getAmountFilms = (state) => state[NameSpace.FILMS].amountFilms;
 export const getAmountShowFilms = (state) => state[NameSpace.FILMS].amountShowFilms;
-export const getFilmLoadedStatus = (state) => state[NameSpace.FILMS].isFilmLoaded;
 export const getLoadedFilm = (state) => state[NameSpace.FILMS].loadedFilm;
 export const getPromoMovie = (state) => state[NameSpace.FILMS].promoMovie;
-export const getPromoMovieLoadStatus = (state) => state[NameSpace.FILMS].isPromoFilmLoaded;
 export const getActiveFilmGenre = (state) => state[NameSpace.FILMS].activeFilmGenre;
 export const getActiveFilmName = (state) => state[NameSpace.FILMS].activeFilmName;
 

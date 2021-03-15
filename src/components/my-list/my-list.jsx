@@ -7,14 +7,14 @@ import UserBlock from '../user-block/user-block';
 import {Url} from '../../consts';
 import {MOVIES_PROP} from '../../utils/validate';
 import {fetchFavoriteFilmsList} from "../../store/api-actions";
-import {getFavoriteFilms, getFavoriteFilmsLoadedStatus} from '../../store/films/selectors';
+import {getFavoriteFilms} from '../../store/films/selectors';
 
-const MyList = ({favoriteFilms, isFavoriteFilmsLoaded, loadFavoriteFilms}) => {
+const MyList = ({favoriteFilms, loadFavoriteFilms}) => {
   useEffect(() => {
-    if (!isFavoriteFilmsLoaded) {
+    if (favoriteFilms.length === 0) {
       loadFavoriteFilms();
     }
-  }, [isFavoriteFilmsLoaded]);
+  }, [favoriteFilms]);
 
   return (
     <div className="user-page">
@@ -53,13 +53,11 @@ const MyList = ({favoriteFilms, isFavoriteFilmsLoaded, loadFavoriteFilms}) => {
 
 MyList.propTypes = {
   favoriteFilms: PropTypes.arrayOf(PropTypes.shape(MOVIES_PROP).isRequired).isRequired,
-  isFavoriteFilmsLoaded: PropTypes.bool.isRequired,
   loadFavoriteFilms: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
   favoriteFilms: getFavoriteFilms(state),
-  isFavoriteFilmsLoaded: getFavoriteFilmsLoadedStatus(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({

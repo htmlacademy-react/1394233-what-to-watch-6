@@ -1,31 +1,11 @@
-import React, {useEffect} from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
 import Header from '../header/header';
 import Catalog from '../catalog/catalog';
-import {connect} from 'react-redux';
-import {fetchFilmsList, fetchPromoFilm} from "../../store/api-actions";
-import {getFilmsLoadedStatus, getPromoMovie, getPromoMovieLoadStatus} from '../../store/films/selectors';
-import {MOVIES_NOT_REQUIRE_PROP} from '../../utils/validate';
 
-const Main = ({isFilmsLoaded, loadFilms, isPromoFilmLoaded, loadPromoFilm, promoMovie}) => {
-  useEffect(() => {
-    if (!isFilmsLoaded) {
-      loadFilms();
-    }
-  }, [isFilmsLoaded]);
-
-  useEffect(() => {
-    if (!isPromoFilmLoaded) {
-      loadPromoFilm();
-    }
-  }, [isPromoFilmLoaded]);
-
+const Main = () => {
   return (
     <React.Fragment>
-      <Header
-        backgroundImage={promoMovie.backgroundImage}
-        title={promoMovie.name}
-      />
+      <Header />
       <div className="page-content">
         <Catalog />
         <footer className="page-footer">
@@ -45,28 +25,4 @@ const Main = ({isFilmsLoaded, loadFilms, isPromoFilmLoaded, loadPromoFilm, promo
   );
 };
 
-Main.propTypes = {
-  promoMovie: PropTypes.shape(MOVIES_NOT_REQUIRE_PROP),
-  isFilmsLoaded: PropTypes.bool.isRequired,
-  isPromoFilmLoaded: PropTypes.bool.isRequired,
-  loadFilms: PropTypes.func.isRequired,
-  loadPromoFilm: PropTypes.func.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  isFilmsLoaded: getFilmsLoadedStatus(state),
-  isPromoFilmLoaded: getPromoMovieLoadStatus(state),
-  promoMovie: getPromoMovie(state)
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  loadFilms() {
-    dispatch(fetchFilmsList());
-  },
-  loadPromoFilm() {
-    dispatch(fetchPromoFilm());
-  }
-});
-
-export {Main};
-export default connect(mapStateToProps, mapDispatchToProps)(Main);
+export default Main;

@@ -15,11 +15,11 @@ import {AuthorizationStatuses, Url} from '../../consts';
 import {MOVIES_PROP, REVIEW_PROP, MOVIES_NOT_REQUIRE_PROP} from '../../utils/validate';
 import {fetchFilm} from '../../store/api-actions';
 import LoadingScreen from '../loading-screen/loading-screen';
-import {getFilms, getFilmsLoadedStatus, getFilmLoadedStatus, getLoadedFilm} from '../../store/films/selectors';
+import {getFilms, getLoadedFilm} from '../../store/films/selectors';
 import {getReviews} from '../../store/comment/selectors';
 import {getAuthorizationStatus} from '../../store/auth/selectors';
 
-const App = ({films, reviews, authorizationStatus, loadFilm, loadedFilm, isFilmLoaded, isFilmsLoaded}) => {
+const App = ({films, reviews, authorizationStatus, loadFilm, loadedFilm}) => {
   return (
     <BrowserRouter history={browserHistory}>
       <Switch>
@@ -40,7 +40,7 @@ const App = ({films, reviews, authorizationStatus, loadFilm, loadedFilm, isFilmL
         />
         <Route exact path={Url.MOVIE} render={({history, match}) => {
           const id = match.params.id;
-          if (isFilmsLoaded) {
+          if (films.length !== 0) {
             return <Movie
               film={films[id - 1]}
               id={id}
@@ -49,7 +49,7 @@ const App = ({films, reviews, authorizationStatus, loadFilm, loadedFilm, isFilmL
               onAddFavoriteMovie={() => history.push(Url.MY_LIST)}
             />;
           }
-          if (!isFilmLoaded) {
+          if (loadedFilm === null) {
             loadFilm(id);
             return <LoadingScreen />;
           }
@@ -64,7 +64,7 @@ const App = ({films, reviews, authorizationStatus, loadFilm, loadedFilm, isFilmL
           path={Url.ADD_REVIEW}
           render={({match}) => {
             const filmID = match.params.id;
-            if (isFilmsLoaded) {
+            if (films.length !== 0) {
               const {name, posterImage, backgroundImage, id} = films[filmID - 1];
               return <AddReview
                 title={name}
@@ -73,7 +73,7 @@ const App = ({films, reviews, authorizationStatus, loadFilm, loadedFilm, isFilmL
                 filmID={id}
               />;
             }
-            if (isFilmLoaded) {
+            if (loadedFilm === null) {
               const {name, posterImage, backgroundImage, id} = loadedFilm;
               return <AddReview
                 title={name}
@@ -88,7 +88,7 @@ const App = ({films, reviews, authorizationStatus, loadFilm, loadedFilm, isFilmL
         />
         <Route exact path={Url.PLAYER} render={({match}) => {
           const filmID = match.params.id;
-          if (isFilmsLoaded) {
+          if (films.length !== 0) {
             const {name, posterImage, videoLink} = films[filmID - 1];
             return <Player
               title={name}
@@ -96,11 +96,10 @@ const App = ({films, reviews, authorizationStatus, loadFilm, loadedFilm, isFilmL
               poster={posterImage}
             />;
           }
-          if (!isFilmLoaded) {
+          if (loadedFilm === null) {
             loadFilm(filmID);
             return <LoadingScreen />;
           }
-
           const {name, posterImage, videoLink} = loadedFilm;
           return <Player
             title={name}
@@ -120,11 +119,9 @@ const App = ({films, reviews, authorizationStatus, loadFilm, loadedFilm, isFilmL
 };
 
 App.propTypes = {
-  films: PropTypes.arrayOf(PropTypes.shape(MOVIES_PROP).isRequired).isRequired,
-  loadedFilm: PropTypes.shape(MOVIES_NOT_REQUIRE_PROP).isRequired,
+  films: PropTypes.arrayOf(PropTypes.shape(MOVIES_PROP).isRequired),
+  loadedFilm: PropTypes.shape(MOVIES_NOT_REQUIRE_PROP),
   loadFilm: PropTypes.func.isRequired,
-  isFilmLoaded: PropTypes.bool.isRequired,
-  isFilmsLoaded: PropTypes.bool.isRequired,
   reviews: PropTypes.objectOf(PropTypes.arrayOf(PropTypes.shape(REVIEW_PROP))).isRequired,
   authorizationStatus: PropTypes.string.isRequired
 };
@@ -134,8 +131,6 @@ const mapStateToProps = (state) => ({
   loadedFilm: getLoadedFilm(state),
   reviews: getReviews(state),
   authorizationStatus: getAuthorizationStatus(state),
-  isFilmLoaded: getFilmLoadedStatus(state),
-  isFilmsLoaded: getFilmsLoadedStatus(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({

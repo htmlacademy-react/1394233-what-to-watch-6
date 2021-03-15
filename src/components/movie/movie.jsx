@@ -83,10 +83,10 @@ const Movie = ({film, reviews, films, onPlayMovie, authorizationStatus}) => {
       <div className="page-content">
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
-          <MoviesList
+          {films.length !== 0 ? <MoviesList
             films={films}
             maxFilms={MoviesAmmount.MOVIE_PAGE}
-          />
+          /> : ``}
         </section>
         <footer className="page-footer">
           <div className="logo">

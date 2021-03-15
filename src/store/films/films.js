@@ -13,12 +13,9 @@ const initialState = {
   amountShowFilms: FILMS_AMOUNT_PER_STEP,
   films: [],
   favoriteFilms: [],
-  isFilmsLoaded: false,
-  isFavoriteFilmsLoaded: false,
-  loadedFilm: {},
+  loadedFilm: null,
   isFilmLoaded: false,
-  isPromoFilmLoaded: false,
-  promoMovie: {},
+  promoMovie: null,
   activeFilmGenre: ``,
   activeFilmName: ``
 };
@@ -36,14 +33,12 @@ const films = createReducer(initialState, (builder) => {
   builder.addCase(ActionType.LOAD_FILMS, (state, action) => {
     state.films = action.payload;
     state.genres = Array.from(getGenresName(action.payload).keys());
-    state.isFilmsLoaded = true;
   });
   builder.addCase(ActionType.LOAD_FAVORITE_FILMS, (state, action) => {
     state.favoriteFilms = action.payload;
-    state.isFavoriteFilmsLoaded = true;
   });
   builder.addCase(ActionType.ADD_FAVORITE_FILM, (state, action) => {
-    if (!state.isFilmsLoaded && state.loadedFilm.id === action.payload.id) {
+    if (state.loadedFilm !== null && state.loadedFilm.id === action.payload.id) {
       state.loadedFilm = Object.assign(
           {},
           state.loadedFilm,
@@ -70,7 +65,7 @@ const films = createReducer(initialState, (builder) => {
     }
   });
   builder.addCase(ActionType.REMOVE_FAVORITE_FILM, (state, action) => {
-    if (!state.isFilmsLoaded && state.loadedFilm.id === action.payload) {
+    if (state.loadedFilm !== null && state.loadedFilm.id === action.payload.id) {
       state.loadedFilm = Object.assign(
           {},
           state.loadedFilm,
@@ -95,7 +90,6 @@ const films = createReducer(initialState, (builder) => {
   });
   builder.addCase(ActionType.LOAD_FILM, (state, action) => {
     state.loadedFilm = action.payload;
-    state.isFilmLoaded = true;
   });
   builder.addCase(ActionType.LOAD_PROMO_FILM, (state, action) => {
     state.promoMovie = action.payload;
