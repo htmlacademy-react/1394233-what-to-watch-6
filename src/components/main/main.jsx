@@ -18,7 +18,7 @@ const Main = ({isFilmsLoaded, loadFilms, isPromoFilmLoaded, loadPromoFilm, promo
     if (!isPromoFilmLoaded) {
       loadPromoFilm();
     }
-  }, [isFilmsLoaded]);
+  }, [isPromoFilmLoaded]);
 
   return (
     <React.Fragment>
