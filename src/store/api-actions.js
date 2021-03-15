@@ -96,7 +96,7 @@ export const addFavorite = (id, status) => (dispatch, _getState, api) => (
     .then((data) => {
       return status === 1 ? dispatch(addFavoriteFilmsList(data)) : dispatch(removeFavoriteFilmsList(data.id));
     })
-    .catch(() => {})
+    .catch(() => dispatch(redirectToRoute(Url.SIGN_IN)))
 );
 
 export const checkLogin = () => (dispatch, _getState, api) => (
