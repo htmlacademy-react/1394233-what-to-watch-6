@@ -1,21 +1,11 @@
-import React, {useEffect} from 'react';
-import PropTypes from 'prop-types';
-import PromoMovie from '../promo-movie/promo-movie';
+import React from 'react';
+import Header from '../header/header';
 import Catalog from '../catalog/catalog';
-import {connect} from 'react-redux';
-import {fetchFilmsList} from "../../store/api-actions";
-import {getFilmsLoadedStatus} from '../../store/films/selectors';
 
-const Main = ({isFilmsLoaded, loadFilms}) => {
-  useEffect(() => {
-    if (!isFilmsLoaded) {
-      loadFilms();
-    }
-  }, [isFilmsLoaded]);
-
+const Main = () => {
   return (
     <React.Fragment>
-      <PromoMovie />
+      <Header />
       <div className="page-content">
         <Catalog />
         <footer className="page-footer">
@@ -35,20 +25,4 @@ const Main = ({isFilmsLoaded, loadFilms}) => {
   );
 };
 
-Main.propTypes = {
-  isFilmsLoaded: PropTypes.bool.isRequired,
-  loadFilms: PropTypes.func.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  isFilmsLoaded: getFilmsLoadedStatus(state)
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  loadFilms() {
-    dispatch(fetchFilmsList());
-  }
-});
-
-export {Main};
-export default connect(mapStateToProps, mapDispatchToProps)(Main);
+export default Main;

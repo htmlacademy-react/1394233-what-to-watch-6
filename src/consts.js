@@ -9,11 +9,6 @@ export const Url = {
   NOT_FOUND: `/404`
 };
 
-export const MoviesAmmount = {
-  MY_LIST_PAGE: 8,
-  MOVIE_PAGE: 4
-};
-
 export const ALL_GENRES_NAME_TAB = `All genres`;
 
 export const FILMS_AMOUNT_PER_STEP = 8;

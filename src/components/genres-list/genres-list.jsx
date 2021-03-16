@@ -1,20 +1,21 @@
-import React from 'react';
+import React, {memo} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import GenreTab from '../genre-tab/genre-tab';
-import {getGenres} from '../../store/films/selectors';
+import {getGenres} from '../../store/genre/selectors';
 import {changeGenres} from '../../store/action';
 
 const GenresList = ({onChangeGenres, genres}) => {
-  const GENRES = Array.from(genres.values());
   return (
-    <ul className="catalog__genres-list">
-      {GENRES.map((tab) => <GenreTab
-        tab={tab}
-        key={tab}
-        onChangeGenres={onChangeGenres}
-      />)}
-    </ul>
+    <React.Fragment>
+      {genres.length !== null ? <ul className="catalog__genres-list">
+        {genres.map((tab) => <GenreTab
+          tab={tab}
+          key={tab}
+          onChangeGenres={onChangeGenres}
+        />)}
+      </ul> : ``}
+    </React.Fragment>
   );
 };
 
@@ -34,4 +35,4 @@ const mapStateToProps = (state) => ({
 });
 
 export {GenresList};
-export default connect(mapStateToProps, mapDispatchToProps)(GenresList);
+export default connect(mapStateToProps, mapDispatchToProps)(memo(GenresList, (prevProps, nextProps) => prevProps.genres === nextProps.genres));

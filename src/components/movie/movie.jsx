@@ -1,25 +1,34 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import UserBlock from '../user-block/user-block';
 import MoviesList from '../movies-list/movies-list';
 import MovieTabs from '../movie-tabs/movie-tabs';
-import {AuthorizationStatuses, MoviesAmmount, Url} from '../../consts';
+import AddFavorite from '../add-favorite/add-favorite';
+import {AuthorizationStatuses, Url} from '../../consts';
 import {MOVIES_PROP, REVIEW_PROP} from '../../utils/validate';
 import {getSimmilarMoviesWithGenre} from '../../store/films/selectors';
 import {getAuthorizationStatus} from '../../store/auth/selectors';
+import {getReviews} from '../../store/comment/selectors';
+import {fetchComments} from '../../store/api-actions';
 
-
-const Movie = ({film, reviews, films, onPlayMovie, onAddFavoriteMovie, authorizationStatus}) => {
+const Movie = ({film, reviews, films, onPlayMovie, authorizationStatus, loadComments}) => {
   const {
     backgroundImage,
     name,
     genre,
     released,
     posterImage,
-    id
+    id,
+    isFavorite
   } = film;
+
+  useEffect(() => {
+    if (reviews[id] === undefined) {
+      loadComments(id);
+    }
+  }, [reviews]);
 
   return (
     <React.Fragment>
@@ -53,12 +62,10 @@ const Movie = ({film, reviews, films, onPlayMovie, onAddFavoriteMovie, authoriza
                   </svg>
                   <span>Play</span>
                 </button>
-                <button className="btn btn--list movie-card__button" type="button" onClick={() => onAddFavoriteMovie()}>
-                  <svg viewBox="0 0 19 20" width={19} height={20}>
-                    <use xlinkHref="#add" />
-                  </svg>
-                  <span>My list</span>
-                </button>
+                <AddFavorite
+                  id={id}
+                  isFavorite={isFavorite}
+                />
                 {authorizationStatus === AuthorizationStatuses.AUTH
                   ? <Link to={`/films/${id}/review`} className="btn movie-card__button">Add review</Link>
                   : ``
@@ -75,7 +82,7 @@ const Movie = ({film, reviews, films, onPlayMovie, onAddFavoriteMovie, authoriza
             <div className="movie-card__desc">
               <MovieTabs
                 film={film}
-                reviews={reviews}
+                reviews={reviews[id]}
               />
             </div>
           </div>
@@ -84,10 +91,9 @@ const Movie = ({film, reviews, films, onPlayMovie, onAddFavoriteMovie, authoriza
       <div className="page-content">
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
-          <MoviesList
+          {films.length !== 0 ? <MoviesList
             films={films}
-            maxFilms={MoviesAmmount.MOVIE_PAGE}
-          />
+          /> : ``}
         </section>
         <footer className="page-footer">
           <div className="logo">
@@ -109,17 +115,23 @@ const Movie = ({film, reviews, films, onPlayMovie, onAddFavoriteMovie, authoriza
 Movie.propTypes = {
   films: PropTypes.arrayOf(PropTypes.shape(MOVIES_PROP)).isRequired,
   film: PropTypes.shape(MOVIES_PROP).isRequired,
-  reviews: PropTypes.arrayOf(PropTypes.shape(REVIEW_PROP)).isRequired,
+  reviews: PropTypes.objectOf(PropTypes.arrayOf(PropTypes.shape(REVIEW_PROP))),
   onPlayMovie: PropTypes.func.isRequired,
-  onAddFavoriteMovie: PropTypes.func.isRequired,
+  loadComments: PropTypes.func.isRequired,
   authorizationStatus: PropTypes.string.isRequired
 };
 
 const mapStateToProps = (state) => ({
   films: getSimmilarMoviesWithGenre(state),
-  authorizationStatus: getAuthorizationStatus(state)
+  authorizationStatus: getAuthorizationStatus(state),
+  reviews: getReviews(state)
 });
 
+const mapDispatchToProps = (dispatch) => ({
+  loadComments(id) {
+    dispatch(fetchComments(id));
+  },
+});
 
 export {Movie};
-export default connect(mapStateToProps)(Movie);
+export default connect(mapStateToProps, mapDispatchToProps)(Movie);
