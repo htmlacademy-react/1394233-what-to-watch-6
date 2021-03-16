@@ -91,7 +91,7 @@ export const fetchComments = (filmID) => (dispatch, _getState, api) => (
 
 export const addComment = (id, comment) => (dispatch, _getState, api) => (
   api.post(`/comments/${id}`, adaptToServer(comment))
-    .then(() => dispatch(postComment()))
+    .then(({data}) => dispatch(postComment(data, id)))
     .then(() => dispatch(redirectToRoute(`/films/${id}`)))
     .catch(() => {})
 );

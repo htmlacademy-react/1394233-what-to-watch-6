@@ -7,8 +7,13 @@ const initialState = {
 };
 
 const comment = createReducer(initialState, (builder) => {
-  builder.addCase(ActionType.POST_COMMENT, (state) => {
+  builder.addCase(ActionType.POST_COMMENT, (state, action) => {
     state.isActiveAddCommentForm = true;
+    state.reviews = Object.assign(
+        {},
+        state.reviews,
+        action.payload
+    );
   });
   builder.addCase(ActionType.ACTIVE_FORM, (state, action) => {
     state.isActiveAddCommentForm = action.payload;

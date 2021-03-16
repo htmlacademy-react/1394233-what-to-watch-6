@@ -42,7 +42,13 @@ export const getFilmGenre = createAction(ActionType.FILM_GENRE, (genre) => ({pay
 
 export const getFilmName = createAction(ActionType.FILM_NAME, (name) => ({payload: name}));
 
-export const postComment = createAction(ActionType.POST_COMMENT);
+export const postComment = createAction(ActionType.POST_COMMENT, (comments, id) => {
+  return {
+    payload: {
+      [id]: comments
+    }
+  };
+});
 
 export const loadComments = createAction(ActionType.LOAD_COMMENTS, (comments, id) => {
   return {
