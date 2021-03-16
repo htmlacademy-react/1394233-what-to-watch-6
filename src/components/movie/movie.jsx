@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
@@ -10,8 +10,10 @@ import {AuthorizationStatuses, Url} from '../../consts';
 import {MOVIES_PROP, REVIEW_PROP} from '../../utils/validate';
 import {getSimmilarMoviesWithGenre} from '../../store/films/selectors';
 import {getAuthorizationStatus} from '../../store/auth/selectors';
+import {getReviews} from '../../store/comment/selectors';
+import {fetchComments} from '../../store/api-actions';
 
-const Movie = ({film, reviews, films, onPlayMovie, authorizationStatus}) => {
+const Movie = ({film, reviews, films, onPlayMovie, authorizationStatus, loadComments}) => {
   const {
     backgroundImage,
     name,
@@ -21,6 +23,12 @@ const Movie = ({film, reviews, films, onPlayMovie, authorizationStatus}) => {
     id,
     isFavorite
   } = film;
+
+  useEffect(() => {
+    if (reviews[id] === undefined) {
+      loadComments(id);
+    }
+  }, [reviews]);
 
   return (
     <React.Fragment>
@@ -74,7 +82,7 @@ const Movie = ({film, reviews, films, onPlayMovie, authorizationStatus}) => {
             <div className="movie-card__desc">
               <MovieTabs
                 film={film}
-                reviews={reviews}
+                reviews={reviews[id]}
               />
             </div>
           </div>
@@ -107,16 +115,23 @@ const Movie = ({film, reviews, films, onPlayMovie, authorizationStatus}) => {
 Movie.propTypes = {
   films: PropTypes.arrayOf(PropTypes.shape(MOVIES_PROP)).isRequired,
   film: PropTypes.shape(MOVIES_PROP).isRequired,
-  reviews: PropTypes.arrayOf(PropTypes.shape(REVIEW_PROP)).isRequired,
+  reviews: PropTypes.objectOf(PropTypes.arrayOf(PropTypes.shape(REVIEW_PROP))),
   onPlayMovie: PropTypes.func.isRequired,
+  loadComments: PropTypes.func.isRequired,
   authorizationStatus: PropTypes.string.isRequired
 };
 
 const mapStateToProps = (state) => ({
   films: getSimmilarMoviesWithGenre(state),
-  authorizationStatus: getAuthorizationStatus(state)
+  authorizationStatus: getAuthorizationStatus(state),
+  reviews: getReviews(state)
 });
 
+const mapDispatchToProps = (dispatch) => ({
+  loadComments(id) {
+    dispatch(fetchComments(id));
+  },
+});
 
 export {Movie};
-export default connect(mapStateToProps)(Movie);
+export default connect(mapStateToProps, mapDispatchToProps)(Movie);

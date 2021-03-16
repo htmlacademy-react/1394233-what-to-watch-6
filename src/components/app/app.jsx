@@ -12,14 +12,13 @@ import Player from '../player/player';
 import NotFoundPage from '../not-found-page/not-found-page';
 import browserHistory from "../../browser-history";
 import {AuthorizationStatuses, Url} from '../../consts';
-import {MOVIES_PROP, REVIEW_PROP, MOVIES_NOT_REQUIRE_PROP} from '../../utils/validate';
+import {MOVIES_PROP, MOVIES_NOT_REQUIRE_PROP} from '../../utils/validate';
 import {fetchFilm} from '../../store/api-actions';
 import LoadingScreen from '../loading-screen/loading-screen';
 import {getFilms, getLoadedFilm} from '../../store/films/selectors';
-import {getReviews} from '../../store/comment/selectors';
 import {getAuthorizationStatus} from '../../store/auth/selectors';
 
-const App = ({films, reviews, authorizationStatus, loadFilm, loadedFilm}) => {
+const App = ({films, authorizationStatus, loadFilm, loadedFilm}) => {
   return (
     <BrowserRouter history={browserHistory}>
       <Switch>
@@ -44,7 +43,6 @@ const App = ({films, reviews, authorizationStatus, loadFilm, loadedFilm}) => {
             return <Movie
               film={films[id - 1]}
               id={id}
-              reviews={reviews[id]}
               onPlayMovie={() => history.push(`/player/${id}`)}
               onAddFavoriteMovie={() => history.push(Url.MY_LIST)}
             />;
@@ -56,7 +54,6 @@ const App = ({films, reviews, authorizationStatus, loadFilm, loadedFilm}) => {
           return <Movie
             film={loadedFilm}
             id={id}
-            reviews={reviews[id]}
             onPlayMovie={() => history.push(`/player/${id}`)}
           />;
         }}/>
@@ -73,7 +70,7 @@ const App = ({films, reviews, authorizationStatus, loadFilm, loadedFilm}) => {
                 filmID={id}
               />;
             }
-            if (loadedFilm === null) {
+            if (loadedFilm !== null) {
               const {name, posterImage, backgroundImage, id} = loadedFilm;
               return <AddReview
                 title={name}
@@ -122,14 +119,12 @@ App.propTypes = {
   films: PropTypes.arrayOf(PropTypes.shape(MOVIES_PROP).isRequired),
   loadedFilm: PropTypes.shape(MOVIES_NOT_REQUIRE_PROP),
   loadFilm: PropTypes.func.isRequired,
-  reviews: PropTypes.objectOf(PropTypes.arrayOf(PropTypes.shape(REVIEW_PROP))).isRequired,
   authorizationStatus: PropTypes.string.isRequired
 };
 
 const mapStateToProps = (state) => ({
   films: getFilms(state),
   loadedFilm: getLoadedFilm(state),
-  reviews: getReviews(state),
   authorizationStatus: getAuthorizationStatus(state),
 });
 

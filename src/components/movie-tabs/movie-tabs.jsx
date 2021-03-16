@@ -72,7 +72,7 @@ const MovieTabs = ({film, reviews}) => {
 
 MovieTabs.propTypes = {
   film: PropTypes.shape(MOVIES_PROP).isRequired,
-  reviews: PropTypes.arrayOf(PropTypes.shape(REVIEW_PROP)).isRequired
+  reviews: PropTypes.arrayOf(PropTypes.shape(REVIEW_PROP))
 };
 
 export default MovieTabs;

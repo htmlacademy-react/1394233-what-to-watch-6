@@ -1,10 +1,8 @@
 import {createReducer} from '@reduxjs/toolkit';
 import {ActionType} from '../action';
-import reviews from '../../mocks/reviews';
 
 const initialState = {
-  reviews,
-  comments: {},
+  reviews: {},
   isActiveAddCommentForm: false,
 };
 
@@ -16,10 +14,11 @@ const comment = createReducer(initialState, (builder) => {
     state.isActiveAddCommentForm = action.payload;
   });
   builder.addCase(ActionType.LOAD_COMMENTS, (state, action) => {
-    state.comments = [
-      ...state.comments,
-      action.payload
-    ];
+    state.reviews = Object.assign(
+        {},
+        state.reviews,
+        action.payload
+    );
   });
 });
 

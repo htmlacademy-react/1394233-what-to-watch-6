@@ -85,7 +85,7 @@ export const fetchPromoFilm = () => (dispatch, _getState, api) => (
 
 export const fetchComments = (filmID) => (dispatch, _getState, api) => (
   api.get(`/comments/${filmID}`)
-    .then((data) => dispatch(loadComments(data, filmID)))
+    .then(({data}) => dispatch(loadComments(data, filmID)))
     .catch(() => {})
 );
 

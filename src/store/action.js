@@ -44,8 +44,6 @@ export const getFilmName = createAction(ActionType.FILM_NAME, (name) => ({payloa
 
 export const postComment = createAction(ActionType.POST_COMMENT);
 
-// export const loadComments = createAction(ActionType.LOAD_COMMENTS, (comments, id) => ({payload: comments}));
-
 export const loadComments = createAction(ActionType.LOAD_COMMENTS, (comments, id) => {
   return {
     payload: {
