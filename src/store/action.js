@@ -44,6 +44,16 @@ export const getFilmName = createAction(ActionType.FILM_NAME, (name) => ({payloa
 
 export const postComment = createAction(ActionType.POST_COMMENT);
 
+// export const loadComments = createAction(ActionType.LOAD_COMMENTS, (comments, id) => ({payload: comments}));
+
+export const loadComments = createAction(ActionType.LOAD_COMMENTS, (comments, id) => {
+  return {
+    payload: {
+      [id]: comments
+    }
+  };
+});
+
 export const addFavoriteFilmsList = createAction(ActionType.ADD_FAVORITE_FILM, (film) => ({payload: film}));
 
 export const removeFavoriteFilmsList = createAction(ActionType.REMOVE_FAVORITE_FILM, (id) => ({payload: id}));

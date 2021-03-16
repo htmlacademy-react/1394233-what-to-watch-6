@@ -1,6 +1,6 @@
 import browserHistory from "../browser-history";
 import {AuthorizationStatuses, Url} from "../consts";
-import {loadFilm, loadFilms, redirectToRoute, postComment, authorization, loadFavoriteFilms, addFavoriteFilmsList, removeFavoriteFilmsList, loadPromoFilm, loadGenres} from "./action";
+import {loadFilm, loadFilms, redirectToRoute, postComment, authorization, loadFavoriteFilms, addFavoriteFilmsList, removeFavoriteFilmsList, loadPromoFilm, loadGenres, loadComments} from "./action";
 
 const Routes = {
   FILMS: `/films`,
@@ -80,6 +80,12 @@ export const fetchPromoFilm = () => (dispatch, _getState, api) => (
   api.get(Routes.PROMO)
     .then(({data}) => adaptToClient(data))
     .then((data) => dispatch(loadPromoFilm(data)))
+    .catch(() => {})
+);
+
+export const fetchComments = (filmID) => (dispatch, _getState, api) => (
+  api.get(`/comments/${filmID}`)
+    .then((data) => dispatch(loadComments(data, filmID)))
     .catch(() => {})
 );
 
