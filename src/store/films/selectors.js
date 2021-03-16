@@ -3,7 +3,8 @@ import {getFilteredMovies} from '../../utils/common';
 import {getActiveGenre} from '../genre/selectors';
 import {NameSpace} from '../main-reducer';
 
-const getSimilarMovies = (films, genre, name) => films.filter((film) => film.genre === genre && film.name !== name);
+const MAX_AMMOUNT_SIMILLAR_FILMS = 4;
+const getSimilarMovies = (films, genre, name) => films.filter((film) => film.genre === genre && film.name !== name).slice(0, MAX_AMMOUNT_SIMILLAR_FILMS);
 
 export const getFilms = (state) => state[NameSpace.FILMS].films;
 export const getFavoriteFilms = (state) => state[NameSpace.FILMS].favoriteFilms;
@@ -17,6 +18,12 @@ export const getFilmsWithGenre = createSelector(
     getFilms,
     getActiveGenre,
     (films, genre) => getFilteredMovies(films, genre)
+);
+
+export const getMinimalShowFilms = createSelector(
+    getFilmsWithGenre,
+    getAmountShowFilms,
+    (films, amount) => films.slice(0, amount)
 );
 
 export const getSimmilarMoviesWithGenre = createSelector(

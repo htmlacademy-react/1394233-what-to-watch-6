@@ -1,17 +1,16 @@
 import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {changeGenres} from '../../store/action';
 import GenresList from '../genres-list/genres-list';
 import MoviesList from '../movies-list/movies-list';
 import LoadingScreen from '../loading-screen/loading-screen';
 import ShowMoreButton from '../show-more-button/show-more-button';
 import {MOVIES_PROP} from '../../utils/validate';
 import {getActiveGenre} from '../../store/genre/selectors';
-import {getAmountShowFilms, getFilmsWithGenre, renderShowMoreButton} from '../../store/films/selectors';
+import {getMinimalShowFilms, renderShowMoreButton} from '../../store/films/selectors';
 import {fetchFilmsList} from '../../store/api-actions';
 
-const Catalog = ({genre, films, renderButton, amountShowFilms, loadFilms}) => {
+const Catalog = ({genre, films, renderButton, loadFilms}) => {
   useEffect(() => {
     if (films.length === 0) {
       loadFilms();
@@ -26,7 +25,6 @@ const Catalog = ({genre, films, renderButton, amountShowFilms, loadFilms}) => {
       /> : ``}
       {films.length !== 0 ? <MoviesList
         films={films}
-        maxFilms={amountShowFilms}
       /> : <LoadingScreen />}
       {renderButton ? <ShowMoreButton /> : ``}
     </section>
@@ -36,15 +34,11 @@ const Catalog = ({genre, films, renderButton, amountShowFilms, loadFilms}) => {
 Catalog.propTypes = {
   films: PropTypes.arrayOf(PropTypes.shape(MOVIES_PROP).isRequired),
   genre: PropTypes.string.isRequired,
-  amountShowFilms: PropTypes.number.isRequired,
   loadFilms: PropTypes.func.isRequired,
   renderButton: PropTypes.bool.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  onChangeGenres(type) {
-    dispatch(changeGenres(type));
-  },
   loadFilms() {
     dispatch(fetchFilmsList());
   },
@@ -52,8 +46,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 const mapStateToProps = (state) => ({
   genre: getActiveGenre(state),
-  films: getFilmsWithGenre(state),
-  amountShowFilms: getAmountShowFilms(state),
+  films: getMinimalShowFilms(state),
   renderButton: renderShowMoreButton(state)
 });
 

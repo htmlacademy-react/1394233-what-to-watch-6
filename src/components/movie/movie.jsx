@@ -6,7 +6,7 @@ import UserBlock from '../user-block/user-block';
 import MoviesList from '../movies-list/movies-list';
 import MovieTabs from '../movie-tabs/movie-tabs';
 import AddFavorite from '../add-favorite/add-favorite';
-import {AuthorizationStatuses, MoviesAmmount, Url} from '../../consts';
+import {AuthorizationStatuses, Url} from '../../consts';
 import {MOVIES_PROP, REVIEW_PROP} from '../../utils/validate';
 import {getSimmilarMoviesWithGenre} from '../../store/films/selectors';
 import {getAuthorizationStatus} from '../../store/auth/selectors';
@@ -85,7 +85,6 @@ const Movie = ({film, reviews, films, onPlayMovie, authorizationStatus}) => {
           <h2 className="catalog__title">More like this</h2>
           {films.length !== 0 ? <MoviesList
             films={films}
-            maxFilms={MoviesAmmount.MOVIE_PAGE}
           /> : ``}
         </section>
         <footer className="page-footer">
