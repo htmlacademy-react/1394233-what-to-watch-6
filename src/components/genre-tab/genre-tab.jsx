@@ -1,15 +1,16 @@
-import React, {memo} from 'react';
+import React, {memo, useEffect} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {changeAmountFilms, resetAmountShowFilms} from '../../store/action';
 import {getFilteredMovies, getGenresName} from '../../utils/common';
 import {MOVIES_PROP} from '../../utils/validate';
-import {getActiveGenre} from '../../store/genre/selectors';
-import {getFilms, getGenres} from '../../store/films/selectors';
+import {getActiveGenre, getGenres} from '../../store/genre/selectors';
+import {getFilms} from '../../store/films/selectors';
 
 
 const GenreTab = ({tab, genre, onChangeGenres, resetShowFilmsAmount, changeFilmsAmount, films}) => {
   const FiltersType = Object.fromEntries(getGenresName(films));
+
   return (
     <li className={`catalog__genres-item ${genre === FiltersType[tab] ? `catalog__genres-item--active` : ``}`}>
       <a href="#" className="catalog__genres-link" onClick={(evt) => {

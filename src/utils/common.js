@@ -26,6 +26,5 @@ export const getGenresName = (films) => {
   films.forEach((film) => {
     genres.set(film.genre, film.genre);
   });
-
   return genres;
 };

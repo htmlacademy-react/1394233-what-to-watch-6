@@ -1,6 +1,5 @@
 import {createReducer} from '@reduxjs/toolkit';
 import {ActionType} from '../action';
-import {getGenresName} from '../../utils/common';
 import {FILMS_AMOUNT_PER_STEP} from '../../consts';
 
 const INITIAL_AMOUNT_FILMS = 0;
@@ -8,13 +7,11 @@ const INITIAL_AMOUNT_FILMS = 0;
 const findFilmIndex = (films, id) => films.findIndex((film) => film.id === id);
 
 const initialState = {
-  genres: [],
   amountFilms: INITIAL_AMOUNT_FILMS,
   amountShowFilms: FILMS_AMOUNT_PER_STEP,
   films: [],
   favoriteFilms: [],
   loadedFilm: null,
-  isFilmLoaded: false,
   promoMovie: null,
   activeFilmGenre: ``,
   activeFilmName: ``
@@ -32,7 +29,6 @@ const films = createReducer(initialState, (builder) => {
   });
   builder.addCase(ActionType.LOAD_FILMS, (state, action) => {
     state.films = action.payload;
-    state.genres = Array.from(getGenresName(action.payload).keys());
   });
   builder.addCase(ActionType.LOAD_FAVORITE_FILMS, (state, action) => {
     state.favoriteFilms = action.payload;
@@ -93,7 +89,6 @@ const films = createReducer(initialState, (builder) => {
   });
   builder.addCase(ActionType.LOAD_PROMO_FILM, (state, action) => {
     state.promoMovie = action.payload;
-    state.isPromoFilmLoaded = true;
   });
   builder.addCase(ActionType.FILM_GENRE, (state, action) => {
     state.activeFilmGenre = action.payload;

@@ -21,9 +21,9 @@ const Catalog = ({genre, films, amountFilms, amountShowFilms, loadFilms}) => {
   return (
     <section className="catalog">
       <h2 className="catalog__title visually-hidden">Catalog</h2>
-      <GenresList
+      {films.length !== 0 ? <GenresList
         genre={genre}
-      />
+      /> : ``}
       {films.length !== 0 ? <MoviesList
         films={films}
         maxFilms={amountShowFilms}

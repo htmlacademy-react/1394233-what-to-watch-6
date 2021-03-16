@@ -2,7 +2,8 @@ import {createAction} from '@reduxjs/toolkit';
 import {AuthorizationErrorMessage} from "../consts";
 
 export const ActionType = {
-  CHANGE_GENRE: `genre/change`,
+  CHANGE_GENRE: `genres/change`,
+  LOAD_GENRES: `genres/load`,
   SHOW_MORE_FILMS: `films/showMore`,
   RESET_AMOUNT_SHOW_FILMS: `films/resetAmountShow`,
   CHANGE_AMOUNT_FILMS: `films/changeAmount`,
@@ -31,6 +32,8 @@ export const resetAmountShowFilms = createAction(ActionType.RESET_AMOUNT_SHOW_FI
 export const changeAmountFilms = createAction(ActionType.CHANGE_AMOUNT_FILMS, (amount) => ({payload: amount}));
 
 export const loadFilms = createAction(ActionType.LOAD_FILMS, (films) => ({payload: films}));
+
+export const loadGenres = createAction(ActionType.LOAD_GENRES, (films) => ({payload: films}));
 
 export const loadFavoriteFilms = createAction(ActionType.LOAD_FAVORITE_FILMS, (films) => ({payload: films}));
 

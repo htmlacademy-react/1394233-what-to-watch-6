@@ -7,7 +7,6 @@ const getSimilarMovies = (films, genre, name) => films.filter((film) => film.gen
 
 export const getFilms = (state) => state[NameSpace.FILMS].films;
 export const getFavoriteFilms = (state) => state[NameSpace.FILMS].favoriteFilms;
-export const getGenres = (state) => state[NameSpace.FILMS].genres;
 export const getAmountFilms = (state) => state[NameSpace.FILMS].amountFilms;
 export const getAmountShowFilms = (state) => state[NameSpace.FILMS].amountShowFilms;
 export const getLoadedFilm = (state) => state[NameSpace.FILMS].loadedFilm;
