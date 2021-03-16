@@ -1,14 +1,14 @@
-import React, {memo, useEffect} from 'react';
+import React, {memo} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {changeAmountFilms, resetAmountShowFilms} from '../../store/action';
-import {getFilteredMovies, getGenresName} from '../../utils/common';
+import {resetAmountShowFilms} from '../../store/action';
+import {getGenresName} from '../../utils/common';
 import {MOVIES_PROP} from '../../utils/validate';
 import {getActiveGenre, getGenres} from '../../store/genre/selectors';
 import {getFilms} from '../../store/films/selectors';
 
 
-const GenreTab = ({tab, genre, onChangeGenres, resetShowFilmsAmount, changeFilmsAmount, films}) => {
+const GenreTab = ({tab, genre, onChangeGenres, resetShowFilmsAmount, films}) => {
   const FiltersType = Object.fromEntries(getGenresName(films));
 
   return (
@@ -17,7 +17,6 @@ const GenreTab = ({tab, genre, onChangeGenres, resetShowFilmsAmount, changeFilms
         evt.preventDefault();
         resetShowFilmsAmount();
         onChangeGenres(FiltersType[tab]);
-        changeFilmsAmount(getFilteredMovies(films, FiltersType[tab]).length);
       }}>{FiltersType[tab]}</a>
     </li>
   );
@@ -26,7 +25,6 @@ const GenreTab = ({tab, genre, onChangeGenres, resetShowFilmsAmount, changeFilms
 GenreTab.propTypes = {
   onChangeGenres: PropTypes.func.isRequired,
   resetShowFilmsAmount: PropTypes.func.isRequired,
-  changeFilmsAmount: PropTypes.func.isRequired,
   films: PropTypes.arrayOf(PropTypes.shape(MOVIES_PROP).isRequired).isRequired,
   genre: PropTypes.string.isRequired,
   tab: PropTypes.string.isRequired
@@ -42,9 +40,6 @@ const mapDispatchToProps = (dispatch) => ({
   resetShowFilmsAmount() {
     dispatch(resetAmountShowFilms());
   },
-  changeFilmsAmount(amount) {
-    dispatch(changeAmountFilms(amount));
-  }
 });
 
 export {GenreTab};

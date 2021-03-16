@@ -2,12 +2,9 @@ import {createReducer} from '@reduxjs/toolkit';
 import {ActionType} from '../action';
 import {FILMS_AMOUNT_PER_STEP} from '../../consts';
 
-const INITIAL_AMOUNT_FILMS = 0;
-
 const findFilmIndex = (films, id) => films.findIndex((film) => film.id === id);
 
 const initialState = {
-  amountFilms: INITIAL_AMOUNT_FILMS,
   amountShowFilms: FILMS_AMOUNT_PER_STEP,
   films: [],
   favoriteFilms: [],
@@ -23,9 +20,6 @@ const films = createReducer(initialState, (builder) => {
   });
   builder.addCase(ActionType.RESET_AMOUNT_SHOW_FILMS, (state) => {
     state.amountShowFilms = FILMS_AMOUNT_PER_STEP;
-  });
-  builder.addCase(ActionType.CHANGE_AMOUNT_FILMS, (state, action) => {
-    state.amountFilms = action.payload;
   });
   builder.addCase(ActionType.LOAD_FILMS, (state, action) => {
     state.films = action.payload;

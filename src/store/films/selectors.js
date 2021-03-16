@@ -7,7 +7,6 @@ const getSimilarMovies = (films, genre, name) => films.filter((film) => film.gen
 
 export const getFilms = (state) => state[NameSpace.FILMS].films;
 export const getFavoriteFilms = (state) => state[NameSpace.FILMS].favoriteFilms;
-export const getAmountFilms = (state) => state[NameSpace.FILMS].amountFilms;
 export const getAmountShowFilms = (state) => state[NameSpace.FILMS].amountShowFilms;
 export const getLoadedFilm = (state) => state[NameSpace.FILMS].loadedFilm;
 export const getPromoMovie = (state) => state[NameSpace.FILMS].promoMovie;
@@ -25,4 +24,10 @@ export const getSimmilarMoviesWithGenre = createSelector(
     getActiveFilmGenre,
     getActiveFilmName,
     (films, genre, name) => getSimilarMovies(films, genre, name)
+);
+
+export const renderShowMoreButton = createSelector(
+    getFilmsWithGenre,
+    getAmountShowFilms,
+    (films, amountShowFilms) => amountShowFilms < films.length
 );

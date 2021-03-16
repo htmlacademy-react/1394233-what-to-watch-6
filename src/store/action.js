@@ -6,7 +6,6 @@ export const ActionType = {
   LOAD_GENRES: `genres/load`,
   SHOW_MORE_FILMS: `films/showMore`,
   RESET_AMOUNT_SHOW_FILMS: `films/resetAmountShow`,
-  CHANGE_AMOUNT_FILMS: `films/changeAmount`,
   LOAD_FILMS: `films/load`,
   LOAD_FAVORITE_FILMS: `films/loadFavorite`,
   ADD_FAVORITE_FILM: `films/addFavorite`,
@@ -28,8 +27,6 @@ export const changeGenres = createAction(ActionType.CHANGE_GENRE, (genre) => ({p
 export const showMoreFilms = createAction(ActionType.SHOW_MORE_FILMS);
 
 export const resetAmountShowFilms = createAction(ActionType.RESET_AMOUNT_SHOW_FILMS);
-
-export const changeAmountFilms = createAction(ActionType.CHANGE_AMOUNT_FILMS, (amount) => ({payload: amount}));
 
 export const loadFilms = createAction(ActionType.LOAD_FILMS, (films) => ({payload: films}));
 

@@ -35,4 +35,4 @@ const mapStateToProps = (state) => ({
 });
 
 export {GenresList};
-export default connect(mapStateToProps, mapDispatchToProps)(GenresList);
+export default connect(mapStateToProps, mapDispatchToProps)(memo(GenresList, (prevProps, nextProps) => prevProps.genres === nextProps.genres));

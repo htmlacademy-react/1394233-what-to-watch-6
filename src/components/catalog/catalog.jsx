@@ -8,10 +8,10 @@ import LoadingScreen from '../loading-screen/loading-screen';
 import ShowMoreButton from '../show-more-button/show-more-button';
 import {MOVIES_PROP} from '../../utils/validate';
 import {getActiveGenre} from '../../store/genre/selectors';
-import {getAmountFilms, getAmountShowFilms, getFilmsWithGenre} from '../../store/films/selectors';
+import {getAmountShowFilms, getFilmsWithGenre, renderShowMoreButton} from '../../store/films/selectors';
 import {fetchFilmsList} from '../../store/api-actions';
 
-const Catalog = ({genre, films, amountFilms, amountShowFilms, loadFilms}) => {
+const Catalog = ({genre, films, renderButton, amountShowFilms, loadFilms}) => {
   useEffect(() => {
     if (films.length === 0) {
       loadFilms();
@@ -28,7 +28,7 @@ const Catalog = ({genre, films, amountFilms, amountShowFilms, loadFilms}) => {
         films={films}
         maxFilms={amountShowFilms}
       /> : <LoadingScreen />}
-      {amountShowFilms < amountFilms ? <ShowMoreButton /> : ``}
+      {renderButton ? <ShowMoreButton /> : ``}
     </section>
   );
 };
@@ -37,8 +37,8 @@ Catalog.propTypes = {
   films: PropTypes.arrayOf(PropTypes.shape(MOVIES_PROP).isRequired),
   genre: PropTypes.string.isRequired,
   amountShowFilms: PropTypes.number.isRequired,
-  amountFilms: PropTypes.number.isRequired,
   loadFilms: PropTypes.func.isRequired,
+  renderButton: PropTypes.bool.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
@@ -53,8 +53,8 @@ const mapDispatchToProps = (dispatch) => ({
 const mapStateToProps = (state) => ({
   genre: getActiveGenre(state),
   films: getFilmsWithGenre(state),
-  amountFilms: getAmountFilms(state),
   amountShowFilms: getAmountShowFilms(state),
+  renderButton: renderShowMoreButton(state)
 });
 
 export {Catalog};
